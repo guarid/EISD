@@ -244,27 +244,60 @@ end
 function getEvents(nomPays, ...)
 
   local arg = {...}
-
-  --[[for k,v in pairs(db) do
+  local allEvents
+  local result = {}
+  for k,v in pairs(db) do
     if(k == nomPays) then
-      b=1
-      tab = v
-      --parcours en profondeur
-      for i,champ in ipairs(arg) do
-        tab = tab[champ]
+      if v["evenement"][1] ~= nil then
+        allEvents = v["evenement"]
+      else
+        return -1
       end
-      --On a detecte des elements
-      if(tab ~= nil) then
-	      return tab
-	    else
-	  	  return 0 --"Désolé, je n'ai pas cette information"
-	    end
     end
   end
 
-  if b==0 then
-  	return -1 --"Désolé, je ne comprends pas de quel pays vous parlez"
-  end ]]
+  if #arg == 2 then
+    limite = tonumber(arg[1])
+
+    if arg[2] == "avant" then
+      for i,v in ipairs(allEvents) do
+      comp = getYear(v[1])
+        if comp < limite then
+          table.insert(result, v)
+        end
+      end
+
+    elseif arg[2] == "après" then
+      for i,v in ipairs(allEvents) do
+      comp = getYear(v[1])
+        if comp >= limite then
+          table.insert(result, v)
+        end
+      end
+
+    else
+      for i,v in ipairs(allEvents) do
+      comp = getYear(v[1])
+        if limite == comp then
+          table.insert(result, v)
+        end
+      end
+    end
+
+  else
+    debut = tonumber(arg[1])
+    fin = tonumber(arg[2])
+
+    for i,v in ipairs(allEvents) do
+      comp = getYear(v[1])
+      if debut <= comp and fin > comp then
+        table.insert(result, v)
+        --print(v[1], v[2])
+      end
+    end
+  end
+
+  return result
 
 end
 
@@ -993,8 +1026,20 @@ function getInput()
 	  	  if #question["#annee1"] == 1 then
           annee = question:tag2str("#annee1")[1]
           precision = "en"
-	  	    print(precision, annee)
           result = getEvents(ligne, annee, precision)
+
+          if result == -1 then
+            print("Ce pays n'a connu aucun évènement.")
+          else
+            if #result ~= 0 then
+              print("Les évènements qui ont eu lieu en : ", annee, "sont:")
+              for k,v in pairs(result) do
+                print(v[1], "--", v[2])
+              end
+            else
+              print("Aucun évènement ne rentre dans cette période")
+            end
+          end
 
 	  	  elseif #question["#annee2"] == 1 and #question["#annee3"] == 1 then
           local annee1, annee2
@@ -1007,21 +1052,56 @@ function getInput()
             annee1 = question:tag2str("#annee3")[1]
             annee2 = question:tag2str("#annee2")[1]
           end
-
-	  	    print(precision, annee1, "et", annee2)
           result = getEvents(ligne, annee1, annee2, precision)
+
+          if result == -1 then
+            print("Ce pays n'a connu aucun évènement.")
+          else
+            if #result ~= 0 then
+              print("Les évènements qui ont eu lieu entre : ", annee1, "et", annee2, "sont:")
+              for k,v in pairs(result) do
+                print(v[1], "--", v[2])
+              end
+            else
+              print("Aucun évènement ne rentre dans cette période")
+            end
+          end
 
 	  	  elseif #question["#annee4"] == 1 then
           annee = question:tag2str("#annee4")[1]
           precision = "après"
-	  	    print(precision, annee)
           result = getEvents(ligne, annee, precision)
+
+          if result == -1 then
+            print("Ce pays n'a connu aucun évènement.")
+          else
+            if #result ~= 0 then
+              print("Les évènements qui ont eu lieu après : ", annee, "sont:")
+              for k,v in pairs(result) do
+                print(v[1], "--", v[2])
+              end
+            else
+              print("Aucun évènement ne rentre dans cette période")
+            end
+          end
 
 	  	  elseif #question["#annee5"] == 1 then
           annee = question:tag2str("#annee5")[1]
           precision = "avant"
-	  	    print(precision, annee)
           result = getEvents(ligne, annee, precision)
+
+          if result == -1 then
+            print("Ce pays n'a connu aucun évènement.")
+          else
+            if #result ~= 0 then
+              print("Les évènements qui ont eu lieu avant : ", annee, "sont:")
+              for k,v in pairs(result) do
+                print(v[1], "--", v[2])
+              end
+            else
+              print("Aucun évènement ne rentre dans cette période")
+            end
+          end
 
 	  	  else
 	  	    print("Je ne comprend pas bien la période donnée. Elle doit être en année")

@@ -9062,35 +9062,35 @@ return {
     evenement = {
       [1] = {
         [1] = "1965 ",
-        [2] = "Après l ' indépendance , en 1965 , Singapour a su devenir , avec très peu de ressources naturelles et des problèmes socio - économiques importants – émeutes raciales , chômage massif , difficultés de logement et d ' accès à l ' eau – , l ' un des pays les plus développés et les plus prospères du monde , en termes d ' économie , d ' éducation , de santé , de sécurité et d ' urbanisme .",
+        [2] = "Aprï¿½s l ' indï¿½pendance , en 1965 , Singapour a su devenir , avec trï¿½s peu de ressources naturelles et des problï¿½mes socio - ï¿½conomiques importants ï¿½ ï¿½meutes raciales , chï¿½mage massif , difficultï¿½s de logement et d ' accï¿½s ï¿½ l ' eau ï¿½ , l ' un des pays les plus dï¿½veloppï¿½s et les plus prospï¿½res du monde , en termes d ' ï¿½conomie , d ' ï¿½ducation , de santï¿½ , de sï¿½curitï¿½ et d ' urbanisme .",
       },
       [2] = {
         [1] = "1365 ",
-        [2] = "Le Nagarakertagama , un poème épique écrit en 1365 dans le royaume javanais de Majapahit , le mentionne parmi les quelque cent « contrées tributaires » du royaume .",
+        [2] = "Le Nagarakertagama , un poï¿½me ï¿½pique ï¿½crit en 1365 dans le royaume javanais de Majapahit , le mentionne parmi les quelque cent ï¿½ contrï¿½es tributaires ï¿½ du royaume .",
       },
       [3] = {
         [1] = "1377 ",
-        [2] = "À la fin du XIVe siècle Parameswara , un prince de Palembang dans le sud de l ' île indonésienne de Sumatra qui refusait la suzeraineté de Majapahit après une attaque de celui - ci en 1377 , se serait exilé à Tumasik .",
+        [2] = "ï¿½ la fin du XIVe siï¿½cle Parameswara , un prince de Palembang dans le sud de l ' ï¿½le indonï¿½sienne de Sumatra qui refusait la suzerainetï¿½ de Majapahit aprï¿½s une attaque de celui - ci en 1377 , se serait exilï¿½ ï¿½ Tumasik .",
       },
       [4] = {
         [1] = "1703 ",
-        [2] = "Un capitaine britannique , Alexander Hamilton , raconte qu ' en 1703 , le sultan Abdul Jalil de Johor lui offre l ' île de Singapura .",
+        [2] = "Un capitaine britannique , Alexander Hamilton , raconte qu ' en 1703 , le sultan Abdul Jalil de Johor lui offre l ' ï¿½le de Singapura .",
       },
       [5] = {
         [1] = "1699 ",
-        [2] = "Parmi les motivations supposées derrière cette offre , sont évoqués la nouvelle situation créée par l ' assassinat du précédent sultan en 1699 , la détérioration des liens entre le sultanat et leurs alliés traditionnels , les Orang Laut ( gens de la mer ) et le désir de contrebalancer la domination des Hollandais de la VOC dans la région .",
+        [2] = "Parmi les motivations supposï¿½es derriï¿½re cette offre , sont ï¿½voquï¿½s la nouvelle situation crï¿½ï¿½e par l ' assassinat du prï¿½cï¿½dent sultan en 1699 , la dï¿½tï¿½rioration des liens entre le sultanat et leurs alliï¿½s traditionnels , les Orang Laut ( gens de la mer ) et le dï¿½sir de contrebalancer la domination des Hollandais de la VOC dans la rï¿½gion .",
       },
       [6] = {
         [1] = "1867 ",
-        [2] = "Singapour a été déclaré « colonie de la couronne » en 1867 , ce qui signifie une domination de la couronne britannique sur Singapour qui durera jusqu ' à l ' indépendance en 1965 , hormis la parenthèse de l ' occupation japonaise .",
+        [2] = "Singapour a ï¿½tï¿½ dï¿½clarï¿½ ï¿½ colonie de la couronne ï¿½ en 1867 , ce qui signifie une domination de la couronne britannique sur Singapour qui durera jusqu ' ï¿½ l ' indï¿½pendance en 1965 , hormis la parenthï¿½se de l ' occupation japonaise .",
       },
       [7] = {
         [1] = "5 septembre 1945 ",
-        [2] = "L ' Empire britannique récupéra Singapour seulement le 5 septembre 1945 .",
+        [2] = "L ' Empire britannique rï¿½cupï¿½ra Singapour seulement le 5 septembre 1945 .",
       },
       [8] = {
         [1] = "16 septembre 1963 ",
-        [2] = "Son parti , le People ' s Action Party ( « Parti d ' action populaire » ) propose alors l’intégration à la Fédération des États de Malaisie , ce qui fut fait le 16 septembre 1963 .",
+        [2] = "Son parti , le People ' s Action Party ( ï¿½ Parti d ' action populaire ï¿½ ) propose alors lï¿½intï¿½gration ï¿½ la Fï¿½dï¿½ration des ï¿½tats de Malaisie , ce qui fut fait le 16 septembre 1963 .",
       },
     },
     nom = "Singapour",
@@ -9331,46 +9331,46 @@ return {
     evenement = {
       [1] = {
         [1] = "22 mai 2014 ",
-        [2] = "Sur un plan politique , la Thaïlande a connu 19 coups d ' État tentés ou réussis par l ' armée depuis 1932 , le dernier en date ayant eu lieu le 22 mai 2014 .",
+        [2] = "Sur un plan politique , la Thaï¿½lande a connu 19 coups d ' ï¿½tat tentï¿½s ou rï¿½ussis par l ' armï¿½e depuis 1932 , le dernier en date ayant eu lieu le 22 mai 2014 .",
       },
       [2] = {
         [1] = "13 octobre 2016 ",
-        [2] = "Depuis 1946 , plusieurs générations de Thaïlandais n ' ont connu qu ' un souverain , Bhumibol Adulyadej ( Rama IX ) , dont le règne a duré soixante - dix ans , jusqu ' à sa mort le 13 octobre 2016 .",
+        [2] = "Depuis 1946 , plusieurs gï¿½nï¿½rations de Thaï¿½landais n ' ont connu qu ' un souverain , Bhumibol Adulyadej ( Rama IX ) , dont le rï¿½gne a durï¿½ soixante - dix ans , jusqu ' ï¿½ sa mort le 13 octobre 2016 .",
       },
       [3] = {
         [1] = "1438 ",
-        [2] = "XIIIe siècle , royaume thaï de Sukhothaï ( centre ) jusqu ' en 1438 .",
+        [2] = "XIIIe siï¿½cle , royaume thaï¿½ de Sukhothaï¿½ ( centre ) jusqu ' en 1438 .",
       },
       [4] = {
         [1] = "1932 ",
-        [2] = "Le Royaume de Siam est devenu une monarchie constitutionnelle en 1932 , six ans avant de devenir la Thaïlande .",
+        [2] = "Le Royaume de Siam est devenu une monarchie constitutionnelle en 1932 , six ans avant de devenir la Thaï¿½lande .",
       },
       [5] = {
         [1] = "2008 ",
-        [2] = "Favorables au maintien de la démocratie et de moins en moins favorables à la monarchie , elles soutiennent le parti Thai rak Thai devenu en 2008 le Pheu Thai dominé par la famille Shinawatra et qui remporte toutes les élections depuis 2001",
+        [2] = "Favorables au maintien de la dï¿½mocratie et de moins en moins favorables ï¿½ la monarchie , elles soutiennent le parti Thai rak Thai devenu en 2008 le Pheu Thai dominï¿½ par la famille Shinawatra et qui remporte toutes les ï¿½lections depuis 2001",
       },
       [6] = {
         [1] = "19 septembre 2006 ",
-        [2] = "Un coup d ' État a eu lieu le 19 septembre 2006 , alors que le Premier ministre Thaksin Shinawatra était à New York , à l’occasion de l ' Assemblée générale des Nations unies .",
+        [2] = "Un coup d ' ï¿½tat a eu lieu le 19 septembre 2006 , alors que le Premier ministre Thaksin Shinawatra ï¿½tait ï¿½ New York , ï¿½ lï¿½occasion de l ' Assemblï¿½e gï¿½nï¿½rale des Nations unies .",
       },
       [7] = {
         [1] = "2010 ",
-        [2] = "Les luttes entre les « jaunes » et les « rouges » ( partis politiques majeurs ) bloquent le pays et en particulier la capitale de 15 millions d ' habitants , Bangkok pendant des mois en 2010 et entre 2013 et 2015 , avec de très fortes manifestations de rue et des violences .",
+        [2] = "Les luttes entre les ï¿½ jaunes ï¿½ et les ï¿½ rouges ï¿½ ( partis politiques majeurs ) bloquent le pays et en particulier la capitale de 15 millions d ' habitants , Bangkok pendant des mois en 2010 et entre 2013 et 2015 , avec de trï¿½s fortes manifestations de rue et des violences .",
       },
       [8] = {
         [1] = "7 mai 2014 ",
-        [2] = "Elle a été destituée le 7 mai 2014 par la Cour constitutionnelle de Thaïlande , sous la pression de la junte militaire dirigée par le général Prayuth Chan - ocha .",
+        [2] = "Elle a ï¿½tï¿½ destituï¿½e le 7 mai 2014 par la Cour constitutionnelle de Thaï¿½lande , sous la pression de la junte militaire dirigï¿½e par le gï¿½nï¿½ral Prayuth Chan - ocha .",
       },
       [9] = {
         [1] = "25 octobre 2004 ",
-        [2] = "87 musulmans sont morts le 25 octobre 2004 après une manifestation dans la province de Narathiwat ( « massacre de Tak Bai » ) .",
+        [2] = "87 musulmans sont morts le 25 octobre 2004 aprï¿½s une manifestation dans la province de Narathiwat ( ï¿½ massacre de Tak Bai ï¿½ ) .",
       },
     },
     nom = "RÃ©publique tchÃ¨que",
     capitale = "Bangkok",
     guerre = {
     },
-    langue = "thaï",
+    langue = "thaï¿½",
     monnaie = "le baht",
     personnage = {
     },
@@ -9877,15 +9877,15 @@ return {
     evenement = {
       [1] = {
         [1] = "1972 ",
-        [2] = "et en anglais Sri Lanka et Democratic Socialist Republic of Sri Lanka ; il a porté auparavant les noms de Taprobane , Serendib , puis Ceylan jusqu ' en 1972 .",
+        [2] = "et en anglais Sri Lanka et Democratic Socialist Republic of Sri Lanka ; il a portï¿½ auparavant les noms de Taprobane , Serendib , puis Ceylan jusqu ' en 1972 .",
       },
       [2] = {
         [1] = "543 ",
-        [2] = "Il couvre une période qui s ' étend de l ' avènement du roi Vijaya en 543 av .",
+        [2] = "Il couvre une pï¿½riode qui s ' ï¿½tend de l ' avï¿½nement du roi Vijaya en 543 av .",
       },
       [3] = {
         [1] = "1247 ",
-        [2] = "La première aurait eu lieu en 1247 .",
+        [2] = "La premiï¿½re aurait eu lieu en 1247 .",
       },
       [4] = {
         [1] = "1262 ",
@@ -9893,19 +9893,19 @@ return {
       },
       [5] = {
         [1] = "1796 ",
-        [2] = "La partie maritime de l ' île tomba sous le contrôle du Portugal au XVIe siècle , puis sous celui des Néerlandais au siècle suivant , pour finir comme province de l ' Empire britannique en 1796 .",
+        [2] = "La partie maritime de l ' ï¿½le tomba sous le contrï¿½le du Portugal au XVIe siï¿½cle , puis sous celui des Nï¿½erlandais au siï¿½cle suivant , pour finir comme province de l ' Empire britannique en 1796 .",
       },
       [6] = {
         [1] = "1815 ",
-        [2] = "Par la convention de Kandy , les Anglais prirent le contrôle de l ' île en 1815 .",
+        [2] = "Par la convention de Kandy , les Anglais prirent le contrï¿½le de l ' ï¿½le en 1815 .",
       },
       [7] = {
         [1] = "1939 ",
-        [2] = "Les premiers affrontements eurent lieu en 1939 , après un discours enflammé du dirigeant tamoul Ponnamabalam .",
+        [2] = "Les premiers affrontements eurent lieu en 1939 , aprï¿½s un discours enflammï¿½ du dirigeant tamoul Ponnamabalam .",
       },
       [8] = {
         [1] = "1956 ",
-        [2] = "Bandaranaike , au pouvoir en 1956 , instaura le cingalais comme seule langue officielle , première loi emblématique discriminante à l ' égard de la minorité tamoule .",
+        [2] = "Bandaranaike , au pouvoir en 1956 , instaura le cingalais comme seule langue officielle , premiï¿½re loi emblï¿½matique discriminante ï¿½ l ' ï¿½gard de la minoritï¿½ tamoule .",
       },
       [9] = {
         [1] = "1959 ",
@@ -9913,15 +9913,15 @@ return {
       },
       [10] = {
         [1] = "2009 ",
-        [2] = "Après la trêve de 2002 - 2005 , le conflit s ' accélère et rentre dans une phase décisive en 2009 .",
+        [2] = "Aprï¿½s la trï¿½ve de 2002 - 2005 , le conflit s ' accï¿½lï¿½re et rentre dans une phase dï¿½cisive en 2009 .",
       },
       [11] = {
         [1] = "17 mai 2009 ",
-        [2] = "Les LTTE cessent le combat le 17 mai 2009 après l ' annonce de la mort de M .",
+        [2] = "Les LTTE cessent le combat le 17 mai 2009 aprï¿½s l ' annonce de la mort de M .",
       },
       [12] = {
         [1] = "19 mai 2009 ",
-        [2] = "Et le chef de l’État srilankais Mahinda Rajapakse déclarera solennellement le 19 mai 2009 devant le Parlement la victoire écrasante de la République Démocratique et Socialiste du Sri Lanka .",
+        [2] = "Et le chef de lï¿½ï¿½tat srilankais Mahinda Rajapakse dï¿½clarera solennellement le 19 mai 2009 devant le Parlement la victoire ï¿½crasante de la Rï¿½publique Dï¿½mocratique et Socialiste du Sri Lanka .",
       },
     },
     determinant = "Le",

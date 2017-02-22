@@ -247,9 +247,14 @@ pipe:pattern([[
 -- Pattern pour détecter les guerres ayant eu lieu
 pipe:pattern([[
 	[#Guerre
-    	("la" | "les" | "La" | "Les" | "cette" | "Cette" | "Une" | "une")? (/^%u/)* ("et")* (/[a-zA-Z]/) ("Guerre" | "guerre") ("civile")?
-    	( ( ((("d") ("'") (/./))) | ((/./) ("-") (/./)) )? ( ("de") | ("du") | ("des") | ("en") )? (/^%u/)*  )
-    	(/[a-zA-Z]/)?
+    	("la" | "La" | (/^%u/)) 
+    	(/^%u/)* 
+    	("et")* 
+    	(/^%u/)* 
+    	("Guerre" | "guerre") 
+    	("civile")?
+    	( ((("d") ("'") (/./)) | ((/./) ("-") (/./))) | ((("de") | ("du") | ("des") | ("en")) (/^%u/)+) | ((#POS=ADJ) | (#POS=VRB) | ("civile"))  )
+    	
     ]
 ]])
 

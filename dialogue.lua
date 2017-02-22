@@ -56,9 +56,10 @@ pipe:lexicon("#pronomInterrogatifPersonne", {"Qui","qui"})
 pipe:lexicon("#pronomInterrogatifBinaire", {"est ce que", "Est ce que", "est-ce-que", "Est-ce-que"})
 pipe:lexicon("#pronomInterrogatifDate", {"Quand", "quand"})
 pipe:lexicon("#pronomInterrogatifLieu", {"Où", "où", "Ou", "ou"})
-pipe:lexicon("#pronomInterrogatifGeneralSing", {"Quelle", "quelle", "Quel", "quel", "Quelle", "quelle"})
+pipe:lexicon("#pronomInterrogatifGeneralSing", {"Quel", "quel", "Quelle", "quelle"})
 pipe:lexicon("#pronomInterrogatifGeneralPlu", {"Quels", "quels", "Quelles", "quelles" })
 pipe:lexicon("#pronomInterrogatifChoix", {"Lequel", "Laquelle", "lequel", "laquelle"})
+pipe:lexicon("#pronomInterrogatifHistoire", {"Qu'est ce qui", "Qu'est-ce-qui","qu'est ce qui", "qu'est-ce-qui"})
 
 pipe:pattern([[
 	[#question
@@ -83,7 +84,22 @@ pipe:pattern([[
 
 pipe:pattern([[
 	[#questionEvenement
+    (#pronomInterrogatifGeneralSing | #pronomInterrogatifGeneralPlu | #pronomInterrogatifHistoire)
+    (/./)* [#periode ("en" [#annee1 #d] | "entre" [#annee2 #d] "et" [#annee3 #d] | "après" [#annee4 #d] | "avant" [#annee5 #d])]
+	]
+]])
 
+
+-- Pattern pour détecter une date
+pipe:pattern([[
+	[#date
+		[#jour  #d ] ?
+		(
+			"/" [#mois  #d ] "/"
+			|
+			#mois
+		)
+		[#annee #d ]
 	]
 ]])
 
@@ -96,6 +112,19 @@ function getNumber(chaine)
 
   return tonumber(value)
 end
+
+
+-- Fonction pour récuperer une année
+function getYear(chaine)
+		chaine = chaine:reverse()
+		chaine = chaine:sub(0, 5)
+		chaine = chaine:reverse()
+		chaine = chaine:gsub(" ", "")
+
+  return tonumber(chaine)
+end
+
+
 
 -- Fonction pour récupérer le déterminant d'un pays
 function getDeterminant(nomPays)
@@ -210,12 +239,45 @@ end
 
 
 
+
+--Fonction pour récupérer les évènements
+function getEvents(nomPays, ...)
+
+  local arg = {...}
+
+  --[[for k,v in pairs(db) do
+    if(k == nomPays) then
+      b=1
+      tab = v
+      --parcours en profondeur
+      for i,champ in ipairs(arg) do
+        tab = tab[champ]
+      end
+      --On a detecte des elements
+      if(tab ~= nil) then
+	      return tab
+	    else
+	  	  return 0 --"Désolé, je n'ai pas cette information"
+	    end
+    end
+  end
+
+  if b==0 then
+  	return -1 --"Désolé, je ne comprends pas de quel pays vous parlez"
+  end ]]
+
+end
+
+
+
+
 -- Fonction pour récupérer la question de l'utilisateur
 function getInput()
 	print("EISD - Histoire pour tous\n")
   historique = {}
 	while true do
 		print("Bonjour! Que voulez vous savoir? (ou appuyer q pour quitter)\n")
+
 		question = io.read()
 		if question == "q" or question == "Q"  then
 			break;
@@ -224,7 +286,7 @@ function getInput()
 		pipe(question)
 		local ligne
 		local colonne
-		if #question["#question"] ~= 0 then
+		if #question["#question"] ~= 0 and #question["#questionEvenement"] == 0 then
 
       if #question["#nomPays"] ~= 0 then
 
@@ -916,6 +978,61 @@ function getInput()
         else
   	  	  print("Vous devez parler d'un pays d'abord !")
         end
+
+
+
+
+
+    elseif #question["#questionEvenement"] ~= 0 then
+      --getEvents("France", 1993, 1999)
+	  	ligne = question:tag2str("#nomPays")[1]
+	  	if ligne ~= nil then
+	    	local precision
+  	  	local result
+
+	  	  if #question["#annee1"] == 1 then
+          annee = question:tag2str("#annee1")[1]
+          precision = "en"
+	  	    print(precision, annee)
+          result = getEvents(ligne, annee, precision)
+
+	  	  elseif #question["#annee2"] == 1 and #question["#annee3"] == 1 then
+          local annee1, annee2
+          precision = "entre"
+
+          if question:tag2str("#annee2")[1] < question:tag2str("#annee3")[1] then
+            annee1 = question:tag2str("#annee2")[1]
+            annee2 = question:tag2str("#annee3")[1]
+          else
+            annee1 = question:tag2str("#annee3")[1]
+            annee2 = question:tag2str("#annee2")[1]
+          end
+
+	  	    print(precision, annee1, "et", annee2)
+          result = getEvents(ligne, annee1, annee2, precision)
+
+	  	  elseif #question["#annee4"] == 1 then
+          annee = question:tag2str("#annee4")[1]
+          precision = "après"
+	  	    print(precision, annee)
+          result = getEvents(ligne, annee, precision)
+
+	  	  elseif #question["#annee5"] == 1 then
+          annee = question:tag2str("#annee5")[1]
+          precision = "avant"
+	  	    print(precision, annee)
+          result = getEvents(ligne, annee, precision)
+
+	  	  else
+	  	    print("Je ne comprend pas bien la période donnée. Elle doit être en année")
+	  	  end
+
+
+	  	else
+        print("Vous devez spécifier un pays dans votre question.")
+	  	end
+
+
 
 
 

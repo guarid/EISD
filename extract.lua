@@ -416,16 +416,6 @@ for fichier in os.dir("country_update") do
 
 	    end
 
-			if #seq["#revolution"] ~= 0 then
-				local date = seq:tag2str("#revolution","#date")
-
-        if date ~= 0 then
-          pays.revolution = {
-						["nom"]   = seq:tag2str("#revolution")[1],
-						["date"] = seq:tag2str("#revolution","#date")[1]
-					}
-        end
-			end
 
 			if #seq["#revolution"] ~= 0 then
         	for i = 1, #seq:tag2str("#revolution") do

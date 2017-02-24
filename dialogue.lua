@@ -71,14 +71,14 @@ pipe:pattern([[
 -- Pattern pour détecter les guerres ayant eu lieu
 pipe:pattern([[
 	[#Guerre
-    	("la" | "La" | (/^%u/)) 
-    	(/^%u/)* 
-    	("et")* 
-    	(/^%u/)* 
-    	("Guerre" | "guerre") 
+    	("la" | "La" | (/^%u/))
+    	(/^%u/)*
+    	("et")*
+    	(/^%u/)*
+    	("Guerre" | "guerre")
     	("civile")?
     	( ((("d") ("'") (/./)) | ((/./) ("-") (/./))) | ((("de") | ("du") | ("des") | ("en")) (/^%u/)+) | ((#POS=ADJ) | (#POS=VRB) | ("civile"))  )
-    	
+
     ]
 ]])
 
@@ -91,6 +91,12 @@ pipe:pattern([[
 ]])
 
 
+pipe:pattern([[
+	[#questionComparaison
+		#pronomInterrogatifChoix (/./)*
+	]
+]])
+
 -- Pattern pour détecter une date
 pipe:pattern([[
 	[#date
@@ -101,8 +107,6 @@ pipe:pattern([[
 			#mois
 		)
 		[#annee #d ]
-	[#questionComparaison
-		#pronomInterrogatifChoix (/./)*
 	]
 ]])
 
@@ -210,10 +214,9 @@ function getCountryFromTable(colonne, instance)
 				end
 			end
 		end
-  	end
+  end
 
   	return result
-
 end
 
 
@@ -346,8 +349,6 @@ function getInput()
 		local ligne
 		local colonne
 		if #question["#question"] ~= 0 and #question["#questionEvenement"] == 0 then
-		print(question)
-		if #question["#question"] ~= 0 then
 
       if #question["#nomPays"] ~= 0 then
 
@@ -394,24 +395,24 @@ function getInput()
 			  end
 
   			if #question["#guerre"] ~= 0 then
-	  				ligne = question:tag2str("#nomPays")[1]
-		  			colonne = "guerre"
-			  		local res = getFromCountry(ligne, colonne)
+	  			ligne = question:tag2str("#nomPays")[1]
+		  		colonne = "guerre"
+			  	local res = getFromCountry(ligne, colonne)
 					local det = getDeterminant(ligne)
 
-	  				if res == 0 then
-              			print("Désolé, je n'ai pas cette information")
-			  		elseif res == -1 then
-              			print("Désolé, je ne comprends pas de quel pays vous parlez")
-            		elseif type(res) == "table" then
-            			print(det,ligne, "a connu plusieurs guerres. Voici la liste :")
-	            		for i,elem in ipairs(res) do
-	        	    		print(elem)
-	            		end
-	         		else
-              			print(det,ligne, "a connu une seule guerre qui est:", res)
+	  			if res == 0 then
+          	print("Désolé, je n'ai pas cette information")
+			  	elseif res == -1 then
+          	print("Désolé, je ne comprends pas de quel pays vous parlez")
+          elseif type(res) == "table" then
+          	print(det,ligne, "a connu plusieurs guerres. Voici la liste :")
+	        	for i,elem in ipairs(res) do
+	         		print(elem)
+	        	end
+	        else
+          	print(det,ligne, "a connu une seule guerre qui est:", res)
 					end
-			end
+			  end
 
   			if #question["#superficie"] ~= 0 then
 	  				ligne = question:tag2str("#nomPays")[1]
@@ -633,40 +634,40 @@ function getInput()
 
 	  	  if #question["#capitale"] ~= 0 then
 	  	    valeur = question:tag2str("#question", "#infoName")[1]
-			colonne = "capitale"
-  			local res = getCountryName(colonne, valeur)
+			    colonne = "capitale"
+  			  local res = getCountryName(colonne, valeur)
 
-	  		if #res == 0 then
+	  		  if #res == 0 then
             	print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
 	  	  	else
-	  	  	    table.insert(historique, res[1])
+	  	  	  table.insert(historique, res[1])
 		        det = getDeterminant(res[1])
-	 			if det == "Le" then
-              		print(valeur,"est la capitale du", res[1])
-            	else
-              		print(valeur,"est la capitale de",det,res[1])
-            	end
-		  	end
-          end
+	 			    if det == "Le" then
+           		print(valeur,"est la capitale du", res[1])
+           	else
+           		print(valeur,"est la capitale de",det,res[1])
+          	end
+		      end
+        end
 
 
-		if #question["#guerre"] ~= 0 then
-			local guerre = question:tag2str("#Guerre")[1]
-			colonne="guerre"
-			local res=getCountryFromTable(colonne, guerre)
+    		if #question["#guerre"] ~= 0 then
+		    	local guerre = question:tag2str("#Guerre")[1]
+			    colonne="guerre"
+			    local res=getCountryFromTable(colonne, guerre)
 
-			if res ~= nil then
-				if  #res == 0 then
-	            	print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
+    			if res ~= nil then
+		    		if  #res == 0 then
+	          	print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
 		  	  	else
-		  	  	    table.insert(historique, res[1])
-		  	  	    print("Les pays sont:")
-			        for k,v in pairs(res) do
+	  	  	    table.insert(historique, res[1])
+		 	  	    print("Les pays sont:")
+		          for k,v in pairs(res) do
 			        	print(res[k])
 			        end
-			  	end
-			end
-		end
+			    	end
+			    end
+		    end
 
         if #question["#continent"] ~= 0 then
 				  valeur = question:tag2str("#question", "#infoName")[1]
@@ -997,6 +998,7 @@ function getInput()
               print(det,ligne, "a eu son indépendance le :", res)
 					  end
 			    end
+
         else
   	  	  print("Je n'ai pas assez d'informations pour répondre à votre question")
         end

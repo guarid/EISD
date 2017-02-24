@@ -237,9 +237,9 @@ pipe:pattern([[
 -- Pattern pour détecter les révolutions ayant eu lieu et la date
 pipe:pattern([[
   [#revolution
-  	([#time ("le" #date)|(("en"|"années") #number)]) .*? ("révolution" | "Révolution"|"révolte"|"Révolte")
+  	@NotPoint*? [#time ("le" #date)|(("en"|"années") #number)] .*? ("révolution" | "Révolution"|"révolte"|"Révolte").*? ("." | $ | "!" | "?")
   	|
-  	("révolution" | "Révolution"|"révolte"|"Révolte") .*? [#time ("le" #date)|(("en"|"années") #number)]
+  	@NotPoint*? ("révolution" | "Révolution"|"révolte"|"Révolte") .*? [#time ("le" #date)|(("en"|"années") #number)] .*? ("." | $ | "!" | "?")
   ]
 ]])
 
@@ -282,6 +282,7 @@ pipe:pattern([[
 pipe:pattern([[
 	[#independance
 		(
+			@NotPoint*?
 			(
 				("un" ("État"|"état") "indépendant")
 				|"fondation" [#pays (("le" | "la" | "l" "'") #nomPays)]
@@ -289,18 +290,19 @@ pipe:pattern([[
 				|(("l" "'")|"son") "indépendance"
 				|"à" "la" "pleine" "souveraineté"
 			)
-			.*?[#time ("le" #date)|(("en"|"années") #number)]
+			@NotPoint*?[#time ("le" #date)|(("en"|"années") #number)].*? ("." | $ | "!" | "?")
 		)
 		|
 		(
-			[#time ("le" #date)|(("en"|"années") #number)].*?
+
+			@NotPoint*?[#time ("le" #date)|(("en"|"années") #number)]@NotPoint*?
 			(
 				"un" ("État"|"état") "indépendant"
 				|"fondation" [#pays (("du" | "de" "la" | "des"| "de" "l" "'") #nomPays)]
 				|("devient"|"est"|"soit"|"était") ("indépendante"|"independant")
 				|(("l" "'")|"son") "indépendance"
 				|"à" "la" "pleine" "souveraineté"
-			)
+			).*? ("." | $ | "!" | "?")
 		)
 	]
 ]])
@@ -424,7 +426,11 @@ for fichier in os.dir("country_update") do
 
 			if #seq["#revolution"] ~= 0 then
         	for i = 1, #seq:tag2str("#revolution") do
-        		date = seq:tag2str("#revolution","#time")[i]
+        		if seq:tag2str("#revolution","#time")[i]~=nil then
+        			date = seq:tag2str("#revolution","#time")[i]
+        		else
+        			date = nil
+        		end
         		value = {}
         		value[1] = datePreTraite(date)
         		value[2]=seq:tag2str("#revolution")[i]

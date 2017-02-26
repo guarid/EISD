@@ -54,18 +54,28 @@ pipe:lexicon("#max", {"la moins petite", "le moins petit", "la plus grande", "le
 
 pipe:lexicon("#pronomInterrogatifPersonne", {"Qui","qui"})
 pipe:lexicon("#pronomInterrogatifBinaire", {"est ce que", "Est ce que", "est-ce-que", "Est-ce-que"})
+pipe:lexicon("#pronomInterrogatifBinaire2", {"est ce qu'il y a", "Est ce qu'il y a", "est-ce-qu'il y a", "Est-ce-qu'il y a"})
 pipe:lexicon("#pronomInterrogatifDate", {"Quand", "quand"})
 pipe:lexicon("#pronomInterrogatifLieu", {"Où", "où", "Ou", "ou"})
 pipe:lexicon("#pronomInterrogatifGeneralSing", {"Quel", "quel", "Quelle", "quelle"})
 pipe:lexicon("#pronomInterrogatifGeneralPlu", {"Quels", "quels", "Quelles", "quelles" })
 pipe:lexicon("#pronomInterrogatifChoix", {"Lequel", "Laquelle", "lequel", "laquelle"})
 pipe:lexicon("#pronomInterrogatifHistoire", {"Qu'est ce qui", "Qu'est-ce-qui","qu'est ce qui", "qu'est-ce-qui"})
+pipe:lexicon("#champsDetecter",{"guerre","superficie","revolution","autreNoms","l'autreNoms","capitale","indépendance","l'indépendance","evenement","l'evenement","population","langue","colonisateur","paysFrontaliers","personnage"})
+
+
 
 pipe:pattern([[
-	[#question
-		(#pronomInterrogatifPersonne | #pronomInterrogatifBinaire | #pronomInterrogatifDate | #pronomInterrogatifLieu | #pronomInterrogatifGeneralSing
-			| #pronomInterrogatifGeneralPlu) |  ("est" | "sont") (/./)* [#infoName (/^%u/ /^%u/ | /^%u/ )]
-	]
+  [#questionBinaire
+    #pronomInterrogatifBinaire (/./)* ("est" | "sont") [#info (/./)*]
+  ]
+]])
+
+
+pipe:pattern([[
+  [#questionBinaire2
+    #pronomInterrogatifBinaire2 (/./)* [#periode ("en" [#annee1 #d] | "entre" [#annee2 #d] "et" [#annee3 #d] | "après" [#annee4 #d] | "avant" [#annee5 #d])]
+  ]
 ]])
 
 -- Pattern pour détecter les guerres ayant eu lieu
@@ -131,8 +141,6 @@ function getYear(chaine)
 
   return tonumber(chaine)
 end
-
-
 
 -- Fonction pour récupérer le déterminant d'un pays
 function getDeterminant(nomPays)
@@ -217,6 +225,25 @@ function getCountryFromTable(colonne, instance)
   end
 
   	return result
+end
+
+function getChampParPay(pay, champ)
+  result = {}
+  for k,v in pairs(db) do
+      if k==pay then
+        for n,c in pairs(v) do
+          if n==champ and type(c)=="string" then
+            table.insert(result,string.lower(c))
+          elseif n==champ and type(c)=="table" then
+            for m,p in pairs(c) do
+              table.insert(result,string.lower(p))
+            end
+          end
+        end
+      end
+  end
+
+  return result
 end
 
 
@@ -1060,6 +1087,47 @@ function getInput()
         else
   	  	  print("Vous devez parler d'un pays d'abord !")
         end
+
+
+      elseif #question["#questionBinaire"] ~= 0 then
+          local payConsultant
+          local champConsultant
+          local result
+          local info
+          local flag=0
+          if #question["#nomPays"] ~= 0 and #question["#champsDetecter"] ~= 0  then
+             payConsultant = question:tag2str("#nomPays")[1]
+             champConsultant = question:tag2str("#champsDetecter")[1]
+             if champConsultant~="personnage" and champConsultant~="revolution" and champConsultant~="independance" and champConsultant~="evenement" then 
+                info = question:tag2str("#info")[1]
+                result = getChampParPay(payConsultant,champConsultant)
+                count=0
+                for k,v in pairs(result) do
+                  count = count+1
+                end
+                if count==0 then
+                  print("C'est un quetion tres difficile. Franchement je ne sait pas")
+                else
+                for i,v in ipairs(result) do
+                  if v==string.lower(info) and flag~=1 then
+                    flag=1
+                    print("oui, Vous etes tres intelligent")
+                  elseif string.find(string.lower(info),v) ~= nil then
+                    flag=1
+                    print("oui,", v,"C'est bon")              
+                  end
+                end
+                if(flag==0) then
+                  print("Non, c'est pas comme ca")
+                end
+              end
+             else  
+
+             end  
+
+          end
+          
+        
 
 
 

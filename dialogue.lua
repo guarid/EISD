@@ -34,7 +34,7 @@ pipe:lexicon("#mois", {"janvier", "février", "mars", "avril", "mai", "juin", "j
 pipe:lexicon("#pointsCardinaux", {"nord", "sud", "ouest", "est"})
 pipe:lexicon("#ocean", {"océan Pacifique", "océan Atlantique", "océan Indien", "océan Arctique"})
 pipe:lexicon("#capitale", {"capitale"})
-pipe:lexicon("#paysFrontaliers", {"pays frontaliers", "pays limitrophes"})
+pipe:lexicon("#paysFrontaliers", {"pays frontaliers","pay frontalier","pays frontalier","pay frontaliers", "pays limitrophes"})
 pipe:lexicon("#monnaie", {"monnaie"})
 pipe:lexicon("#langue", {"langue"})
 pipe:lexicon("#guerre", {"guerre", "guerres","Guerre", "Guerres"})
@@ -54,23 +54,26 @@ pipe:lexicon("#max", {"la moins petite", "le moins petit", "la plus grande", "le
 
 pipe:lexicon("#pronomInterrogatifPersonne", {"Qui","qui"})
 pipe:lexicon("#pronomInterrogatifBinaire", {"est ce que", "Est ce que", "est-ce-que", "Est-ce-que"})
-pipe:lexicon("#pronomInterrogatifBinaire2", {"est ce qu'il y a", "Est ce qu'il y a", "est-ce-qu'il y a", "Est-ce-qu'il y a"})
 pipe:lexicon("#pronomInterrogatifDate", {"Quand", "quand"})
 pipe:lexicon("#pronomInterrogatifLieu", {"Où", "où", "Ou", "ou"})
 pipe:lexicon("#pronomInterrogatifGeneralSing", {"Quel", "quel", "Quelle", "quelle"})
 pipe:lexicon("#pronomInterrogatifGeneralPlu", {"Quels", "quels", "Quelles", "quelles" })
 pipe:lexicon("#pronomInterrogatifChoix", {"Lequel", "Laquelle", "lequel", "laquelle"})
 pipe:lexicon("#pronomInterrogatifHistoire", {"Qu'est ce qui", "Qu'est-ce-qui","qu'est ce qui", "qu'est-ce-qui"})
-pipe:lexicon("#champsDetecter",{"guerre","superficie","revolution","autreNoms","l'autreNoms","capitale","indépendance","l'indépendance","evenement","l'evenement","population","langue","colonisateur","paysFrontaliers","personnage"})
 
+pipe:pattern([[
+  [#question
+    ((#pronomInterrogatifPersonne | #pronomInterrogatifDate | #pronomInterrogatifLieu | #pronomInterrogatifGeneralSing
+      | #pronomInterrogatifGeneralPlu)) ("est" | "sont") (/./)* [#infoName (/^%u/ /^%u/ | /^%u/ )]
+  ]
+]])
 
 
 pipe:pattern([[
   [#questionBinaire
-    #pronomInterrogatifBinaire (/./)* ("est" | "sont") [#info (/./)*]
+    #pronomInterrogatifBinaire [#info1 (/./)*] ("est" | "sont") [#info2 (/./)*]
   ]
 ]])
-
 
 pipe:pattern([[
   [#questionBinaire2
@@ -1095,39 +1098,72 @@ function getInput()
           local result
           local info
           local flag=0
-          if #question["#nomPays"] ~= 0 and #question["#champsDetecter"] ~= 0  then
-             payConsultant = question:tag2str("#nomPays")[1]
-             champConsultant = question:tag2str("#champsDetecter")[1]
-             if champConsultant~="personnage" and champConsultant~="revolution" and champConsultant~="independance" and champConsultant~="evenement" then 
-                info = question:tag2str("#info")[1]
-                result = getChampParPay(payConsultant,champConsultant)
-                count=0
-                for k,v in pairs(result) do
-                  count = count+1
-                end
-                if count==0 then
-                  print("C'est un quetion tres difficile. Franchement je ne sait pas")
-                else
-                for i,v in ipairs(result) do
-                  if v==string.lower(info) and flag~=1 then
-                    flag=1
-                    print("oui, Vous etes tres intelligent")
-                  elseif string.find(string.lower(info),v) ~= nil then
-                    flag=1
-                    print("oui,", v,"C'est bon")              
+          if #question["#nomPays"] ~= 0 then
+            payConsultant = question:tag2str("#nomPays")[1]
+            if #question["#capitale"] ~= 0 then
+             champConsultant = "capitale"
+            elseif #question["#paysFrontaliers"] ~= 0 then
+             champConsultant = "paysFrontaliers"
+            elseif #question["#monnaie"] ~= 0 then
+             champConsultant = "monnaie"
+            elseif #question["#langue"] ~= 0 then
+             champConsultant = "langue"
+            elseif #question["#population"] ~= 0 then
+             champConsultant = "population"
+            elseif #question["#continent"] ~= 0 then
+             champConsultant = "continent"
+            elseif #question["#superficie"] ~= 0 then
+             champConsultant = "superficie"
+            elseif #question["#peuple"] ~= 0 then
+             champConsultant = "peuple"
+            elseif #question["#colonisateur"] ~= 0 then
+             champConsultant = "colonisateur"
+            elseif #question["#autreNoms"] ~= 0 then
+             champConsultant = "autreNoms"
+            end
+            info1 = question:tag2str("#info1")[1]
+            info2 = question:tag2str("#info2")[1]
+            if champConsultant=="paysFrontaliers" then
+              chercheNum = string.find(question:tag2str("#questionBinaire")[1],"frontalier")
+              local minPay = 99999
+              for i,v in ipairs(question:tag2str("#nomPays")) do
+                  payNum = string.find(question:tag2str("#questionBinaire")[1],v,chercheNum)
+                  if payNum~=nil and payNum<minPay then
+                    minPay = payNum
+                    payConsultant = v
                   end
-                end
-                if(flag==0) then
-                  print("Non, c'est pas comme ca")
+              end    
+            end
+            if string.find(info1,payConsultant) ~= nil then 
+              info = info2
+            else
+              info = info1
+            end
+            result = getChampParPay(payConsultant,champConsultant)
+            count=0
+            for k,v in pairs(result) do
+              count = count+1
+            end
+            if count==0 then
+              print("C'est un question tres difficile. Franchement je ne sait pas")
+            else
+              for i,v in ipairs(result) do
+                if v==string.lower(info) and flag~=1 then
+                  flag=1  
+                  print("oui, Vous etes tres intelligent")
+                elseif string.find(string.lower(info),v) ~= nil then
+                  flag=1
+                  print("oui,", v,"C'est bon")              
                 end
               end
-             else  
-
-             end  
-
+            end
+            if(flag==0) then
+                print("Non, c'est pas comme ca")
+            end
+          else
+            print("Je comprends pas la qustion")    
           end
           
-        
 
 
 

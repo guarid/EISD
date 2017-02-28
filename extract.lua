@@ -113,7 +113,8 @@ pipe:pattern([[
 -- Pattern pour détecter le continent d'un pays
 pipe:pattern([[
 	[#continent
-    "est" "un" "pays" "d" "'" #continentName
+    ("est" "un" "pays" "d" "'" #continentName) |
+    (#nomPays {0,20}?  "pays" {0,10} #continentName )
 	]
 ]])
 

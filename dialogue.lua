@@ -1,372 +1,15 @@
 dark = require("dark")
 
-local db = dofile("dataBase.txt")
 
-local tags = {
-	["#nomPays"] = "yellow",
-	["#focus"] = "yellow",
-	["#autreNoms"] = "red",
-	["#coupEtat"] = "green",
-	["#capitale"] = "white",
-	["#langue"] = "magenta",
-	["#monnaie"] = "magenta",
-	["#personne"] = "magenta",
-	["#revolution"] = "magenta",
-	["#date"] = "blue",
-	["#number"] = "blue",
-	["#population"] = "white",
-	["#continent"] = "red",
-	["#pays"] = "red",
-	["#superficie"] = "blue",
-	["#organisation"] = "white",
-	["#paysFrontaliers"] = "white"
-}
-
-local pipe = dark.pipeline()
-pipe:basic()
-
-pipe:model("../model-2.3.0/postag-fr")
-pipe:lexicon("#nomPays", "lex/nomPays.txt")
-pipe:lexicon("#prenom", "lex/prenoms.txt")
-pipe:lexicon("#personne", "lex/personnages.txt")
-pipe:lexicon("#continentName", {"Afrique", "Amerique", "Asie", "Europe", "Oceanie"})
-pipe:lexicon("#mois", {"janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"})
-pipe:lexicon("#pointsCardinaux", {"nord", "sud", "ouest", "est"})
-pipe:lexicon("#ocean", {"océan Pacifique", "océan Atlantique", "océan Indien", "océan Arctique"})
-pipe:lexicon("#capitale", {"capitale"})
-pipe:lexicon("#paysFrontaliers", {"pays frontaliers","pay frontalier","pays frontalier","pay frontaliers", "pays limitrophes"})
-pipe:lexicon("#monnaie", {"monnaie"})
-pipe:lexicon("#langue", {"langue"})
-pipe:lexicon("#guerre", {"guerre", "guerres","Guerre", "Guerres"})
-pipe:lexicon("#population", {"population", "peuplée", "nombre d'habitants"})
-pipe:lexicon("#continent", {"continent"})
-pipe:lexicon("#superficie", {"superficie"})
-pipe:lexicon("#organisation", {"organisation", "organisations"})
-pipe:lexicon("#peuple", {"peuple", "peuples"})
-pipe:lexicon("#revolution", {"révolution", "révolutions", "revolution", "revolutions"})
-pipe:lexicon("#independance", {"indépendance", "independance", "l'indépendance", "d'indépendance"})
-pipe:lexicon("#colonisateur", {"colonisé", "colonisés", "colonises", "colonise", "colonisateur"})
-pipe:lexicon("#autreNoms", {"l'autre nom", "autres noms", "Autres noms", "autre nom", "Autre nom"})
-pipe:lexicon("#pays", {"le pays", "les pays"})
-pipe:lexicon("#min", {"la plus petite", "le plus petit", "la moins grande", "le moins grand"})
-pipe:lexicon("#max", {"la moins petite", "le moins petit", "la plus grande", "le plus grand"})
-
-
-pipe:lexicon("#pronomInterrogatifPersonne", {"Qui","qui"})
-pipe:lexicon("#pronomInterrogatifBinaire", {"est ce que", "Est ce que", "est-ce-que", "Est-ce-que"})
-pipe:lexicon("#pronomInterrogatifDate", {"Quand", "quand"})
-pipe:lexicon("#pronomInterrogatifLieu", {"Où", "où", "Ou", "ou"})
-pipe:lexicon("#pronomInterrogatifGeneralSing", {"Quel", "quel", "Quelle", "quelle"})
-pipe:lexicon("#pronomInterrogatifGeneralPlu", {"Quels", "quels", "Quelles", "quelles" })
-pipe:lexicon("#pronomInterrogatifChoix", {"Lequel", "Laquelle", "lequel", "laquelle"})
-pipe:lexicon("#pronomInterrogatifHistoire", {"Qu'est ce qui", "Qu'est-ce-qui","qu'est ce qui", "qu'est-ce-qui"})
-
-pipe:pattern([[
-  [#question
-    ((#pronomInterrogatifPersonne | #pronomInterrogatifDate | #pronomInterrogatifLieu | #pronomInterrogatifGeneralSing
-      | #pronomInterrogatifGeneralPlu)) ("est" | "sont") (/./)* [#infoName (/^%u/ /^%u/ | /^%u/ )]
-  ]
-]])
-
-
-pipe:pattern([[
-  [#questionBinaire
-    #pronomInterrogatifBinaire [#info1 (/./)*] ("est" | "sont") [#info2 (/./)*]
-  ]
-]])
-
-pipe:pattern([[
-  [#questionBinaire2
-    #pronomInterrogatifBinaire2 (/./)* [#periode ("en" [#annee1 #d] | "entre" [#annee2 #d] "et" [#annee3 #d] | "après" [#annee4 #d] | "avant" [#annee5 #d])]
-  ]
-]])
-
--- Pattern pour détecter les guerres ayant eu lieu
-pipe:pattern([[
-	[#Guerre
-    	("la" | "La" | (/^%u/))
-    	(/^%u/)*
-    	("et")*
-    	(/^%u/)*
-    	("Guerre" | "guerre")
-    	("civile")?
-    	( ((("d") ("'") (/./)) | ((/./) ("-") (/./))) | ((("de") | ("du") | ("des") | ("en")) (/^%u/)+) | ((#POS=ADJ) | (#POS=VRB) | ("civile"))  )
-
-    ]
-]])
-
-
-pipe:pattern([[
-	[#questionEvenement
-    (#pronomInterrogatifGeneralSing | #pronomInterrogatifGeneralPlu | #pronomInterrogatifHistoire)
-    (/./)* [#periode ("en" [#annee1 #d] | "entre" [#annee2 #d] "et" [#annee3 #d] | "après" [#annee4 #d] | "avant" [#annee5 #d])]
-	]
-]])
-
-
-pipe:pattern([[
-	[#questionComparaison
-		#pronomInterrogatifChoix (/./)*
-	]
-]])
-
--- Pattern pour détecter une date
-pipe:pattern([[
-	[#date
-		[#jour  #d ] ?
-		(
-			"/" [#mois  #d ] "/"
-			|
-			#mois
-		)
-		[#annee #d ]
-	]
-]])
-
-
-
--- Fonction pour récuperer un nombre d'une chaine de caractères
-function getNumber(chaine)
-  value = chaine:gsub(" ", "")
-	value = value:gsub("km", "")
-	value = value:gsub("de", "")
-
-  return tonumber(value)
-end
-
-
--- Fonction pour récuperer une année
-function getYear(chaine)
-		chaine = chaine:reverse()
-		chaine = chaine:sub(0, 5)
-		chaine = chaine:reverse()
-		chaine = chaine:gsub(" ", "")
-
-  return tonumber(chaine)
-end
-
--- Fonction pour récupérer le déterminant d'un pays
-function getDeterminant(nomPays)
-  for k,v in pairs(db) do
-    if(k == nomPays) then
-      if v["determinant"] ~= nil then
-        return v["determinant"]
-      else
-        return 0
-      end
-    end
-  end
-end
-
---Fonction pour récupérer les informations
-function getFromCountry(nomPays, ...)
-  b=0
-  local arg = {...}
-  for k,v in pairs(db) do
-    if(k == nomPays) then
-      b=1
-      tab = v
-      --parcours en profondeur
-      for i,champ in ipairs(arg) do
-        tab = tab[champ]
-      end
-      --On a detecte des elements
-      if(tab ~= nil) then
-	      return tab
-	    else
-	  	  return 0 --"Désolé, je n'ai pas cette information"
-	    end
-    end
-  end
-
-  if b==0 then
-  	return -1 --"Désolé, je ne comprends pas de quel pays vous parlez"
-  end
-
-end
-
-
-
-function getCountryName(champ, infoName)
-  result = {}
-
-  for k,v in pairs(db) do
-
-    if type(v[champ]) == "table" then
-      for i,elem in ipairs(v[champ]) do
-        if (elem == infoName) then
-          table.insert(result, k)
-        end
-	    end
-	  else
-      if (v[champ] == infoName) then
-        table.insert(result, k)
-      end
-    end
-
-  end
-
-  return result
-end
-
-function getCountryFromTable(colonne, instance)
-	result = {}
-	if instance == nil then
-		print("Désolé, cette guerre est inconnue")
-		return nil
-	end
-
-	for k,v in pairs(db) do
-		if(v[colonne] ~= nil) then
-			for n,guerre in pairs(v[colonne]) do
-				if string.lower(guerre) == string.lower(instance) then
-					--print(k)
-					table.insert(result, k)
-				end
-			end
-		end
-  end
-
-  	return result
-end
-
-function getChampParPay(pay, champ)
-  result = {}
-  for k,v in pairs(db) do
-      if k==pay then
-        for n,c in pairs(v) do
-          if n==champ and type(c)=="string" then
-            table.insert(result,string.lower(c))
-          elseif n==champ and type(c)=="table" then
-            for m,p in pairs(c) do
-              table.insert(result,string.lower(p))
-            end
-          end
-        end
-      end
-  end
-
-  return result
-end
-
-
-function getFromComparison(tableau, champs, compare)
-  result = {}
-  pays = {}
-  local key, val
-  for k,v in pairs(db) do
-    for i,value in ipairs(tableau) do
-      if(k == value) and (v[champs] ~= nil) then
-        table.insert(result, v[champs])
-        table.insert(pays, k)
-      end
-    end
-  end
-
-  for i, v in ipairs(result) do
-     print(result[i], pays[i])
-  end
-
-  if #result == 0 then
-    return 0
-  end
-
-  if compare == "max" then
-    key, val = 1, result[1]
-    val = getNumber(val)
-    for k, v in ipairs(result) do
-      v = getNumber(v)
-      if v > val then
-        key, val = k, v
-        print(key, val)
-      end
-    end
-  elseif compare == "min" then
-    key, val = 1, result[1]
-    val = getNumber(val)
-    for k, v in ipairs(result) do
-      v = getNumber(v)
-      if v < val then
-        key, val = k, v
-      end
-    end
-  end
-
-  return pays[key]
-
-end
-
-
-
-
---Fonction pour récupérer les évènements
-function getEvents(nomPays, ...)
-
-  local arg = {...}
-  local allEvents
-  local result = {}
-  for k,v in pairs(db) do
-    if(k == nomPays) then
-      if v["evenement"][1] ~= nil then
-        allEvents = v["evenement"]
-      else
-        return -1
-      end
-    end
-  end
-
-  if #arg == 2 then
-    limite = tonumber(arg[1])
-
-    if arg[2] == "avant" then
-      for i,v in ipairs(allEvents) do
-      comp = getYear(v[1])
-        if comp < limite then
-          table.insert(result, v)
-        end
-      end
-
-    elseif arg[2] == "après" then
-      for i,v in ipairs(allEvents) do
-      comp = getYear(v[1])
-        if comp >= limite then
-          table.insert(result, v)
-        end
-      end
-
-    else
-      for i,v in ipairs(allEvents) do
-      comp = getYear(v[1])
-        if limite == comp then
-          table.insert(result, v)
-        end
-      end
-    end
-
-  else
-    debut = tonumber(arg[1])
-    fin = tonumber(arg[2])
-
-    for i,v in ipairs(allEvents) do
-      comp = getYear(v[1])
-      if debut <= comp and fin > comp then
-        table.insert(result, v)
-        --print(v[1], v[2])
-      end
-    end
-  end
-
-  return result
-
-end
-
-
-
+dofile("common.lua")
+dofile("fonctions.lua")
 
 -- Fonction pour récupérer la question de l'utilisateur
 function getInput()
 	print("EISD - Histoire pour tous\n")
   historique = {}
+  profondeur = {}
+  focusChamps = ""
 	while true do
 		print("Bonjour! Que voulez vous savoir? (ou appuyer q pour quitter)\n")
 
@@ -375,18 +18,29 @@ function getInput()
 			break;
 		end
 		question = dark.sequence(question)
+		--pipe(question)
 		pipe(question)
 		local ligne
 		local colonne
-		if #question["#question"] ~= 0 and #question["#questionEvenement"] == 0 then
+		if (#question["#question"] ~= 0 and #question["#questionEvenement"] == 0) or
+		 (#question["#questionComplexe"] ~= 0 and focusChamps ~= "") then
 
       if #question["#nomPays"] ~= 0 then
 
-        table.insert(historique, question:tag2str("#nomPays")[1])
+        if historique[question:tag2str("#nomPays")[1]] == nil then
+          historique[question:tag2str("#nomPays")[1]] = {}
+        end
 
-			  if #question["#capitale"] ~= 0 then
-				    ligne = question:tag2str("#nomPays")[1]
+        table.insert(profondeur, 1, question:tag2str("#nomPays")[1])
+		    ligne = question:tag2str("#nomPays")[1]
+
+        --[[for k,v in pairs(historique) do
+          print(k)
+        end]]
+
+			  if #question["#capitale"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "capitale") then
 					  colonne = "capitale"
+					  focusChamps = "capitale"
 					  local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -396,17 +50,20 @@ function getInput()
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
               print(det,ligne, "a comme capitales : ")
+	            historique[ligne].capitale = res
 	            for i,elem in ipairs(res) do
 	      	      print(elem)
 	            end
 	          else
+	            historique[ligne].capitale = res
               print(det,ligne, "a pour capitale",res)
 					  end
 			  end
 
-			  if #question["#continent"] ~= 0 then
+			  if #question["#continent"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "continent") then
 				  	ligne = question:tag2str("#nomPays")[1]
 					  colonne = "continent"
+					  focusChamps = "continent"
 					  local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -416,17 +73,20 @@ function getInput()
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
               print(det,ligne, "est sur plusieurs contients à savoir : ")
+	            historique[ligne].continent = res
 	            for i,elem in ipairs(res) do
 	      	      print(elem)
   	          end
 	          else
+	            historique[ligne].continent = res
               print(det,ligne, "appartient au continent",res)
 			  		end
 			  end
 
-  			if #question["#guerre"] ~= 0 then
+  			if #question["#guerre"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "guerre") then
 	  			ligne = question:tag2str("#nomPays")[1]
 		  		colonne = "guerre"
+				  focusChamps = "guerre"
 			  	local res = getFromCountry(ligne, colonne)
 					local det = getDeterminant(ligne)
 
@@ -436,17 +96,20 @@ function getInput()
           	print("Désolé, je ne comprends pas de quel pays vous parlez")
           elseif type(res) == "table" then
           	print(det,ligne, "a connu plusieurs guerres. Voici la liste :")
+            historique[ligne].guerre = res
 	        	for i,elem in ipairs(res) do
 	         		print(elem)
 	        	end
 	        else
+	          historique[ligne].guerre = res
           	print(det,ligne, "a connu une seule guerre qui est:", res)
 					end
 			  end
 
-  			if #question["#superficie"] ~= 0 then
+  			if #question["#superficie"] ~= 0  or (#question["#questionComplexe"] ~= 0 and focusChamps == "superficie") then
 	  				ligne = question:tag2str("#nomPays")[1]
 		  			colonne = "superficie"
+					  focusChamps = "superficie"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -456,10 +119,12 @@ function getInput()
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
               print(det,ligne, "a plusieurs superficies qui sont :")
+	            historique[ligne].superficie = res
   	          for i,elem in ipairs(res) do
 	        	    print(elem)
 	            end
 	          else
+	            historique[ligne].superficie = res
               if det == "Le" then
                 print("La superficie du", ligne,"est de:",res)
               else
@@ -468,9 +133,10 @@ function getInput()
 					  end
 			  end
 
-			  if #question["#population"] ~= 0 then
+			  if #question["#population"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "population") then
 	  				ligne = question:tag2str("#nomPays")[1]
 		  			colonne = "population"
+					  focusChamps = "population"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -480,10 +146,12 @@ function getInput()
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
               print(det,ligne, "a plusieurs nombre d'habitants. Etonnant! Mais voici la liste :")
+	            historique[ligne].population = res
   	          for i,elem in ipairs(res) do
 	        	    print(elem)
 	            end
 	          else
+	            historique[ligne].population = res
 	            if det == "Le" then
                 print("Le nombre d'habitants du", ligne,"est de:",res)
               else
@@ -492,9 +160,10 @@ function getInput()
 					  end
 			  end
 
-  			if #question["#monnaie"] ~= 0 then
+  			if #question["#monnaie"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "monnaie") then
 	  				ligne = question:tag2str("#nomPays")[1]
 		  			colonne = "monnaie"
+					  focusChamps = "monnaie"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -504,17 +173,20 @@ function getInput()
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
               print(det,ligne, "utilise plusieurs monnaies qui sont :")
+	            historique[ligne].monnaie = res
   	          for i,elem in ipairs(res) do
 	        	    print(elem)
 	            end
 	          else
+	            historique[ligne].monnaie = res
               print(det,ligne, "a comme monnaie :", res)
 					  end
   			end
 
-	  		if #question["#langue"] ~= 0 then
+	  		if #question["#langue"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "langue") then
 		  			ligne = question:tag2str("#nomPays")[1]
 			  		colonne = "langue"
+					  focusChamps = "langue"
 				  	local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -524,17 +196,20 @@ function getInput()
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
               print(det,ligne, "a plusieurs langues officielles qui sont :")
+	            historique[ligne].langue = res
   	          for i,elem in ipairs(res) do
 	        	    print(elem)
 	            end
 	          else
+	            historique[ligne].langue = res
               print(det,ligne, "a comme langue officielle :", res)
 					  end
   			end
 
-  			if #question["#paysFrontaliers"] ~= 0 then
+  			if #question["#paysFrontaliers"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "paysFrontaliers") then
 	  				ligne = question:tag2str("#nomPays")[1]
 		  			colonne = "paysFrontaliers"
+					  focusChamps = "paysFrontaliers"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -543,6 +218,7 @@ function getInput()
 			  		elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+	            historique[ligne].paysFrontaliers = res
               if(det == "Le") then
                 print("Les pays frontaliers du",ligne, "sont :")
   	            for i,elem in ipairs(res) do
@@ -556,13 +232,15 @@ function getInput()
 	              end
               end
 	          else
+	            historique[ligne].paysFrontaliers = res
               print(det,ligne, "a un seul pays frontalier :", res)
 					  end
 			  end
 
-  			if #question["#autreNoms"] ~= 0 then
+  			if #question["#autreNoms"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "autreNoms") then
 	  				ligne = question:tag2str("#nomPays")[1]
 		  			colonne = "autreNoms"
+					  focusChamps = "autreNoms"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -571,6 +249,7 @@ function getInput()
 			  		elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+	            historique[ligne].autreNoms = res
               if det == "Le" then
                 print("Les autres noms du",ligne, "sont :")
 	              for i,elem in ipairs(res) do
@@ -583,13 +262,15 @@ function getInput()
 	              end
               end
 	          else
+	            historique[ligne].autreNoms = res
               print(det,ligne, "a comme autre nom:", res)
 					  end
 			  end
 
-  			if #question["#colonisateur"] ~= 0 then
+  			if #question["#colonisateur"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "colonisateur") then
 	  				ligne = question:tag2str("#nomPays")[1]
 		  			colonne = "colonisateur"
+					  focusChamps = "colonisateur"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -598,6 +279,7 @@ function getInput()
 			  		elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+	            historique[ligne].colonisateur = res
               if det == "Le" then
                print("Les colonisateurs du",ligne, "sont :")
 	              for i,elem in ipairs(res) do
@@ -610,13 +292,15 @@ function getInput()
   	            end
               end
 	          else
+	            historique[ligne].colonisateur = res
               print(det,ligne, "a été colonisé par :", res)
 				  	end
 			  end
 
-  			if #question["#revolution"] ~= 0 then
+  			if #question["#revolution"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "revolution") then
 	  				ligne = question:tag2str("#nomPays")[1]
 		  			colonne = "revolution"
+					  focusChamps = "revolution"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -625,18 +309,21 @@ function getInput()
 			  		elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+	            historique[ligne].revolution = res
               print(det,ligne, "a connu plusieurs révolutions à savoir:")
 	            for i,elem in ipairs(res) do
 	      	      print(elem)
   	          end
 	          else
+	            historique[ligne].revolution = res
               print(det,ligne, "a connu une révolution à savoir :", res)
 			  		end
 			  end
 
-  			if #question["#independance"] ~= 0 then
+  			if #question["#independance"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "independance") then
 	  				ligne = question:tag2str("#nomPays")[1]
 		  			colonne = "independance"
+					  focusChamps = "independance"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -645,6 +332,7 @@ function getInput()
 					  elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+	            historique[ligne].independance = res
               print(det,ligne, "a connu plusieurs dates d'indépendance à savoir :")
   	          for i,elem in ipairs(res) do
 	        	    for j,elm in ipairs(elem) do
@@ -652,6 +340,7 @@ function getInput()
   	            end
 	            end
 	          else
+	            historique[ligne].independance = res
               print(det,ligne, "a eu son indépendance le :", res)
 					  end
 			  end
@@ -660,39 +349,56 @@ function getInput()
 
 
 
+      -- Si dans la question on a un lexique de pays(voir lexicon)
       elseif #question["#pays"] ~= 0 then
 
+        -- Vérifier toutes les infoName d'abord
 	  	  if #question["#capitale"] ~= 0 then
 	  	    valeur = question:tag2str("#question", "#infoName")[1]
-			    colonne = "capitale"
-  			  local res = getCountryName(colonne, valeur)
+	  	    if valeur == nil then
+	  	      print("Le nom donné doit commencer par une majuscule. ")
+	  	    else
+			      colonne = "capitale"
+					  focusChamps = "capitale"
+  			    local res = getCountryName(colonne, valeur)
 
-	  		  if #res == 0 then
+  	  		  if #res == 0 then
             	print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
-	  	  	else
-	  	  	  table.insert(historique, res[1])
-		        det = getDeterminant(res[1])
-	 			    if det == "Le" then
-           		print(valeur,"est la capitale du", res[1])
-           	else
-           		print(valeur,"est la capitale de",det,res[1])
-          	end
-		      end
+	    	  	else
+  	    	  	table.insert(profondeur, 1, res[1])
+	    	  	  if(historique[res[1]] == nil) then
+  	    	  	  historique[res[1]] = {}
+              end
+              historique[res[1]].capitale = valeur
+		          det = getDeterminant(res[1])
+	 			      if det == "Le" then
+             		print(valeur,"est la capitale du", res[1])
+           	  else
+           		  print(valeur,"est la capitale de",det,res[1])
+          	  end
+		        end
+
+	  	    end
         end
 
 
     		if #question["#guerre"] ~= 0 then
 		    	local guerre = question:tag2str("#Guerre")[1]
 			    colonne="guerre"
+				  focusChamps = "guerre"
 			    local res=getCountryFromTable(colonne, guerre)
 
     			if res ~= nil then
 		    		if  #res == 0 then
 	          	print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
 		  	  	else
-	  	  	    table.insert(historique, res[1])
 		 	  	    print("Les pays sont:")
 		          for k,v in pairs(res) do
+    	    	  	table.insert(profondeur, 1, res[k])
+	      	  	  if(historique[res[k]] == nil) then
+    	    	  	  historique[res[k]] = {}
+                end
+                historique[res[k]].guerre = guerre
 			        	print(res[k])
 			        end
 			    	end
@@ -701,76 +407,114 @@ function getInput()
 
         if #question["#continent"] ~= 0 then
 				  valeur = question:tag2str("#question", "#infoName")[1]
-			    colonne = "continent"
-  			  local res = getCountryName(colonne, valeur)
+				  if valeur == nil then
+	  	      print("Le nom donné doit commencer par une majuscule. ")
+	  	    else
+  			    colonne = "continent"
+					  focusChamps = "continent"
+    			  local res = getCountryName(colonne, valeur)
 
-	  		  if #res == 0 then
-            print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
-			    else
-            print("Les pays du continent", valeur,"sont:")
-	            for i,elem in ipairs(res) do
-    		        det = getDeterminant(elem)
-	      	      print(det,elem)
-    	  	  	  table.insert(historique, elem)
-  	          end
+	    		  if #res == 0 then
+              print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
+			      else
+              print("Les pays du continent", valeur,"sont:")
+	              for i,elem in ipairs(res) do
+	        	  	  if(historique[elem] == nil) then
+      	    	  	  historique[elem] = {}
+                  end
+      	    	  	table.insert(profondeur, 1, elem)
+                  historique[elem].continent = valeur
+    		          det = getDeterminant(elem)
+	      	        print(det,elem)
+  	            end
+			      end
 			    end
 			  end
 
         if #question["#monnaie"] ~= 0 then
 				  valeur = question:tag2str("#question", "#infoName")[1]
-          valeur = valeur:lower()
-		  		colonne = "monnaie"
-  			  local res = getCountryName(colonne, valeur)
+				  if valeur == nil then
+	  	      print("Le nom donné doit commencer par une majuscule. ")
+	  	    else
+            valeur = valeur:lower()
+	  	  		colonne = "monnaie"
+					  focusChamps = "monnaie"
+  	  		  local res = getCountryName(colonne, valeur)
 
-          if #res == 0 then
-            print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
-	  	  	elseif #res == 1 then
-	  	  	  table.insert(historique, res[1])
-		        det = getDeterminant(res[1])
-	 		      print("Un seul pays a comme monnaie",valeur,",c'est",det,res[1])
-	  	  	else
-		        det = getDeterminant(res[1])
-		        print("Les pays qui ont", valeur,"comme monnaie sont:")
-	            for i,elem in ipairs(res) do
-    		        det = getDeterminant(elem)
-	      	      print(det,elem)
-    	  	  	  table.insert(historique, elem)
-  	          end
+            if #res == 0 then
+              print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
+	  	    	elseif #res == 1 then
+	    	  	  historique[res[1]] = {}
+              historique[res[1]].monnaie = valeur
+		          det = getDeterminant(res[1])
+	 		        print("Un seul pays a comme monnaie",valeur,",c'est",det,res[1])
+	  	  	  else
+		          det = getDeterminant(res[1])
+		          print("Les pays qui ont", valeur,"comme monnaie sont:")
+	              for i,elem in ipairs(res) do
+    		          det = getDeterminant(elem)
+  	      	      print(det,elem)
+	        	  	  if(historique[elem] == nil) then
+      	    	  	  historique[elem] = {}
+                  end
+      	    	  	table.insert(profondeur, 1, elem)
+                  historique[elem].monnaie = valeur
+  	            end
+			      end
 			    end
   			end
 
         if #question["#langue"] ~= 0 then
 				  valeur = question:tag2str("#question", "#infoName")[1]
-          valeur = valeur:lower()
-		  		colonne = "langue"
-  			  local res = getCountryName(colonne, valeur)
+				  if valeur == nil then
+	  	      print("Le nom donné doit commencer par une majuscule. ")
+	  	    else
+            valeur = valeur:lower()
+	  	  		colonne = "langue"
+					  focusChamps = "langue"
+  	  		  local res = getCountryName(colonne, valeur)
 
-          if #res == 0 then
-            print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
-	  	  	elseif #res == 1 then
-	  	  	  table.insert(historique, res[1])
-		        det = getDeterminant(res[1])
-	 		      print("Un seul pays a comme langue",valeur,",c'est",det,res[1])
-	  	  	else
-		        det = getDeterminant(res[1])
-		        print("Les pays qui ont", valeur,"comme langue sont:")
-	            for i,elem in ipairs(res) do
-    		        det = getDeterminant(elem)
-	      	      print(det,elem)
-    	  	  	  table.insert(historique, elem)
-  	          end
-			    end
-  			end
+            if #res == 0 then
+              print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
+	    	  	elseif #res == 1 then
+	    	  	  historique[res[1]] = {}
+              historique[res[1]].langue = valeur
+		          det = getDeterminant(res[1])
+	 		        print("Un seul pays a comme langue",valeur,",c'est",det,res[1])
+	  	  	  else
+		          det = getDeterminant(res[1])
+  		        print("Les pays qui ont", valeur,"comme langue sont:")
+	              for i,elem in ipairs(res) do
+      		        det = getDeterminant(elem)
+	        	      print(det,elem)
+	        	  	  if(historique[elem] == nil) then
+      	    	  	  historique[elem] = {}
+                  end
+      	    	  	table.insert(profondeur, 1, elem)
+                  historique[elem].langue = valeur
+  	            end
+			      end
+  			  end
+        end
 
 
 
 
       else
-        if #historique ~= 0  then
-          ligne = historique[#historique]
+        local cpt = 0
+        local focus
+        for k,v in pairs(historique) do
+          cpt = cpt+1
+          focus = k
+        end
+        if cpt ~= 0  then
+          ligne = focus
+   	  	  --historique[ligne] = {}
+ 	    	  	table.insert(profondeur, 1, ligne)
 
           if #question["#capitale"] ~= 0 then
 					  colonne = "capitale"
+					  focusChamps = "capitale"
 					  local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -779,17 +523,20 @@ function getInput()
 					  elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+              historique[ligne].capitale = res
               print(det,ligne, "a comme capitales : ")
 	            for i,elem in ipairs(res) do
 	      	      print(elem)
 	            end
 	          else
+              historique[ligne].capitale = res
               print(det,ligne, "a", res, "pour capitale")
 					  end
 			    end
 
 			    if #question["#continent"] ~= 0 then
 					  colonne = "continent"
+					  focusChamps = "continent"
 					  local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -798,17 +545,20 @@ function getInput()
 		  			elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+              historique[ligne].continent = res
               print(det,ligne, "est sur plusieurs contients à savoir : ")
 	            for i,elem in ipairs(res) do
 	      	      print(elem)
   	          end
 	          else
+              historique[ligne].continent = res
               print(det,ligne, "appartient au continent", res)
 			  		end
 			    end
 
   			  if #question["#guerre"] ~= 0 then
 		  			colonne = "guerre"
+					  focusChamps = "guerre"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -817,17 +567,20 @@ function getInput()
 			  		elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+              historique[ligne].guerre = res
               print(det,ligne, "a connu plusieurs guerres. Voici la liste :")
 	            for i,elem in ipairs(res) do
 	        	    print(elem)
 	            end
 	          else
+              historique[ligne].guerre = res
               print(det,ligne, "a connu une seule guerre qui est:", res)
 					  end
 			    end
 
   			  if #question["#superficie"] ~= 0 then
 		  			colonne = "superficie"
+					  focusChamps = "superficie"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -836,11 +589,13 @@ function getInput()
 			  		elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+              historique[ligne].superficie = res
               print(det,ligne, "a plusieurs superficies qui sont :")
   	          for i,elem in ipairs(res) do
 	        	    print(elem)
 	            end
 	          else
+              historique[ligne].superficie = res
               if det == "Le" then
                 print("La superficie du", ligne,"est de:",res)
               else
@@ -851,12 +606,14 @@ function getInput()
 
 			    if #question["#population"] ~= 0 then
 		  			colonne = "population"
+					  focusChamps = "population"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
 	  				if res == 0 then
               print("Désolé, je n'ai pas cette information")
 			  		elseif res == -1 then
+              historique[ligne].population = res
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
               print(det,ligne, "a plusieurs nombre d'habitants à savoir :")
@@ -864,6 +621,7 @@ function getInput()
 	        	    print(elem)
 	            end
 	          else
+              historique[ligne].population = res
               if det == "Le" then
                 print("Le nombre d'habitants du", ligne,"est de:",res)
               else
@@ -874,6 +632,7 @@ function getInput()
 
   			  if #question["#monnaie"] ~= 0 then
 		  			colonne = "monnaie"
+					  focusChamps = "monnaie"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -882,17 +641,20 @@ function getInput()
 			  		elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+              historique[ligne].monnaie = res
               print(det,ligne, "utilise plusieurs monnaies qui sont :")
   	          for i,elem in ipairs(res) do
 	        	    print(elem)
 	            end
 	          else
+              historique[ligne].monnaie = res
               print(det,ligne, "a comme monnaie :", res)
 					  end
   			  end
 
 	  		  if #question["#langue"] ~= 0 then
 			  		colonne = "langue"
+					  focusChamps = "langue"
 				  	local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -901,17 +663,20 @@ function getInput()
 			  		elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+              historique[ligne].langue = res
               print(det,ligne, "a plusieurs langues officielles qui sont :")
   	          for i,elem in ipairs(res) do
 	        	    print(elem)
 	            end
 	          else
+              historique[ligne].langue = res
               print(det,ligne, "a comme langue officielle :", res)
 					  end
   			  end
 
   			  if #question["#paysFrontaliers"] ~= 0 then
 		  			colonne = "paysFrontaliers"
+					  focusChamps = "paysFrontaliers"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -920,6 +685,7 @@ function getInput()
 			  		elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+              historique[ligne].paysFrontaliers = res
               if(det == "Le") then
                 print("Les pays frontaliers du",ligne, "sont :")
   	            for i,elem in ipairs(res) do
@@ -933,12 +699,14 @@ function getInput()
 	              end
               end
 	          else
+              historique[ligne].paysFrontaliers = res
               print(ligne, "a un seul pays frontalier :", res)
 					  end
 			    end
 
   			  if #question["#autreNoms"] ~= 0 then
 		  			colonne = "autreNoms"
+					  focusChamps = "autreNoms"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -947,6 +715,7 @@ function getInput()
 			  		elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+              historique[ligne].autreNoms = res
               if det == "Le" then
                 print("Les autres noms du",ligne, "sont :")
 	              for i,elem in ipairs(res) do
@@ -959,12 +728,14 @@ function getInput()
 	              end
               end
 	          else
+              historique[ligne].autreNoms = res
               print(ligne, "a comme autre nom:", res)
 					  end
 			    end
 
   			  if #question["#colonisateur"] ~= 0 then
 		  			colonne = "colonisateur"
+					  focusChamps = "colonisateur"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -973,6 +744,7 @@ function getInput()
 			  		elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+              historique[ligne].colonisateur = res
               if det == "Le" then
                print("Les colonisateurs du",ligne, "sont :")
 	              for i,elem in ipairs(res) do
@@ -985,12 +757,14 @@ function getInput()
   	            end
               end
 	          else
+              historique[ligne].colonisateur = res
               print(ligne, "a été colonisé par :", res)
 				  	end
 			    end
 
   			  if #question["#revolution"] ~= 0 then
 		  			colonne = "revolution"
+					  focusChamps = "revolution"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -999,17 +773,20 @@ function getInput()
 			  		elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+              historique[ligne].revolution = res
               print(det,ligne, "a connu plusieurs révolutions à savoir:")
 	            for i,elem in ipairs(res) do
 	      	      print(elem)
   	          end
 	          else
+              historique[ligne].revolution = res
               print(det,ligne, "a connu une révolution à savoir :", res)
 			  		end
 			    end
 
   			  if #question["#independance"] ~= 0 then
 		  			colonne = "independance"
+					  focusChamps = "independance"
 			  		local res = getFromCountry(ligne, colonne)
 					  local det = getDeterminant(ligne)
 
@@ -1018,6 +795,7 @@ function getInput()
 					  elseif res == -1 then
               print("Désolé, je ne comprends pas de quel pays vous parlez")
             elseif type(res) == "table" then
+              historique[ligne].independance = res
               print(det,ligne, "a connu plusieurs dates d'indépendance à savoir :")
   	          for i,elem in ipairs(res) do
 	        	    for j,elm in ipairs(elem) do
@@ -1025,6 +803,7 @@ function getInput()
   	            end
 	            end
 	          else
+              historique[ligne].independance = res
               print(det,ligne, "a eu son indépendance le :", res)
 					  end
 			    end
@@ -1038,7 +817,11 @@ function getInput()
 
 
     elseif #question["#questionComparaison"] ~= 0 then
-        if #historique ~= 0  then
+        local cpt = 0
+        for k,v in pairs(historique) do
+          cpt = cpt+1
+        end
+        if cpt ~= 0  then
           tableau = historique
 
           if #question["#superficie"] ~= 0 and (#question["#min"] ~= 0 or #question["#max"] ~= 0) then
@@ -1048,6 +831,7 @@ function getInput()
 	  				  comp = "max"
 	          end
 		  			colonne = "superficie"
+					  focusChamps = "superficie"
 
 			  		local res = getFromComparison(tableau, colonne, comp)
 
@@ -1069,6 +853,7 @@ function getInput()
 	  				  comp = "max"
 	          end
 		  			colonne = "population"
+					  focusChamps = "population"
 
 			  		local res = getFromComparison(tableau, colonne, comp)
 
@@ -1092,7 +877,7 @@ function getInput()
         end
 
 
-      elseif #question["#questionBinaire"] ~= 0 then
+    elseif #question["#questionBinaire"] ~= 0 then
           local payConsultant
           local champConsultant
           local result
@@ -1132,9 +917,9 @@ function getInput()
                     minPay = payNum
                     payConsultant = v
                   end
-              end    
+              end
             end
-            if string.find(info1,payConsultant) ~= nil then 
+            if string.find(info1,payConsultant) ~= nil then
               info = info2
             else
               info = info1
@@ -1145,25 +930,25 @@ function getInput()
               count = count+1
             end
             if count==0 then
-              print("C'est un question tres difficile. Franchement je ne sait pas")
+              print("C'est un question tres difficile. Franchement je ne sais pas")
             else
               for i,v in ipairs(result) do
                 if v==string.lower(info) and flag~=1 then
-                  flag=1  
+                  flag=1
                   print("oui, Vous etes tres intelligent")
                 elseif string.find(string.lower(info),v) ~= nil then
                   flag=1
-                  print("oui,", v,"C'est bon")              
+                  print("oui,", v,"C'est bien ça")
                 end
               end
             end
             if(flag==0) then
-                print("Non, c'est pas comme ca")
+                print("Non, ce n'est pas vrai")
             end
           else
-            print("Je comprends pas la qustion")    
+            print("Je ne comprends pas la qustion")
           end
-          
+
 
 
 
@@ -1279,30 +1064,3 @@ end
 
 
 getInput()
-
---[[
-
-    elseif #question["#questionPays"] ~= 0 then
-
-
-      if #question["#capitale"] ~= 0 then
-			  valeur = question:tag2str("#questionPays", "#infoName")[1]
-			  colonne = "capitale"
-			  local res = getCountryName(colonne, valeur)
-
-				if #res == 0 then
-           print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
-				else
-	  	    det = getDeterminant(res[1])
-	  			if det == "Le" then
-            print(valeur,"est la capitale du", res[1])
-             else
-                print(valeur,"est la capitale de",det,res[1])
-              end
-					  end
-			  end
-
-
-      end
-
-]]

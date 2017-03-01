@@ -1,325 +1,7 @@
 dark = require("dark")
 
-function table.contains(table, element)
-  for _, value in pairs(table) do
-    if value == element then
-      return true
-    end
-  end
-  return false
-end
-
-function transformPoste(poste)
-	if poste =="président"
-	  then
-	  	poste = poste.." de la République"
-	  end 
-
-	  return poste
-	end
-
-
-
-function NotPoint(seq, pos)
-	return (seq[pos].token ~= "." and seq[pos].token ~= "!" and seq[pos].token ~= "?" and seq[pos].token ~= "^")
-end
-
-
-function datePreTraite(myDate)
-	t = {}
-	str = ""
-	for w in string.gmatch(myDate, "%S+") do     --按照“,”分割字符串
-    	if w~="en" and w~="le" and w~="années" then
-    		str = str..w
-    		str = str.." "
-    	end
-	end
-	return str
-
-end
-
-
-local tags = {
-	["#nomPays"] = "yellow",
-	["#focus"] = "yellow",
-	["#autreNoms"] = "red",
-	["#coupEtat"] = "green",
-	["#capitale"] = "white",
-	["#langue"] = "magenta",
-	["#monnaie"] = "magenta",
-	["#personne"] = "magenta",
-	["#revolution"] = "magenta",
-	["#date"] = "blue",
-	["#number"] = "blue",
-	["#population"] = "white",
-	["#continent"] = "red",
-	["#superficie"] = "blue",
-	["#organisation"] = "white",
-	["#paysFrontaliers"] = "white",
-	["#independance"] = "red",
-	["#determinant"] = "red",
-	["#Guerre"] = "red",
-	["#poste"] = "blue",
-	["#personnage"] ="white",
-	["#personnage2"] ="yellow",
-	["#personnage3"] ="blue",
-	["#evenement"] = "red",
-	["#colonisateur"] = "white",
-	["#gentiles"] = "green"
-}
-
-local pipe = dark.pipeline()
-pipe:basic()
-
-pipe:model("../model-2.3.0/postag-fr")
-pipe:lexicon("#nomPays", "lex/nomPays.txt")
-pipe:lexicon("#paysColonisateur", "lex/nomPaysAdjectif.txt")
-pipe:lexicon("#gentiles", "lex/gentiles.txt")
-pipe:lexicon("#prenom", "lex/prenoms.txt")
-pipe:lexicon("#personne", "lex/personnages.txt")
-pipe:lexicon("#continentName", {"Afrique", "Amérique", "Asie", "Europe", "Océanie"})
-pipe:lexicon("#mois", {"janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"})
-pipe:lexicon("#pointsCardinaux", {"nord", "sud", "ouest", "est"})
-pipe:lexicon("#ocean", {"océan Pacifique", "océan Atlantique", "océan Indien", "océan Arctique"})
-pipe:lexicon("#colonie",{"colonie","colonisateur","colonialisme","colonisation","colonial","coloniale"})
-pipe:lexicon("#articleIndefini",{"du","de la ","de","des"})
-pipe:lexicon("#poste",{"roi","duc","grand duc","reine","prince","sénateur","député","président de la république ","président de la République ","secrétaire général","président","premier ministre","Premier ministre","ministre","chef du gouvernement","général","empereur"})
-
-
--- Pattern pour détecter une personne en utilisant le lexique des prénoms
-pipe:pattern([[
-	[#personne
-		#prenom [#nom ( /^%u/ /^%u/ | /^%u/ ) ]
-	]
-]])
-
--- Pattern pour détecter un nombre
-pipe:pattern([[
-	[#number
-    #d ((#d)+ | ("," #d)?)
-	]
-]])
-
--- Pattern pour détecter le déterminant d'un pays
-pipe:pattern([[
-	[#determinant
-    [#det ("La" | "Le" | "L" "'" | "Les")] #nomPays
-	]
-]])
-
--- Pattern pour les autres noms(forme plus longues) d'un pays
-pipe:pattern([[
-	[#autreNoms
-    (
-      "République"
-      |
-      "Royaume"
-      |
-      "Principauté"
-    )
-    ("populaire" | "démocratique" | "coopérative")? ("de" | "du" | "d" "'" | ) (#nomPays | #POS=ADJ)
-	]
-]])
-
-
--- Pattern pour détecter le continent d'un pays
-pipe:pattern([[
-	[#continent
-    ("est" "un" "pays" "d" "'" #continentName) |
-    (#nomPays {0,20}?  "pays" {0,10} #continentName )
-	]
-]])
-
-
--- Pattern pour détecter une date
-pipe:pattern([[
-	[#date
-		[#jour  #d ] ?
-		(
-			"/" [#mois  #d ] "/"
-			|
-			#mois
-		)
-		[#annee #d ]
-	]
-]])
-
-
--- Pattern pour détecter la capitale d'un pays
-pipe:pattern([[
-	[#capitale
-    (
-    "capitale" ("fédérale" | "officielle" | "du" "pays" | "du" "royaume" | ("du" | "de" "la" | "de" "l" "'" ) #nomPays)?
-    ("et" ("sa" | ) "plus" "grande" "ville" | "est" "la" "ville" "d" "'" | "politique" "et" "administrative")?
-    ("est" | "en" | "," | "à" | )? [#name ( /^%u/ "-" /^%l/ "-" /^%u/ | /^%u/ "-" /^%u/ | /^%u/ "'" /^%u/ | /^%u/ /^%u/ | /^%u/)]
-	  )
-	  |
-	  (
-      [#name ( /^%u/ "-" /^%u/ | /^%u/ "'" /^%u/ | /^%u/ /^%u/ | /^%u/)] ("en" "est" | "est" | "pour") ("sa" | "la")*? "capitale"
-	  )
-	]
-]])
-
-
--- Pattern pour détecter la langue parlée par un pays
-pipe:pattern([[
-	[#langue
-    "langue" ("officielle" | "nationale" | "principale") (("du" | "de" "la" | "des") #nomPays)?
-    ("est" | ",")? ("le" | "l" "'" | "la")? ([#name (#POS=ADJ| #POS=NNC)])
-    |
-    [#name (#POS=ADJ| #POS=NNC)] ("est" | "étant" "proclamé")? ("la")? "langue" ("officielle" | "nationale")
-	]
-]])
-
-
--- Pattern pour détecter la monnaie utilisée dans un pays
-pipe:pattern([[
-	[#monnaie
-    "monnaie" ("officielle" | "nationale")? ("est"| "était" | ",")? [#name ("le" | "l" "'" | "la") (/^%l/ /^%l/ "-" /^%l/ |/^%l/ /^%l/ | /^%l/)?]
-    |
-    [#name ("le" | "Le" | "La" | "l" "'" | "L" "'" | "la") (/^%l/ /^%l/ | /^%l/)?] ("est" | "était") ("adopté" "comme" | "resté"| "déjà")? ("sa" | "la")? "monnaie"
-	]
-]])
-
-
--- Pattern pour détecter la population habitant d'un pays
-pipe:pattern([[
-	[#population
-    (#nomPays ("comptait" | "compte" | "comptent") | "Peuplée" | "peuplé" | "peuplée" | "peuplé"
-    |
-    ("sa"| "Sa" | "La" | "la") "population" | "Y" "résident" | "Avec")
-    (/./)* [#nombre  #number ("millions")?]  ("habitants" | "d" "'" "habitants")
-	]
-]])
-
-
--- Pattern pour détecter la superficie d'un pays
-pipe:pattern([[
-	[#superficie
-    "superficie" .+? [#sup  #number ("km" | "kilomètres" | "millions" "de" "km")]
-	]
-]])
-
-
--- Pattern pour détecter les organisations auxquelles appartient d'un pays
-pipe:pattern([[
-	[#organisation
-    ("fait" "partie" | "a" "intégré" | "a" "rejoint" | "est" "membre")
-    ("de" | "de" "la" | "du" | "la" | "le" | "l" "'" | )  [#nomOrga #POS=NNP]
-	]
-]])
-
-
--- Pattern pour détecter les pays frontaliers d'un pays
-pipe:pattern([[
-  [#paysFrontaliers
-    (("entouré" | "entourée" | "bordé" | "encadré" | "délimité"| "bordée" | "encadrée" | "délimitée"
-    |
-    "Entouré" | "Entourée" | "Bordé" | "Encadré" | "Délimité"| "Bordée" | "Encadrée" | "Délimitée") ("par" | "à")?
-    |
-    "a" "comme" "voisins" | "frontières" ("terrestres")? "avec") .+? "."
-  ]
-]])
-
-
--- Pattern pour détecter les personnages (fonction en rapport à une personne)
-pipe:pattern([[
-	  [#personnage
-	   		(#personne .{0,8}? #poste 	#articleIndefini  #nomPays ) |
-	   		(#poste #articleIndefini  #nomPays .{0,8}?   #personne	) |
-	   		(#poste #personne #articleIndefini  #nomPays ) |
-	   		(#personne  .{0,8}?  "élu" #poste .{0,8}? #nomPays )
-	  ]
-]])
-
-
--- Pattern pour détecter les personnages (fonction en rapport à une personne)
-pipe:pattern([[
-	  [#personnage3
-	   		(#poste #gentiles  .{0,1}?  #personne ) | (#personne .{0,1}?  #poste #gentiles )
-	  ]
-]])
-
-
--- Pattern pour détecter les personnages (fonction en rapport à une personne)
-pipe:pattern([[
-	  [#personnage2
-	   		(#poste .{0,15}? #personne ) | (#personne .{0,15}? #poste )
-	  ]
-]])
-
-
--- Pattern pour détecter les révolutions ayant eu lieu et la date
-pipe:pattern([[
-  [#revolution
-  	@NotPoint*? [#time ("le" #date)|(("en"|"années") #number)] .*? ("révolution" | "Révolution"|"révolte"|"Révolte").*? ("." | $ | "!" | "?")
-  	|
-  	@NotPoint*? ("révolution" | "Révolution"|"révolte"|"Révolte") .*? [#time ("le" #date)|(("en"|"années") #number)] .*? ("." | $ | "!" | "?")
-  ]
-]])
-
-
--- Pattern pour détecter les guerres ayant eu lieu
-pipe:pattern([[
-	[#Guerre
-    	("la" | "La" | (/^%u/)) 
-    	(/^%u/)* 
-    	("et")* 
-    	(/^%u/)* 
-    	("Guerre" | "guerre") 
-    	("civile")?
-    	( ((("d") ("'") (/./)) | ((/./) ("-") (/./))) | ((("de") | ("du") | ("des") | ("en")) (/^%u/)+) | ((#POS=ADJ) | (#POS=VRB) | ("civile"))  )
-    	
-    ]
-]])
-
-
-pipe:pattern([[
-	[#evenement
-		@NotPoint*? [#time ("le" #date)|(("en"|"années") #number)] .*? ("." | $ | "!" | "?")
-	]
-]])
-
-
--- Pattern pour détecter un colonisateur en rapport à un évènement d'indépendance
-pipe:pattern([[
-	[#colonisateur
-		(#colonie .*? (#paysColonisateur)+)
-		|
-		((#paysColonisateur).*?#colonie)
-		|
-		("contre" .*? (#paysColonisateur)+)
-	]
-]])
-
-
--- Pattern pour détecter une date d'indépendance
-pipe:pattern([[
-	[#independance
-		(
-			@NotPoint*?
-			(
-				("un" ("État"|"état") "indépendant")
-				|"fondation" [#pays (("le" | "la" | "l" "'") #nomPays)]
-				|("devient"|"est"|"soit"|"était") ("indépendante"|"independant")
-				|(("l" "'")|"son") "indépendance"
-				|"à" "la" "pleine" "souveraineté"
-			)
-			@NotPoint*?[#time ("le" #date)|(("en"|"années") #number)].*? ("." | $ | "!" | "?")
-		)
-		|
-		(
-			@NotPoint*?[#time ("le" #date)|(("en"|"années") #number)]@NotPoint*?
-			(
-				"un" ("État"|"état") "indépendant"
-				|"fondation" [#pays (("du" | "de" "la" | "des"| "de" "l" "'") #nomPays)]
-				|("devient"|"est"|"soit"|"était") ("indépendante"|"independant")
-				|(("l" "'")|"son") "indépendance"
-				|"à" "la" "pleine" "souveraineté"
-			).*? ("." | $ | "!" | "?")
-		)
-	]
-]])
+dofile("common.lua")
+dofile("fonctions.lua")
 
 
 
@@ -337,7 +19,7 @@ for fichier in os.dir("country_update") do
 	pays.evenement = {}
 	pays.autreNoms = {}
 	pays.paysFrontaliers = {}
-	
+
 
 
 	for line in io.lines("country_update/"..fichier) do
@@ -358,7 +40,7 @@ for fichier in os.dir("country_update") do
       end
 
       if not pays.nom then
-        if curCountry ~= 0 
+        if curCountry ~= 0
         	then
 				pays.nom = curCountry
 			end
@@ -381,13 +63,13 @@ for fichier in os.dir("country_update") do
 			  pays.determinant = seq:tag2str("#determinant", "#det")[1]
 			end
 
-      if #seq["#continent"] ~= 0 
+      if #seq["#continent"] ~= 0
       		then
       			if not pays.continent
       			 then
       			    pays.continent = seq:tag2str("#continent", "#continentName")[1]
       			end
-			 
+
 			end
 
 			if #seq["#capitale"] ~= 0 then
@@ -426,29 +108,29 @@ for fichier in os.dir("country_update") do
         end
 			end
 
-        if #seq["#personnage"] ~= 0 
+        if #seq["#personnage"] ~= 0
       	 then
       	 	nom  =  seq:tag2str("#personnage","#personne")[1]
       	 	country = gentiles_country[seq:tag2str("#personnage","#nomPays")[1] ]
-    
+
       	 	if(not personnages[nom])
       	 		then
-      	 		  personnage = {	         
+      	 		  personnage = {
 			          ["fonction"] = {},
 			          ["paysPersonnage"] = country,
 			          ["paysLiens"] = {}
 	      		 }
-	      		 
+
 	      		 table.insert(personnage["fonction"] ,  transformPoste(seq:tag2str("#personnage","#poste")[1]))
 	        	  if country ~= curCountry then
 	        	     table.insert(personnage["paysLiens"] , curCountry  )
 	        	 end
-	        	
-	        	 personnages[nom]= personnage 
+
+	        	 personnages[nom]= personnage
       	 	else
-      	 	 
+
       	 	 local fonction = transformPoste(seq:tag2str("#personnage","#poste")[1])
-      	 	  if table.contains(personnages[nom]["fonction"], fonction) == false 
+      	 	  if table.contains(personnages[nom]["fonction"], fonction) == false
         			then
         				table.insert(personnages[nom]["fonction"] , fonction  )
         		end
@@ -459,35 +141,35 @@ for fichier in os.dir("country_update") do
 	    				personnages[nom]["paysPersonnage"] = country
 	    	 end
 
-      	 	 if  table.contains(personnages[nom]["paysLiens"], curCountry) == false 
+      	 	 if  table.contains(personnages[nom]["paysLiens"], curCountry) == false
       	 	  then
       	 	    table.insert(personnages[nom]["paysLiens"] , curCountry  )
       	 	 end
-	       
+
 	     end
 
-	    if  #seq["#personnage3"] ~= 0 
+	    if  #seq["#personnage3"] ~= 0
 	     then
-	     	country = gentiles_country[seq:tag2str("#personnage3","#gentiles")[1]] 
+	     	country = gentiles_country[seq:tag2str("#personnage3","#gentiles")[1]]
 	        nom  =  seq:tag2str("#personnage3","#personne")[1]
       	 	if(not personnages[nom])
       	 		then
-      	 		  personnage = {	         
+      	 		  personnage = {
 			          ["fonction"] = {},
 			          ["paysPersonnage"] = country ,
 			          ["paysLiens"] = {}
 	      		 }
-	      		 
-	      		 table.insert(personnage["fonction"] , transformPoste( seq:tag2str("#personnage3","#poste")[1] ) ) 
+
+	      		 table.insert(personnage["fonction"] , transformPoste( seq:tag2str("#personnage3","#poste")[1] ) )
 	        	 if country ~= curCountry then
 	        	     table.insert(personnage["paysLiens"] , curCountry  )
 	        	 end
-	        	
-	        	 personnages[nom]= personnage 
+
+	        	 personnages[nom]= personnage
       	 	else
-      	 	  
+
       	 	  local fonction = transformPoste(seq:tag2str("#personnage3","#poste")[1])
-      	 	  if table.contains(personnages[nom]["fonction"], fonction) == false 
+      	 	  if table.contains(personnages[nom]["fonction"], fonction) == false
         			then
         				table.insert(personnages[nom]["fonction"] , fonction  )
         	  end
@@ -496,13 +178,13 @@ for fichier in os.dir("country_update") do
 	    				personnages[nom]["paysPersonnage"] = country
 	    	 end
 
-      	 	 if table.contains(personnages[nom]["paysLiens"], curCountry) == false 
+      	 	 if table.contains(personnages[nom]["paysLiens"], curCountry) == false
       	 	  then
       	 	    table.insert(personnages[nom]["paysLiens"] , curCountry  )
       	 	 end
 
       	 	 end
-		         
+
 	     end
 
 	    if  #seq["#personnage2"] ~= 0
@@ -510,33 +192,33 @@ for fichier in os.dir("country_update") do
         	nom  =  seq:tag2str("#personnage2","#personne")[1]
       	 	if(not personnages[nom])
       	 		then
-      	 		  personnage = {	         
+      	 		  personnage = {
 			          ["fonction"] = {},
 			          ["paysLiens"] = {}
 	      		 }
-	      		 
+
 	      		 table.insert(personnage["fonction"] , transformPoste( seq:tag2str("#personnage2","#poste")[1] ))
 	        	 table.insert(personnage["paysLiens"] , curCountry  )
-	        	 personnages[nom]= personnage 
+	        	 personnages[nom]= personnage
       	 	else
       	 	 local fonction =  transformPoste(seq:tag2str("#personnage2","#poste")[1])
-      	 	 if table.contains(personnages[nom]["fonction"], fonction) == false 
+      	 	 if table.contains(personnages[nom]["fonction"], fonction) == false
         			then
         				table.insert(personnages[nom]["fonction"] , fonction  )
         		end
       	 	 end
-      	 	
-      	 	 if  table.contains(personnages[nom]["paysLiens"], curCountry) == false 
+
+      	 	 if  table.contains(personnages[nom]["paysLiens"], curCountry) == false
       	 	   then
       	 	    table.insert(personnages[nom]["paysLiens"] , curCountry  )
       	 	 end
-      	 	 	         
+
 	    end
 
-			if #seq["#revolution"] ~= 0 
+			if #seq["#revolution"] ~= 0
 			 then
         		for i = 1, #seq:tag2str("#revolution") do
-        			if seq:tag2str("#revolution","#time")[i]~=nil 
+        			if seq:tag2str("#revolution","#time")[i]~=nil
         				then
         				date = seq:tag2str("#revolution","#time")[i]
         			else
@@ -545,7 +227,7 @@ for fichier in os.dir("country_update") do
         		value = {}
         		value[1] = datePreTraite(date)
         		value[2]=seq:tag2str("#revolution")[i]
-        		if table.contains(pays.revolution, value) == false 
+        		if table.contains(pays.revolution, value) == false
         			then
         			table.insert(pays.revolution, value)
         		end

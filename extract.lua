@@ -9,6 +9,15 @@ function table.contains(table, element)
   return false
 end
 
+function transformPoste(poste)
+	if poste =="président"
+	  then
+	  	poste = poste.." de la République"
+	  end 
+
+	  return poste
+	end
+
 
 
 function NotPoint(seq, pos)
@@ -53,8 +62,10 @@ local tags = {
 	["#poste"] = "blue",
 	["#personnage"] ="white",
 	["#personnage2"] ="yellow",
+	["#personnage3"] ="blue",
 	["#evenement"] = "red",
-	["#colonisateur"] = "white"
+	["#colonisateur"] = "white",
+	["#gentiles"] = "green"
 }
 
 local pipe = dark.pipeline()
@@ -63,6 +74,7 @@ pipe:basic()
 pipe:model("../model-2.3.0/postag-fr")
 pipe:lexicon("#nomPays", "lex/nomPays.txt")
 pipe:lexicon("#paysColonisateur", "lex/nomPaysAdjectif.txt")
+pipe:lexicon("#gentiles", "lex/gentiles.txt")
 pipe:lexicon("#prenom", "lex/prenoms.txt")
 pipe:lexicon("#personne", "lex/personnages.txt")
 pipe:lexicon("#continentName", {"Afrique", "Amérique", "Asie", "Europe", "Océanie"})
@@ -71,7 +83,7 @@ pipe:lexicon("#pointsCardinaux", {"nord", "sud", "ouest", "est"})
 pipe:lexicon("#ocean", {"océan Pacifique", "océan Atlantique", "océan Indien", "océan Arctique"})
 pipe:lexicon("#colonie",{"colonie","colonisateur","colonialisme","colonisation","colonial","coloniale"})
 pipe:lexicon("#articleIndefini",{"du","de la ","de","des"})
-pipe:lexicon("#poste",{"roi","duc","grand duc","reine","prince","président de la république ","président de la République ","président","premier ministe","ministre","chef du gouvernement","général","empereur"})
+pipe:lexicon("#poste",{"roi","duc","grand duc","reine","prince","sénateur","député","président de la république ","président de la République ","secrétaire général","président","premier ministre","Premier ministre","ministre","chef du gouvernement","général","empereur"})
 
 
 -- Pattern pour détecter une personne en utilisant le lexique des prénoms
@@ -138,7 +150,6 @@ pipe:pattern([[
 	[#capitale
     (
     "capitale" ("fédérale" | "officielle" | "du" "pays" | "du" "royaume" | ("du" | "de" "la" | "de" "l" "'" ) #nomPays)?
-
     ("et" ("sa" | ) "plus" "grande" "ville" | "est" "la" "ville" "d" "'" | "politique" "et" "administrative")?
     ("est" | "en" | "," | "à" | )? [#name ( /^%u/ "-" /^%l/ "-" /^%u/ | /^%u/ "-" /^%u/ | /^%u/ "'" /^%u/ | /^%u/ /^%u/ | /^%u/)]
 	  )
@@ -215,13 +226,17 @@ pipe:pattern([[
 pipe:pattern([[
 	  [#personnage
 	   		(#personne .{0,8}? #poste 	#articleIndefini  #nomPays ) |
-
 	   		(#poste #articleIndefini  #nomPays .{0,8}?   #personne	) |
-
 	   		(#poste #personne #articleIndefini  #nomPays ) |
-
 	   		(#personne  .{0,8}?  "élu" #poste .{0,8}? #nomPays )
+	  ]
+]])
 
+
+-- Pattern pour détecter les personnages (fonction en rapport à une personne)
+pipe:pattern([[
+	  [#personnage3
+	   		(#poste #gentiles  .{0,1}?  #personne ) | (#personne .{0,1}?  #poste #gentiles )
 	  ]
 ]])
 
@@ -229,8 +244,7 @@ pipe:pattern([[
 -- Pattern pour détecter les personnages (fonction en rapport à une personne)
 pipe:pattern([[
 	  [#personnage2
-	   		(#poste .{0,15}? #personne ) | (#personne  .{0,15}? #poste )
-
+	   		(#poste .{0,15}? #personne ) | (#personne .{0,15}? #poste )
 	  ]
 ]])
 
@@ -295,7 +309,6 @@ pipe:pattern([[
 		)
 		|
 		(
-
 			@NotPoint*?[#time ("le" #date)|(("en"|"années") #number)]@NotPoint*?
 			(
 				"un" ("État"|"état") "indépendant"
@@ -311,6 +324,8 @@ pipe:pattern([[
 
 
 local dbt = {}
+local gentiles_country = dofile("gentiles_country.txt")
+local personnages = {}
 
 for fichier in os.dir("country_update") do
 
@@ -322,7 +337,8 @@ for fichier in os.dir("country_update") do
 	pays.evenement = {}
 	pays.autreNoms = {}
 	pays.paysFrontaliers = {}
-	pays.personnage = {}
+	
+
 
 	for line in io.lines("country_update/"..fichier) do
     line = line:gsub("(%p)", " %1 ")
@@ -342,9 +358,10 @@ for fichier in os.dir("country_update") do
       end
 
       if not pays.nom then
-        if curCountry ~= 0 then
-					pays.nom = curCountry
-				end
+        if curCountry ~= 0 
+        	then
+				pays.nom = curCountry
+			end
       end
 
 
@@ -364,8 +381,13 @@ for fichier in os.dir("country_update") do
 			  pays.determinant = seq:tag2str("#determinant", "#det")[1]
 			end
 
-      if #seq["#continent"] ~= 0 then
-			  pays.continent = seq:tag2str("#continent", "#continentName")[1]
+      if #seq["#continent"] ~= 0 
+      		then
+      			if not pays.continent
+      			 then
+      			    pays.continent = seq:tag2str("#continent", "#continentName")[1]
+      			end
+			 
 			end
 
 			if #seq["#capitale"] ~= 0 then
@@ -404,41 +426,130 @@ for fichier in os.dir("country_update") do
         end
 			end
 
-      if #seq["#personnage"] ~= 0 then
-	        personnage = {
-	          ["nom"] = seq:tag2str("#personnage","#personne")[1],
-	          ["fonction"] = seq:tag2str("#personnage","#poste")[1],
-	          ["paysPersonnage"] = seq:tag2str("#personnage","#nomPays")[1]
-	        }
-	        table.insert(pays.personnage, personnage)
+        if #seq["#personnage"] ~= 0 
+      	 then
+      	 	nom  =  seq:tag2str("#personnage","#personne")[1]
+      	 	country = gentiles_country[seq:tag2str("#personnage","#nomPays")[1] ]
+    
+      	 	if(not personnages[nom])
+      	 		then
+      	 		  personnage = {	         
+			          ["fonction"] = {},
+			          ["paysPersonnage"] = country,
+			          ["paysLiens"] = {}
+	      		 }
+	      		 
+	      		 table.insert(personnage["fonction"] ,  transformPoste(seq:tag2str("#personnage","#poste")[1]))
+	        	  if country ~= curCountry then
+	        	     table.insert(personnage["paysLiens"] , curCountry  )
+	        	 end
+	        	
+	        	 personnages[nom]= personnage 
+      	 	else
+      	 	 
+      	 	 local fonction = transformPoste(seq:tag2str("#personnage","#poste")[1])
+      	 	  if table.contains(personnages[nom]["fonction"], fonction) == false 
+        			then
+        				table.insert(personnages[nom]["fonction"] , fonction  )
+        		end
+      	 	 end
 
+      	 	 if not personnages[nom]["paysPersonnage"]
+	    			then
+	    				personnages[nom]["paysPersonnage"] = country
+	    	 end
 
+      	 	 if  table.contains(personnages[nom]["paysLiens"], curCountry) == false 
+      	 	  then
+      	 	    table.insert(personnages[nom]["paysLiens"] , curCountry  )
+      	 	 end
+	       
+	     end
 
-	    elseif  #seq["#personnage2"] ~= 0 then
-          personnage = {
-	          ["nom"] = seq:tag2str("#personnage2","#personne")[1],
-	          ["fonction"] = seq:tag2str("#personnage2","#poste")[1],
+	    if  #seq["#personnage3"] ~= 0 
+	     then
+	     	country = gentiles_country[seq:tag2str("#personnage3","#gentiles")[1]] 
+	        nom  =  seq:tag2str("#personnage3","#personne")[1]
+      	 	if(not personnages[nom])
+      	 		then
+      	 		  personnage = {	         
+			          ["fonction"] = {},
+			          ["paysPersonnage"] = country ,
+			          ["paysLiens"] = {}
+	      		 }
+	      		 
+	      		 table.insert(personnage["fonction"] , transformPoste( seq:tag2str("#personnage3","#poste")[1] ) ) 
+	        	 if country ~= curCountry then
+	        	     table.insert(personnage["paysLiens"] , curCountry  )
+	        	 end
+	        	
+	        	 personnages[nom]= personnage 
+      	 	else
+      	 	  
+      	 	  local fonction = transformPoste(seq:tag2str("#personnage3","#poste")[1])
+      	 	  if table.contains(personnages[nom]["fonction"], fonction) == false 
+        			then
+        				table.insert(personnages[nom]["fonction"] , fonction  )
+        	  end
+	    	 if not personnages[nom]["paysPersonnage"]
+	    			then
+	    				personnages[nom]["paysPersonnage"] = country
+	    	 end
 
-	         }
-	         table.insert(pays.personnage, personnage)
+      	 	 if table.contains(personnages[nom]["paysLiens"], curCountry) == false 
+      	 	  then
+      	 	    table.insert(personnages[nom]["paysLiens"] , curCountry  )
+      	 	 end
 
+      	 	 end
+		         
+	     end
+
+	    if  #seq["#personnage2"] ~= 0
+	     then
+        	nom  =  seq:tag2str("#personnage2","#personne")[1]
+      	 	if(not personnages[nom])
+      	 		then
+      	 		  personnage = {	         
+			          ["fonction"] = {},
+			          ["paysLiens"] = {}
+	      		 }
+	      		 
+	      		 table.insert(personnage["fonction"] , transformPoste( seq:tag2str("#personnage2","#poste")[1] ))
+	        	 table.insert(personnage["paysLiens"] , curCountry  )
+	        	 personnages[nom]= personnage 
+      	 	else
+      	 	 local fonction =  transformPoste(seq:tag2str("#personnage2","#poste")[1])
+      	 	 if table.contains(personnages[nom]["fonction"], fonction) == false 
+        			then
+        				table.insert(personnages[nom]["fonction"] , fonction  )
+        		end
+      	 	 end
+      	 	
+      	 	 if  table.contains(personnages[nom]["paysLiens"], curCountry) == false 
+      	 	   then
+      	 	    table.insert(personnages[nom]["paysLiens"] , curCountry  )
+      	 	 end
+      	 	 	         
 	    end
 
-
-			if #seq["#revolution"] ~= 0 then
-        	for i = 1, #seq:tag2str("#revolution") do
-        		if seq:tag2str("#revolution","#time")[i]~=nil then
-        			date = seq:tag2str("#revolution","#time")[i]
-        		else
-        			date = nil
+			if #seq["#revolution"] ~= 0 
+			 then
+        		for i = 1, #seq:tag2str("#revolution") do
+        			if seq:tag2str("#revolution","#time")[i]~=nil 
+        				then
+        				date = seq:tag2str("#revolution","#time")[i]
+        			else
+        				date = nil
         		end
         		value = {}
         		value[1] = datePreTraite(date)
         		value[2]=seq:tag2str("#revolution")[i]
-        		if table.contains(pays.revolution, value) == false then
+        		if table.contains(pays.revolution, value) == false 
+        			then
         			table.insert(pays.revolution, value)
         		end
-      	  end
+      	  	end
       end
 
 			if #seq["#Guerre"] ~= 0 then
@@ -468,7 +579,7 @@ for fichier in os.dir("country_update") do
         			elseif value=="italien" or value=="italienne" then
         				value = "Italie"
         			elseif value=="russe" then
-        				value = "Russi"
+        				value = "Russie"
         			elseif value=="chinois" or value=="chinoise" then
         				value = "Chine"
         			elseif value=="européen" or value=="européenne" then
@@ -513,11 +624,14 @@ for fichier in os.dir("country_update") do
 		dbt[pays.nom] = pays
 	end
 
-end
 
+end
+dbt["personnages"]=personnages
 
 
 local out = io.open("dataBase.txt", "w")
 out:write("return ")
 out:write(serialize(dbt))
 out:close()
+
+

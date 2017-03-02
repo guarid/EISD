@@ -26,17 +26,31 @@ function NotPoint(seq, pos)
 	return (seq[pos].token ~= "." and seq[pos].token ~= "!" and seq[pos].token ~= "?" and seq[pos].token ~= "^")
 end
 
+function isNumber(seq, pos)
+  t={}
+  for w in string.gmatch(seq[pos].token,"([^',']+)") do     --按照“,”分割字符串
+    table.insert(t,w) 
+  end
+  for i,v in ipairs(t) do
+    if(string.find(v,"([a-zA-Z]+)")~=nil)then
+      return false
+    end
+  end
+  return true
+end
 
 
 function datePreTraite(myDate)
 	t = {}
 	str = ""
-	for w in string.gmatch(myDate, "%S+") do
-    	if w~="en" and w~="le" and w~="années" then
-    		str = str..w
-    		str = str.." "
-    	end
-	end
+  if myDate~=nil then
+	  for w in string.gmatch(myDate, "%S+") do
+    	   if w~="en" and w~="le" and w~="années" then
+    		  str = str..w
+    	   	str = str.." "
+       	end
+	 end
+  end
 	return str
 
 end

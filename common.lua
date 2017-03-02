@@ -2,32 +2,32 @@ dark = require("dark")
 
 
 tags = {
-	["#nomPays"] = "yellow",
-	["#focus"] = "yellow",
-	["#autreNoms"] = "red",
-	["#coupEtat"] = "green",
-	["#capitale"] = "white",
-	["#langue"] = "magenta",
-	["#monnaie"] = "magenta",
-	["#personne"] = "magenta",
-	["#revolution"] = "magenta",
-	["#date"] = "blue",
-	["#number"] = "blue",
-	["#population"] = "white",
-	["#continent"] = "red",
-	["#superficie"] = "blue",
-	["#organisation"] = "white",
-	["#paysFrontaliers"] = "white",
-	["#independance"] = "red",
-	["#determinant"] = "red",
-	["#Guerre"] = "red",
-	["#poste"] = "blue",
-	["#personnage"] ="white",
-	["#personnage2"] ="yellow",
-	["#personnage3"] ="blue",
-	["#evenement"] = "red",
-	["#colonisateur"] = "white",
-	["#gentiles"] = "green"
+	-- ["#nomPays"] = "yellow",
+	-- ["#focus"] = "yellow",
+	-- ["#autreNoms"] = "red",
+	-- ["#coupEtat"] = "green",
+	-- ["#capitale"] = "white",
+	-- ["#langue"] = "magenta",
+	-- ["#monnaie"] = "magenta",
+	-- ["#personne"] = "magenta",
+	-- ["#revolution"] = "magenta",
+	-- ["#date"] = "blue",
+	-- ["#number"] = "blue",
+	["#populationP"] = "red",
+	-- ["#continent"] = "red",
+	["#superficie"] = "yellow",
+	-- ["#organisation"] = "white",
+	["#paysFrontaliers"] = "green",
+	-- ["#independance"] = "red",
+	-- ["#determinant"] = "red",
+	-- ["#Guerre"] = "red",
+	-- ["#poste"] = "blue",
+	-- ["#personnage"] ="white",
+	-- ["#personnage2"] ="yellow",
+	-- ["#personnage3"] ="blue",
+	-- ["#evenement"] = "red",
+	-- ["#colonisateur"] = "white",
+	-- ["#gentiles"] = "green"
 }
 
 pipe = dark.pipeline()
@@ -181,21 +181,22 @@ pipe:pattern([[
 	]
 ]])
 
-
+-- 23 millions d'habitants
 -- Pattern pour détecter la population habitant d'un pays
 pipe:pattern([[
-	[#population
-    (#nomPays ("comptait" | "compte" | "comptent") | "Peuplée" | "peuplé" | "peuplée" | "peuplé"
+	[#populationP
+    [#nombre  #number "millions"]  ("habitants" | "d" "'" "habitants")
     |
-    ("sa"| "Sa" | "La" | "la") "population" | "Y" "résident" | "Avec")
-    (/./)* [#nombre  #number ("millions")?]  ("habitants" | "d" "'" "habitants")
+    [#nombre  #number]  ("habitants" | "d" "'" "habitants")
+    |
+    [#nombre  @isNumber "millions"]  ("habitants" | "d" "'" "habitants")
 	]
 ]])
 
 
 -- Pattern pour détecter la superficie d'un pays
 pipe:pattern([[
-	[#superficie
+	[#superficieP
     "superficie" .+? [#sup  #number ("km" | "kilomètres" | "millions" "de" "km")]
 	]
 ]])

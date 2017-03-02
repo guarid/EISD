@@ -80,10 +80,12 @@ for fichier in os.dir("country_update") do
 			  pays.langue = seq:tag2str("#langue","#name")[1]
 			end
 
-			if #seq["#population"] ~= 0 then
-			  local val = seq:tag2str("#population","#nombre")[1]
-			  val = val:gsub("millions", "000 000")
-			  val = val:gsub(", (%d) 0", "0")
+			if #seq["#populationP"] ~= 0 then
+			  local val = seq:tag2str("#populationP","#nombre")[1]
+        if val~=nil then
+			   val = val:gsub("millions", "000 000")
+			   val = val:gsub(", (%d) 0", "0")
+        end
 			  pays.population = val
 			end
 
@@ -91,11 +93,13 @@ for fichier in os.dir("country_update") do
 			  pays.monnaie = seq:tag2str("#monnaie","#name")[1]
 			end
 
-			if #seq["#superficie"] ~= 0 then
-			  local val = seq:tag2str("#superficie","#sup")[1]
-			  val = val:gsub("millions", "000 000")
-			  val = val:gsub("kilometres", "km")
-			  val = val:gsub("kilomètres", "km")
+			if #seq["#superficieP"] ~= 0 then
+			  local val = seq:tag2str("#superficieP","#sup")[1]
+        if val~=nil then
+			   val = val:gsub("millions", "000 000")
+			   val = val:gsub("kilometres", "km")
+			   val = val:gsub("kilomètres", "km")
+        end
 			  pays.superficie = val
 			end
 
@@ -311,7 +315,7 @@ end
 dbt["personnages"]=personnages
 
 
-local out = io.open("dataBase.txt", "w")
+local out = io.open("dataBase_test.txt", "w")
 out:write("return ")
 out:write(serialize(dbt))
 out:close()

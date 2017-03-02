@@ -1,6 +1,6 @@
 dark = require("dark")
 
-dofile("common.lua")
+dofile("patterns.lua")
 dofile("fonctions.lua")
 
 

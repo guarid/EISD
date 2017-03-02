@@ -1,7 +1,7 @@
 dark = require("dark")
 
 
-dofile("common.lua")
+dofile("patterns.lua")
 dofile("fonctions.lua")
 
 -- Fonction pour récupérer la question de l'utilisateur

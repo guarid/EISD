@@ -10,6 +10,14 @@ function table.contains(table, element)
   return false
 end
 
+function save(filename,data)
+  local out = io.open(filename, "w")
+  out:write("return ")
+  out:write(serialize(data))
+  out:close()
+
+end
+
 function isNumber(seq, pos)
   t={}
   for w in string.gmatch(seq[pos].token,"([^',']+)") do

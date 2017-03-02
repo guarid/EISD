@@ -89,7 +89,7 @@ pipe:lexicon("#pronomInterrogatifPays", {"Quel", "quel", "Quelle", "quelle", "Qu
 -- Pattern pour détecter une personne en utilisant le lexique des prénoms
 pipe:pattern([[
 	[#personne
-		#prenom [#nom ( /^%u/ /^%u/ | /^%u/ ) ]
+		#prenom [#nom ( /^%u/ /^%u/ | /^%u/) ]
 	]
 ]])
 
@@ -162,12 +162,13 @@ pipe:pattern([[
 
 
 -- Pattern pour détecter la langue parlée par un pays
+----#POS=ADJ| #POS=NNC)
 pipe:pattern([[
 	[#languePat
     "langue" ("officielle" | "nationale" | "principale") (("du" | "de" "la" | "des") #nomPays)?
-    ("est" | ",")? ("le" | "l" "'" | "la")? ([#name (#POS=ADJ| #POS=NNC)])
+    ("est" | ",")? ("le" | "l" "'" | "la")? ([#name  #gentiles])
     |
-    [#name (#POS=ADJ| #POS=NNC)] ("est" | "étant" "proclamé")? ("la")? "langue" ("officielle" | "nationale")
+    [#name  #gentiles] ("est" | "étant" "proclamé")? ("la")? "langue" ("officielle" | "nationale")
 	]
 ]])
 
@@ -227,17 +228,17 @@ pipe:pattern([[
 pipe:pattern([[
 	  [#personnage
 	   		(#personne .{0,8}? #poste 	#articleIndefini  #nomPays ) |
-	   		(#poste #articleIndefini  #nomPays .{0,8}?   #personne	) |
-	   		(#poste #personne #articleIndefini  #nomPays ) |
+	   		(#poste #articleIndefini  #nomPays .{0,8}?   #personne	) 
 	   		(#personne  .{0,8}?  "élu" #poste .{0,8}? #nomPays )
+	   		
 	  ]
 ]])
 
-
 -- Pattern pour détecter les personnages (fonction en rapport à une personne)
 pipe:pattern([[
-	  [#personnage3
-	   		(#poste #gentiles  .{0,1}?  #personne ) | (#personne .{0,1}?  #poste #gentiles )
+	  [#personnage4
+	   		(#personne .{0,5}? ("élu"|"élue"|"réélu"|"réélue") {0,3}? #poste  ) 
+
 	  ]
 ]])
 
@@ -245,7 +246,7 @@ pipe:pattern([[
 -- Pattern pour détecter les personnages (fonction en rapport à une personne)
 pipe:pattern([[
 	  [#personnage2
-	   		(#poste .{0,15}? #personne ) | (#personne .{0,15}? #poste )
+	   		(#poste .{0,5}? #personne ) | (#personne .{0,5}? #poste )
 	  ]
 ]])
 

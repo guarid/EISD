@@ -112,112 +112,144 @@ for fichier in os.dir("country_update") do
         end
 			end
 
-        if #seq["#personnage"] ~= 0
-      	 then
-      	 	nom  =  seq:tag2str("#personnage","#personne")[1]
-      	 	country = gentiles_country[seq:tag2str("#personnage","#nomPays")[1] ]
+         if #seq["#personnage"] ~= 0
+         then
+          nom  =  seq:tag2str("#personnage","#personne")[1]
+          country = gentiles_country[seq:tag2str("#personnage","#nomPays")[1] ]
 
-      	 	if(not personnages[nom])
-      	 		then
-      	 		  personnage = {
-			          ["fonction"] = {},
-			          ["paysPersonnage"] = country,
-			          ["paysLiens"] = {}
-	      		 }
+          if(not personnages[nom])
+            then
+              personnage = {
+                ["fonction"] = {},
+                ["paysPersonnage"] = country,
+                ["paysLiens"] = {}
+             }
 
-	      		 table.insert(personnage["fonction"] ,  transformPoste(seq:tag2str("#personnage","#poste")[1]))
-	        	  if country ~= curCountry then
-	        	     table.insert(personnage["paysLiens"] , curCountry  )
-	        	 end
+             table.insert(personnage["fonction"] ,  transformPoste(seq:tag2str("#personnage","#poste")[1]))
+              if country ~= curCountry then
+                 table.insert(personnage["paysLiens"] , curCountry  )
+             end
 
-	        	 personnages[nom]= personnage
-      	 	else
+             personnages[nom]= personnage
+          else
 
-      	 	 local fonction = transformPoste(seq:tag2str("#personnage","#poste")[1])
-      	 	  if table.contains(personnages[nom]["fonction"], fonction) == false
-        			then
-        				table.insert(personnages[nom]["fonction"] , fonction  )
-        		end
-      	 	 end
+           local fonction = transformPoste(seq:tag2str("#personnage","#poste")[1])
+            if table.contains(personnages[nom]["fonction"], fonction) == false
+              then
+                table.insert(personnages[nom]["fonction"] , fonction  )
+            end
+           end
 
-      	 	 if not personnages[nom]["paysPersonnage"]
-	    			then
-	    				personnages[nom]["paysPersonnage"] = country
-	    	 end
+           if not personnages[nom]["paysPersonnage"]
+            then
+              personnages[nom]["paysPersonnage"] = country
+         end
 
-      	 	 if  table.contains(personnages[nom]["paysLiens"], curCountry) == false
-      	 	  then
-      	 	    table.insert(personnages[nom]["paysLiens"] , curCountry  )
-      	 	 end
+           if  table.contains(personnages[nom]["paysLiens"], curCountry) == false
+            then
+              table.insert(personnages[nom]["paysLiens"] , curCountry  )
+           end
 
-	     end
+       end
 
-	    if  #seq["#personnage3"] ~= 0
-	     then
-	     	country = gentiles_country[seq:tag2str("#personnage3","#gentiles")[1]]
-	        nom  =  seq:tag2str("#personnage3","#personne")[1]
-      	 	if(not personnages[nom])
-      	 		then
-      	 		  personnage = {
-			          ["fonction"] = {},
-			          ["paysPersonnage"] = country ,
-			          ["paysLiens"] = {}
-	      		 }
+      if  #seq["#personnage3"] ~= 0
+       then
+        country = gentiles_country[seq:tag2str("#personnage3","#gentiles")[1]]
+          nom  =  seq:tag2str("#personnage3","#personne")[1]
+          if(not personnages[nom])
+            then
+              personnage = {
+                ["fonction"] = {},
+                ["paysPersonnage"] = country ,
+                ["paysLiens"] = {}
+             }
 
-	      		 table.insert(personnage["fonction"] , transformPoste( seq:tag2str("#personnage3","#poste")[1] ) )
-	        	 if country ~= curCountry then
-	        	     table.insert(personnage["paysLiens"] , curCountry  )
-	        	 end
+             table.insert(personnage["fonction"] , transformPoste( seq:tag2str("#personnage3","#poste")[1] ) )
+             if country ~= curCountry then
+                 table.insert(personnage["paysLiens"] , curCountry  )
+             end
 
-	        	 personnages[nom]= personnage
-      	 	else
+             personnages[nom]= personnage
+          else
 
-      	 	  local fonction = transformPoste(seq:tag2str("#personnage3","#poste")[1])
-      	 	  if table.contains(personnages[nom]["fonction"], fonction) == false
-        			then
-        				table.insert(personnages[nom]["fonction"] , fonction  )
-        	  end
-	    	 if not personnages[nom]["paysPersonnage"]
-	    			then
-	    				personnages[nom]["paysPersonnage"] = country
-	    	 end
+            local fonction = transformPoste(seq:tag2str("#personnage3","#poste")[1])
+            if table.contains(personnages[nom]["fonction"], fonction) == false
+              then
+                table.insert(personnages[nom]["fonction"] , fonction  )
+            end
+         if not personnages[nom]["paysPersonnage"]
+            then
+              personnages[nom]["paysPersonnage"] = country
+         end
 
-      	 	 if table.contains(personnages[nom]["paysLiens"], curCountry) == false
-      	 	  then
-      	 	    table.insert(personnages[nom]["paysLiens"] , curCountry  )
-      	 	 end
+           if table.contains(personnages[nom]["paysLiens"], curCountry) == false
+            then
+              table.insert(personnages[nom]["paysLiens"] , curCountry  )
+           end
 
-      	 	 end
+           end
 
-	     end
+       end
 
-	    if  #seq["#personnage2"] ~= 0
-	     then
-        	nom  =  seq:tag2str("#personnage2","#personne")[1]
-      	 	if(not personnages[nom])
-      	 		then
-      	 		  personnage = {
-			          ["fonction"] = {},
-			          ["paysLiens"] = {}
-	      		 }
+       if  #seq["#personnage4"] ~= 0
+       then
+          nom  =  seq:tag2str("#personnage4","#personne")[1]
+          if(not personnages[nom])
+            then
+              personnage = {           
+                ["fonction"] = {},
+                ["paysLiens"] = {},
+                ["paysPersonnage"] = curCountry
+             }
+             
+             table.insert(personnage["fonction"] , transformPoste( seq:tag2str("#personnage4","#poste")[1] ))
+             personnages[nom]= personnage 
+          else
+           local fonction =  transformPoste(seq:tag2str("#personnage4","#poste")[1])
+           if table.contains(personnages[nom]["fonction"], fonction) == false 
+              then
+                table.insert(personnages[nom]["fonction"] , fonction  )
+            end
+           end
 
-	      		 table.insert(personnage["fonction"] , transformPoste( seq:tag2str("#personnage2","#poste")[1] ))
-	        	 table.insert(personnage["paysLiens"] , curCountry  )
-	        	 personnages[nom]= personnage
-      	 	else
-      	 	 local fonction =  transformPoste(seq:tag2str("#personnage2","#poste")[1])
-      	 	 if table.contains(personnages[nom]["fonction"], fonction) == false
-        			then
-        				table.insert(personnages[nom]["fonction"] , fonction  )
-        		end
-      	 	 end
+            if not personnages[nom]["paysPersonnage"]
+            then
+              personnages[nom]["paysPersonnage"] = country
+         end
 
-      	 	 if  table.contains(personnages[nom]["paysLiens"], curCountry) == false
-      	 	   then
-      	 	    table.insert(personnages[nom]["paysLiens"] , curCountry  )
-      	 	 end
+                     
+      end
 
-	    end
+      if  #seq["#personnage2"] ~= 0
+       then
+          nom  =  seq:tag2str("#personnage2","#personne")[1]
+          
+          if(not personnages[nom])
+            then
+              personnage = {
+                ["fonction"] = {},
+                ["paysLiens"] = {}
+             }
+
+             table.insert(personnage["fonction"] , transformPoste( seq:tag2str("#personnage2","#poste")[1] ))
+             table.insert(personnage["paysLiens"] , curCountry  )
+             personnages[nom]= personnage
+          else
+           local fonction =  transformPoste(seq:tag2str("#personnage2","#poste")[1])
+           if table.contains(personnages[nom]["fonction"], fonction) == false
+              then
+                table.insert(personnages[nom]["fonction"] , fonction  )
+            end
+           end
+          
+           if (not personnages[nom]["paysPersonnage"] or ( personnages[nom]["paysPersonnage"] ~= curCountry) ) and table.contains(personnages[nom]["paysLiens"], curCountry) == false 
+
+             then
+              table.insert(personnages[nom]["paysLiens"] , curCountry  )
+           end
+
+      end
+
 
 			if #seq["#revolutionPat"] ~= 0 then
       		for i = 1, #seq:tag2str("#revolutionPat") do
@@ -309,12 +341,8 @@ for fichier in os.dir("country_update") do
 
 
 end
-dbt["personnages"]=personnages
 
 
-local out = io.open("dataBase.txt", "w")
-out:write("return ")
-out:write(serialize(dbt))
-out:close()
-
+save("dataBaseNew.txt",dbt)
+save("personnagesNew.txt",personnages)
 

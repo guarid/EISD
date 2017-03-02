@@ -1,0 +1,3003 @@
+return {
+  ["Milton Margaï"] = {
+    paysPersonnage = "Sierra Leone",
+    fonction = {
+      [1] = "Premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Omer Beriziky"] = {
+    paysPersonnage = "Madagascar",
+    fonction = {
+      [1] = "chef du gouvernement",
+    },
+    paysLiens = {
+    },
+  },
+  ["Desi Bouterse"] = {
+    paysPersonnage = "Suriname",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Alexandre Ier"] = {
+    paysLiens = {
+      [1] = "Géorgie",
+      [2] = "Ancienne république yougoslave de Macédoine",
+    },
+    fonction = {
+      [1] = "prince",
+      [2] = "roi",
+    },
+  },
+  ["Félix Koulov"] = {
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Kirghizie",
+    },
+  },
+  ["William Tolbert"] = {
+    paysPersonnage = "Liberia",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Ife Okandi"] = {
+    paysLiens = {
+      [1] = "Bénin",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Guillaume V"] = {
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+      [1] = "Pays - Bas",
+    },
+  },
+  ["Dimitri Kipiani"] = {
+    paysLiens = {
+      [1] = "Géorgie",
+    },
+    fonction = {
+      [1] = "prince",
+    },
+  },
+  ["Alphonse X"] = {
+    paysLiens = {
+      [1] = "Maroc",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Louis Botha"] = {
+    paysPersonnage = "Afrique du Sud",
+    fonction = {
+      [1] = "chef du gouvernement",
+      [2] = "général",
+    },
+    paysLiens = {
+    },
+  },
+  ["Carlos Castillo Armas"] = {
+    paysLiens = {
+      [1] = "Guatemala",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Basile II"] = {
+    paysLiens = {
+      [1] = "Ancienne république yougoslave de Macédoine",
+    },
+    fonction = {
+      [1] = "empereur",
+    },
+  },
+  ["Yayi Boni"] = {
+    paysLiens = {
+      [1] = "Bénin",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Josip Jelačić"] = {
+    paysLiens = {
+      [1] = "Hongrie",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["José Sarney"] = {
+    paysPersonnage = "Brésil",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Romain Ier Lécapène"] = {
+    paysLiens = {
+      [1] = "Grèce",
+    },
+    fonction = {
+      [1] = "empereur",
+    },
+  },
+  ["Johnson Toribiong"] = {
+    paysLiens = {
+      [1] = "Palaos",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Mohamed Siyaad Barre"] = {
+    paysLiens = {
+      [1] = "Somalie",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Didier Ratsiraka"] = {
+    paysPersonnage = "Madagascar",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Habib Bourguiba"] = {
+    paysPersonnage = "Tunisie",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Maximilien Ier"] = {
+    paysLiens = {
+      [1] = "Pays - Bas",
+    },
+    fonction = {
+      [1] = "empereur",
+    },
+  },
+  ["Georges XII"] = {
+    paysLiens = {
+      [1] = "Géorgie",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Juan José Arévalo"] = {
+    paysPersonnage = "Guatemala",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Mieszko Ier"] = {
+    paysPersonnage = "Pologne",
+    fonction = {
+      [1] = "duc",
+    },
+    paysLiens = {
+    },
+  },
+  ["Federico Franco"] = {
+    paysLiens = {
+      [1] = "Paraguay",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Donald Tusk"] = {
+    paysPersonnage = "Pologne",
+    fonction = {
+      [1] = "chef du gouvernement",
+      [2] = "Premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Ignacy Mościcki"] = {
+    paysLiens = {
+      [1] = "Pologne",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Karim Kassem"] = {
+    paysLiens = {
+      [1] = "Irak",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Kim Dae"] = {
+    paysPersonnage = "Corée du Sud",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Rui Maria"] = {
+    paysLiens = {
+      [1] = "Timor oriental",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["Willy Telavi"] = {
+    paysLiens = {
+      [1] = "Tuvalu",
+    },
+    fonction = {
+      [1] = "premier ministre",
+    },
+  },
+  ["Ahmet Necdet Sezer"] = {
+    paysPersonnage = "Turquie",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Léon Mba"] = {
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Gabon",
+    },
+  },
+  ["Louis II"] = {
+    paysLiens = {
+      [1] = "Monaco",
+      [2] = "Slovaquie",
+    },
+    fonction = {
+      [1] = "prince",
+      [2] = "roi",
+    },
+  },
+  ["Aziz Doweik"] = {
+    paysLiens = {
+      [1] = "État de Palestine",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Abidine Ben Ali"] = {
+    paysPersonnage = "Tunisie",
+    fonction = {
+      [1] = "ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Christian IX"] = {
+    paysLiens = {
+      [1] = "Islande",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Leopold Berchtold"] = {
+    paysLiens = {
+      [1] = "Serbie",
+    },
+    fonction = {
+      [1] = "ministre",
+    },
+  },
+  ["Dimitri IV"] = {
+    paysLiens = {
+      [1] = "Russie",
+    },
+    fonction = {
+      [1] = "prince",
+    },
+  },
+  ["Georges II"] = {
+    paysLiens = {
+      [1] = "Grèce",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Fouad Massoum"] = {
+    paysPersonnage = "Irak",
+    fonction = {
+      [1] = "Premier ministre",
+      [2] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Manuel Avila Camacho"] = {
+    paysLiens = {
+      [1] = "Mexique",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Ronald Venetiaan"] = {
+    paysPersonnage = "Suriname",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Luis Miguel Sánchez"] = {
+    paysLiens = {
+      [1] = "Madagascar",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Alphonse Ier"] = {
+    paysLiens = {
+      [1] = "Portugal",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Ken Keen"] = {
+    paysLiens = {
+      [1] = "Haïti",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Wojciech Jaruzelski"] = {
+    paysLiens = {
+      [1] = "Pologne",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Manuel Pinto"] = {
+    paysLiens = {
+      [1] = "Sao Tomé - et - Principe",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Félix Houphouët"] = {
+    paysPersonnage = "Côte d'Ivoire",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Baptiste Colbert"] = {
+    paysPersonnage = "Haïti",
+    fonction = {
+      [1] = "ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Charles Rabemananjara"] = {
+    paysLiens = {
+      [1] = "Madagascar",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Otto Pérez Molina"] = {
+    paysLiens = {
+      [1] = "Guatemala",
+    },
+    fonction = {
+      [1] = "général",
+      [2] = "président de la République",
+    },
+  },
+  ["Joseph II"] = {
+    paysLiens = {
+      [1] = "Liechtenstein",
+    },
+    fonction = {
+      [1] = "prince",
+    },
+  },
+  ["Charles Taylor"] = {
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Liberia",
+    },
+  },
+  ["Kenan Evren"] = {
+    paysPersonnage = "Turquie",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Jean Ier"] = {
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+      [1] = "Maroc",
+    },
+  },
+  ["Al Mutamid Ibn"] = {
+    paysLiens = {
+      [1] = "Maroc",
+    },
+    fonction = {
+      [1] = "prince",
+    },
+  },
+  ["Mathieu Kérékou"] = {
+    paysLiens = {
+      [1] = "Bénin",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["Hassan Ibn Numan"] = {
+    paysLiens = {
+      [1] = "Tunisie",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Jorge Pacheco Areco"] = {
+    paysLiens = {
+      [1] = "Uruguay",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Charles III"] = {
+    paysLiens = {
+      [1] = "Monaco",
+    },
+    fonction = {
+      [1] = "prince",
+    },
+  },
+  ["Ahmad Tejan Kabbah"] = {
+    paysLiens = {
+      [1] = "Sierra Leone",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Mohamed Ould Abdel"] = {
+    paysLiens = {
+      [1] = "Mauritanie",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["John Kennedy"] = {
+    paysLiens = {
+      [1] = "Cuba",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Fulbert Youlou"] = {
+    paysPersonnage = "République du Congo",
+    fonction = {
+      [1] = "Premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Stanislav Gross"] = {
+    paysLiens = {
+      [1] = "République tchèque",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["Jack Lynch"] = {
+    paysLiens = {
+      [1] = "Irlande",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["Maurice Yaméogo"] = {
+    paysLiens = {
+      [1] = "Burkina",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Gordon Brown"] = {
+    paysLiens = {
+      [1] = "Royaume - Uni",
+    },
+    fonction = {
+      [1] = "ministre",
+    },
+  },
+  ["Gustav Vasa"] = {
+    paysLiens = {
+      [1] = "Suède",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Abdullah Gül"] = {
+    paysPersonnage = "Turquie",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Nicolas Sarkozy"] = {
+    paysPersonnage = "France",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Christian VIII"] = {
+    paysLiens = {
+      [1] = "Islande",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Robert Galley"] = {
+    paysLiens = {
+      [1] = "Rwanda",
+    },
+    fonction = {
+      [1] = "ministre",
+    },
+  },
+  ["Roger Douglas"] = {
+    paysLiens = {
+      [1] = "Nouvelle - Zélande",
+    },
+    fonction = {
+      [1] = "ministre",
+    },
+  },
+  ["Léopold Ier"] = {
+    paysLiens = {
+      [1] = "Guatemala",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Mahmoud Abbas"] = {
+    paysPersonnage = "État de Palestine",
+    fonction = {
+      [1] = "président de la République",
+      [2] = "premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Woodrow Wilson"] = {
+    paysLiens = {
+      [1] = "Hongrie",
+      [2] = "États - Unis",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Boris Eltsine"] = {
+    paysLiens = {
+      [1] = "Russie",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Jacobo Arbenz Guzmán"] = {
+    paysLiens = {
+      [1] = "Guatemala",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Guillaume Ier"] = {
+    paysPersonnage = "Pays - Bas",
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+    },
+  },
+  ["Ahmed Ould Bouceif"] = {
+    paysLiens = {
+      [1] = "Mauritanie",
+    },
+    fonction = {
+      [1] = "premier ministre",
+    },
+  },
+  ["Omar Torrijos"] = {
+    paysLiens = {
+      [1] = "Panama",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Guy Razanamasy"] = {
+    paysLiens = {
+      [1] = "Madagascar",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["Ali Mahdi Mohamed"] = {
+    paysLiens = {
+      [1] = "Somalie",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Prince Johnson"] = {
+    paysLiens = {
+      [1] = "Liberia",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Cyrus II"] = {
+    paysPersonnage = "Liban",
+    fonction = {
+      [1] = "empereur",
+    },
+    paysLiens = {
+    },
+  },
+  ["Eugène Mangalaza"] = {
+    paysPersonnage = "Madagascar",
+    fonction = {
+      [1] = "Premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Carol II"] = {
+    paysLiens = {
+      [1] = "Moldavie",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Eric Eustace Williams"] = {
+    paysPersonnage = "Trinité - et - Tobago",
+    fonction = {
+      [1] = "Premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Jacques II"] = {
+    paysPersonnage = "Irlande",
+    fonction = {
+      [1] = "roi",
+      [2] = "duc",
+    },
+    paysLiens = {
+      [1] = "Bahamas",
+    },
+  },
+  ["Max Bellerive"] = {
+    paysLiens = {
+      [1] = "Haïti",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["Viktor Orbán"] = {
+    paysLiens = {
+      [1] = "Hongrie",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["Henri Christophe"] = {
+    paysLiens = {
+      [1] = "Haïti",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Waldemar Pawlak"] = {
+    paysPersonnage = "Pologne",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["François Blanc"] = {
+    paysPersonnage = "Monaco",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Gengis Khan"] = {
+    paysPersonnage = "Afghanistan",
+    fonction = {
+      [1] = "empereur",
+    },
+    paysLiens = {
+    },
+  },
+  ["Festus Mogae"] = {
+    paysLiens = {
+      [1] = "Botswana",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Alvaro Arzu"] = {
+    paysPersonnage = "Guatemala",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Blaise Diagne"] = {
+    paysLiens = {
+      [1] = "Sénégal",
+    },
+    fonction = {
+      [1] = "député",
+    },
+  },
+  ["Kim Il"] = {
+    paysLiens = {
+      [1] = "Corée du Nord",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Eduardo Duhalde"] = {
+    paysPersonnage = "Argentine",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Ramon Casaus"] = {
+    paysLiens = {
+      [1] = "Guatemala",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Theodore Roosevelt"] = {
+    paysLiens = {
+      [1] = "Maroc",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Albert Zafy"] = {
+    paysPersonnage = "Madagascar",
+    fonction = {
+      [1] = "Premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Toussaint Louverture"] = {
+    paysPersonnage = "Haïti",
+    fonction = {
+      [1] = "général",
+    },
+    paysLiens = {
+    },
+  },
+  ["François II"] = {
+    paysLiens = {
+      [1] = "Autriche",
+    },
+    fonction = {
+      [1] = "empereur",
+    },
+  },
+  ["Guillaume II"] = {
+    paysLiens = {
+      [1] = "Monaco",
+    },
+    fonction = {
+      [1] = "duc",
+    },
+  },
+  ["Don Stephen Senanayake"] = {
+    paysPersonnage = "Sri Lanka",
+    fonction = {
+      [1] = "premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Napoléon Bonaparte"] = {
+    paysPersonnage = "France",
+    fonction = {
+      [1] = "empereur",
+      [2] = "général",
+    },
+    paysLiens = {
+    },
+  },
+  ["Joseph Bonaparte"] = {
+    paysPersonnage = "Maroc",
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+    },
+  },
+  ["Sébastien Ier"] = {
+    paysLiens = {
+      [1] = "Maroc",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Hassan Rohani"] = {
+    paysPersonnage = "Iran",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["José Manuel Balmaceda"] = {
+    paysLiens = {
+      [1] = "Chili",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["David Ben Gourion"] = {
+    paysLiens = {
+      [1] = "Israël",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Juan José Flores"] = {
+    paysLiens = {
+      [1] = "Équateur",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Mohamed V"] = {
+    paysLiens = {
+      [1] = "Mauritanie",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Rainier III"] = {
+    fonction = {
+      [1] = "prince",
+    },
+    paysLiens = {
+      [1] = "Monaco",
+    },
+  },
+  ["Alfredo Stroessner"] = {
+    paysLiens = {
+      [1] = "Paraguay",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Nicolae Ceaușescu"] = {
+    paysLiens = {
+      [1] = "Roumanie",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Juan Carlos Ier"] = {
+    paysPersonnage = "Espagne",
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+    },
+  },
+  ["Elizabeth II"] = {
+    paysPersonnage = "Antigua - et - Barbuda",
+    fonction = {
+      [1] = "reine",
+    },
+    paysLiens = {
+    },
+  },
+  ["Jacob Zuma"] = {
+    paysPersonnage = "Afrique du Sud",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Ben Ali"] = {
+    fonction = {
+      [1] = "roi",
+      [2] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Maroc",
+      [2] = "Tunisie",
+    },
+  },
+  ["Jacques Sylla"] = {
+    paysPersonnage = "Madagascar",
+    fonction = {
+      [1] = "Premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Henri III"] = {
+    paysLiens = {
+      [1] = "Maroc",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Gabriel Ramanantsoa"] = {
+    paysLiens = {
+      [1] = "Madagascar",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["David IV"] = {
+    paysLiens = {
+      [1] = "Géorgie",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Seth Sendashonga"] = {
+    paysLiens = {
+      [1] = "Kenya",
+    },
+    fonction = {
+      [1] = "ministre",
+    },
+  },
+  ["Jules Wijdenbosch"] = {
+    paysPersonnage = "Suriname",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Don Garcia"] = {
+    paysLiens = {
+      [1] = "Malte",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Marc Ravalomanana"] = {
+    paysPersonnage = "Madagascar",
+    fonction = {
+      [1] = "président de la République",
+      [2] = "ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Antonio José"] = {
+    paysLiens = {
+      [1] = "Pérou",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Christian II"] = {
+    paysLiens = {
+      [1] = "Danemark",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Harry S"] = {
+    paysLiens = {
+      [1] = "États - Unis",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Mohamed Ould Cheikh"] = {
+    paysLiens = {
+      [1] = "Mauritanie",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Michael Kamaliza"] = {
+    paysLiens = {
+      [1] = "Tanzanie",
+    },
+    fonction = {
+      [1] = "ministre",
+    },
+  },
+  ["Julius Nyerere"] = {
+    paysPersonnage = "Tanzanie",
+    fonction = {
+      [1] = "Premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["José Mujica"] = {
+    paysPersonnage = "Uruguay",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["José Batlle"] = {
+    paysLiens = {
+      [1] = "Uruguay",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Roi Abdallah"] = {
+    paysPersonnage = "Jordanie",
+    fonction = {
+      [1] = "reine",
+    },
+    paysLiens = {
+    },
+  },
+  ["Mohammad Ershad"] = {
+    paysLiens = {
+      [1] = "Bangladesh",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Dirk Jan"] = {
+    paysLiens = {
+      [1] = "Pays - Bas",
+    },
+    fonction = {
+      [1] = "reine",
+    },
+  },
+  ["Hugo Chavez"] = {
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Venezuela",
+    },
+  },
+  ["Jagjit Singh Aurora"] = {
+    paysLiens = {
+      [1] = "Bangladesh",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Nicolas Tchkhéidzé"] = {
+    paysPersonnage = "Géorgie",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Henri VI"] = {
+    paysPersonnage = "Arménie",
+    fonction = {
+      [1] = "empereur",
+    },
+    paysLiens = {
+    },
+  },
+  ["Gamal Abdel Nasser"] = {
+    paysLiens = {
+      [1] = "Égypte",
+      [2] = "Syrie",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Muhammad Yahya Khan"] = {
+    paysLiens = {
+      [1] = "Bangladesh",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Haakon VI"] = {
+    paysLiens = {
+      [1] = "Norvège",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Hamed II"] = {
+    paysLiens = {
+      [1] = "Bahreïn",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Augusto Sandino"] = {
+    paysLiens = {
+      [1] = "Nicaragua",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Louis Bonaparte"] = {
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+      [1] = "Indonésie",
+    },
+  },
+  ["Clément VII"] = {
+    paysLiens = {
+      [1] = "Malte",
+    },
+    fonction = {
+      [1] = "empereur",
+    },
+  },
+  ["Daniel François Malan"] = {
+    paysLiens = {
+      [1] = "Afrique du Sud",
+    },
+    fonction = {
+      [1] = "premier ministre",
+    },
+  },
+  ["Ibrahim Boubacar Keïta"] = {
+    paysPersonnage = "Mali",
+    fonction = {
+      [1] = "président de la république",
+    },
+    paysLiens = {
+    },
+  },
+  ["Albert René"] = {
+    paysPersonnage = "Seychelles",
+    fonction = {
+      [1] = "premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Jean Moreau"] = {
+    paysPersonnage = "Seychelles",
+    fonction = {
+      [1] = "général",
+    },
+    paysLiens = {
+    },
+  },
+  ["Rama Ier"] = {
+    paysLiens = {
+      [1] = "Laos",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Daniel Ortega"] = {
+    paysPersonnage = "Nicaragua",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Enrique Bolaños"] = {
+    paysPersonnage = "Nicaragua",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Gustave II Adolphe"] = {
+    paysLiens = {
+      [1] = "Suède",
+      [2] = "Lettonie",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Ali Zeidan"] = {
+    paysLiens = {
+      [1] = "Libye",
+    },
+    fonction = {
+      [1] = "premier ministre",
+    },
+  },
+  ["Mohammed Youssef"] = {
+    paysLiens = {
+      [1] = "Libye",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Alain Juppé"] = {
+    paysPersonnage = "Libye",
+    fonction = {
+      [1] = "ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["William Tubman"] = {
+    paysLiens = {
+      [1] = "Liberia",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Carlos Gomes Jr"] = {
+    paysLiens = {
+      [1] = "Guinée - Bissau",
+    },
+    fonction = {
+      [1] = "premier ministre",
+    },
+  },
+  ["Ronald Reagan"] = {
+    paysPersonnage = "Islande",
+    fonction = {
+      [1] = "premier ministre",
+      [2] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Nicaragua",
+    },
+  },
+  ["Édouard Chevardnadzé"] = {
+    paysPersonnage = "Géorgie",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Idris Ier"] = {
+    paysLiens = {
+      [1] = "Libye",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Erwin Rommel"] = {
+    paysLiens = {
+      [1] = "Libye",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Charles XIII"] = {
+    paysLiens = {
+      [1] = "Norvège",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Jean Pierre Boyer"] = {
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Haïti",
+    },
+  },
+  ["Mustafa Kemal"] = {
+    paysPersonnage = "Turquie",
+    fonction = {
+      [1] = "président de la République",
+      [2] = "général",
+    },
+    paysLiens = {
+      [1] = "Australie",
+    },
+  },
+  ["Italo Balbo"] = {
+    paysPersonnage = "Libye",
+    fonction = {
+      [1] = "général",
+    },
+    paysLiens = {
+    },
+  },
+  ["Casimir III"] = {
+    paysPersonnage = "Pologne",
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+    },
+  },
+  ["Charles II"] = {
+    paysLiens = {
+      [1] = "Jamaïque",
+      [2] = "Roumanie",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Nicolas Grunitzky"] = {
+    paysLiens = {
+      [1] = "Togo",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Félix Tchicaya"] = {
+    paysLiens = {
+      [1] = "République du Congo",
+    },
+    fonction = {
+      [1] = "député",
+    },
+  },
+  ["Ali Khamenei"] = {
+    paysLiens = {
+      [1] = "Iran",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Constantin Ier"] = {
+    paysLiens = {
+      [1] = "Turquie",
+      [2] = "Vatican",
+    },
+    fonction = {
+      [1] = "empereur",
+    },
+  },
+  ["Amir Kabir"] = {
+    paysLiens = {
+      [1] = "Iran",
+    },
+    fonction = {
+      [1] = "premier ministre",
+    },
+  },
+  ["Cyrus Ier"] = {
+    paysPersonnage = "Iran",
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+    },
+  },
+  ["Sam Nujoma"] = {
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Namibie",
+    },
+  },
+  ["François Hollande"] = {
+    paysPersonnage = "France",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Mali",
+    },
+  },
+  ["Ahmed Sékou Touré"] = {
+    paysPersonnage = "Guinée",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Milan IV Obrenović"] = {
+    fonction = {
+      [1] = "roi",
+      [2] = "prince",
+    },
+    paysLiens = {
+      [1] = "Serbie",
+    },
+  },
+  ["Gabriel García Moreno"] = {
+    paysPersonnage = "Équateur",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Ture Kuruma"] = {
+    paysLiens = {
+      [1] = "Guinée - Bissau",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Mohamed Ibrahim Egal"] = {
+    paysPersonnage = "Somalie",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Hugues Capet"] = {
+    paysPersonnage = "France",
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+    },
+  },
+  ["John Garang"] = {
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Soudan du Sud",
+    },
+  },
+  ["Henri IV"] = {
+    paysLiens = {
+      [1] = "France",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Rafael Carrera"] = {
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Guatemala",
+    },
+  },
+  ["José Mário Vaz"] = {
+    paysPersonnage = "Guinée - Bissau",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["William Hague"] = {
+    paysLiens = {
+      [1] = "Libye",
+    },
+    fonction = {
+      [1] = "ministre",
+    },
+  },
+  ["Pedro I"] = {
+    paysPersonnage = "Brésil",
+    fonction = {
+      [1] = "empereur",
+    },
+    paysLiens = {
+    },
+  },
+  ["Ariel Sharon"] = {
+    paysLiens = {
+      [1] = "État de Palestine",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["Carlos Gomes Junior"] = {
+    paysPersonnage = "Guinée - Bissau",
+    fonction = {
+      [1] = "premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Baptiste Bernadotte"] = {
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+      [1] = "Suède",
+    },
+  },
+  ["Omar Guelleh"] = {
+    paysPersonnage = "Colombie",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Bernardo Vieira"] = {
+    paysLiens = {
+      [1] = "Guinée - Bissau",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Donald Trump"] = {
+    paysPersonnage = "États - Unis",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Richard Nixon"] = {
+    paysLiens = {
+      [1] = "États - Unis",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Didier Mumengi"] = {
+    paysPersonnage = "République démocratique du Congo",
+    fonction = {
+      [1] = "ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Désiré Mobutu"] = {
+    paysLiens = {
+      [1] = "République démocratique du Congo",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Joseph Kasa"] = {
+    paysPersonnage = "République démocratique du Congo",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Kim Jong"] = {
+    paysPersonnage = "Corée du Nord",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Lech Kaczyński"] = {
+    paysPersonnage = "Pologne",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Christian III"] = {
+    paysLiens = {
+      [1] = "Islande",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Jerzy Buzek"] = {
+    paysPersonnage = "Pologne",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Ladislas II Jagellon"] = {
+    paysLiens = {
+      [1] = "Pologne",
+    },
+    fonction = {
+      [1] = "duc",
+    },
+  },
+  ["Hosni Moubarak"] = {
+    paysLiens = {
+      [1] = "Égypte",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Alpha Condé"] = {
+    paysLiens = {
+      [1] = "Guinée",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Justin Lekhanya"] = {
+    paysLiens = {
+      [1] = "Lesotho",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Radomir Putnik"] = {
+    paysPersonnage = "Serbie",
+    fonction = {
+      [1] = "général",
+    },
+    paysLiens = {
+    },
+  },
+  ["José Luis Zapatero"] = {
+    paysLiens = {
+      [1] = "Libye",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Hassan II"] = {
+    paysLiens = {
+      [1] = "Syrie",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Imre Nagy"] = {
+    paysLiens = {
+      [1] = "Hongrie",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["Alphonse V"] = {
+    paysLiens = {
+      [1] = "Cap - Vert",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Augusto Pinochet"] = {
+    paysLiens = {
+      [1] = "Chili",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Pedro Aguirre Cerda"] = {
+    paysPersonnage = "Chili",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Muhammad Nimeiri"] = {
+    paysPersonnage = "Soudan",
+    fonction = {
+      [1] = "Premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Arturo Alessandri"] = {
+    paysLiens = {
+      [1] = "Chili",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Manuel Zelaya"] = {
+    paysLiens = {
+      [1] = "Honduras",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Carlos Ibáñez"] = {
+    paysPersonnage = "Chili",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Pierre Ier"] = {
+    paysPersonnage = "Serbie",
+    fonction = {
+      [1] = "prince",
+      [2] = "roi",
+    },
+    paysLiens = {
+    },
+  },
+  ["Edvard Beneš"] = {
+    paysLiens = {
+      [1] = "République tchèque",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Milton Obote"] = {
+    paysLiens = {
+      [1] = "Ouganda",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Philibert Tsiranana"] = {
+    paysPersonnage = "Madagascar",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Manuel Belgrano"] = {
+    paysLiens = {
+      [1] = "Argentine",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Arturo Tolentino"] = {
+    paysPersonnage = "Philippines",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Bedel Bokassa"] = {
+    paysPersonnage = "Mexique",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Douglas MacArthur"] = {
+    paysLiens = {
+      [1] = "Philippines",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Henri Ier"] = {
+    paysLiens = {
+      [1] = "Pays - Bas",
+      [2] = "Ukraine",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Guglielmo Nasi"] = {
+    paysLiens = {
+      [1] = "Somalie",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Boris Skossyreff"] = {
+    paysPersonnage = "Andorre",
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+    },
+  },
+  ["Eric Gairy"] = {
+    paysPersonnage = "Grenade",
+    fonction = {
+      [1] = "premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Yahya Jammeh"] = {
+    paysPersonnage = "Gambie",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Jacques Chirac"] = {
+    paysPersonnage = "Irak",
+    fonction = {
+      [1] = "Premier ministre",
+    },
+    paysLiens = {
+      [1] = "Comores",
+    },
+  },
+  ["Ben Ammar"] = {
+    paysLiens = {
+      [1] = "Tunisie",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["François Bozizé"] = {
+    paysLiens = {
+      [1] = "Mexique",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["André Kolingba"] = {
+    paysLiens = {
+      [1] = "Mexique",
+    },
+    fonction = {
+      [1] = "général",
+      [2] = "président de la République",
+    },
+  },
+  ["Félix Patassé"] = {
+    paysPersonnage = "Mexique",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Felipe Calderón"] = {
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Mexique",
+    },
+  },
+  ["Mohammad Omar"] = {
+    paysPersonnage = "Afghanistan",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Joseph Galliéni"] = {
+    fonction = {
+      [1] = "général",
+    },
+    paysLiens = {
+      [1] = "Madagascar",
+    },
+  },
+  ["Gabino Gaínza"] = {
+    paysLiens = {
+      [1] = "Guatemala",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Emilio Portes Gil"] = {
+    paysLiens = {
+      [1] = "Mexique",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Porfirio Díaz"] = {
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Mexique",
+    },
+  },
+  ["Pascal Lissouba"] = {
+    paysPersonnage = "République du Congo",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Jean Kambanda"] = {
+    paysLiens = {
+      [1] = "Rwanda",
+    },
+    fonction = {
+      [1] = "premier ministre",
+    },
+  },
+  ["Lee Kuan Yew"] = {
+    paysPersonnage = "Singapour",
+    fonction = {
+      [1] = "Premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Antonio López"] = {
+    paysLiens = {
+      [1] = "Mexique",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Clemens Kapuuo"] = {
+    paysLiens = {
+      [1] = "Namibie",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Norbert Ratsirahonana"] = {
+    paysLiens = {
+      [1] = "Madagascar",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["Charles Swart"] = {
+    paysPersonnage = "Afrique du Sud",
+    fonction = {
+      [1] = "président de la République",
+      [2] = "général",
+    },
+    paysLiens = {
+    },
+  },
+  ["Saddam Hussein"] = {
+    paysLiens = {
+      [1] = "Koweït",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Aristides Pereira"] = {
+    paysPersonnage = "Cap - Vert",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Mohammad Al"] = {
+    paysPersonnage = "Syrie",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Kaiser Guillaume II"] = {
+    paysLiens = {
+      [1] = "Allemagne",
+    },
+    fonction = {
+      [1] = "empereur",
+    },
+  },
+  ["Charles Quint"] = {
+    fonction = {
+      [1] = "empereur",
+      [2] = "roi",
+    },
+    paysLiens = {
+      [1] = "Monaco",
+      [2] = "Pérou",
+    },
+  },
+  ["Ulysses S"] = {
+    paysLiens = {
+      [1] = "Maroc",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Mohamed Sakhr El"] = {
+    paysPersonnage = "Tunisie",
+    fonction = {
+      [1] = "député",
+    },
+    paysLiens = {
+    },
+  },
+  ["Charles Ier"] = {
+    paysPersonnage = "Portugal",
+    fonction = {
+      [1] = "prince",
+    },
+    paysLiens = {
+    },
+  },
+  ["Gustave Vasa"] = {
+    paysPersonnage = "Suède",
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+    },
+  },
+  ["Pedro IV"] = {
+    fonction = {
+      [1] = "empereur",
+    },
+    paysLiens = {
+      [1] = "Portugal",
+    },
+  },
+  ["Michel Djotodia"] = {
+    paysPersonnage = "Mexique",
+    fonction = {
+      [1] = "président de la République",
+      [2] = "premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Jean II"] = {
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+      [1] = "Portugal",
+    },
+  },
+  ["Mohammed Nadjibullah"] = {
+    paysPersonnage = "Afghanistan",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Boniface Alexandre"] = {
+    paysPersonnage = "Haïti",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Sani Abacha"] = {
+    paysLiens = {
+      [1] = "Nigéria",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Kwame Nkrumah"] = {
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Ghana",
+    },
+  },
+  ["Afonso Henriques"] = {
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+      [1] = "Portugal",
+    },
+  },
+  ["Albert II"] = {
+    paysLiens = {
+      [1] = "Monaco",
+    },
+    fonction = {
+      [1] = "prince",
+    },
+  },
+  ["Lamine Bey"] = {
+    paysLiens = {
+      [1] = "Tunisie",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["Roy Welensky"] = {
+    paysPersonnage = "Zambie",
+    fonction = {
+      [1] = "député",
+    },
+    paysLiens = {
+    },
+  },
+  ["Henry VIII"] = {
+    paysPersonnage = "Royaume - Uni",
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+    },
+  },
+  ["Milan Nedić"] = {
+    paysLiens = {
+      [1] = "Serbie",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Jean Dansaint"] = {
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+      [1] = "Guinée équatoriale",
+    },
+  },
+  ["Salomon II"] = {
+    paysLiens = {
+      [1] = "Géorgie",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Alija Izetbegović"] = {
+    paysPersonnage = "Bosnie - Herzégovine",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Muhammad Ayub"] = {
+    paysPersonnage = "Pakistan",
+    fonction = {
+      [1] = "général",
+    },
+    paysLiens = {
+    },
+  },
+  ["Ioannis Metaxas"] = {
+    paysLiens = {
+      [1] = "Grèce",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Macky Sall"] = {
+    paysLiens = {
+      [1] = "Sénégal",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Bill Clinton"] = {
+    paysPersonnage = "État de Palestine",
+    fonction = {
+      [1] = "Premier ministre",
+      [2] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Somalie",
+      [2] = "États - Unis",
+    },
+  },
+  ["Tyr Pygmalion"] = {
+    paysLiens = {
+      [1] = "Tunisie",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Hubert Maga"] = {
+    paysPersonnage = "Bénin",
+    fonction = {
+      [1] = "ministre",
+      [2] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Michael Sata"] = {
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Zambie",
+    },
+  },
+  ["Manuel II"] = {
+    paysLiens = {
+      [1] = "Portugal",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Léopold II"] = {
+    paysPersonnage = "République démocratique du Congo",
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+    },
+  },
+  ["William Platt"] = {
+    paysLiens = {
+      [1] = "Érythrée",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Teodoro Picado"] = {
+    paysLiens = {
+      [1] = "Costa Rica",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["François Lonsény Fall"] = {
+    paysLiens = {
+      [1] = "Guinée",
+    },
+    fonction = {
+      [1] = "premier ministre",
+    },
+  },
+  ["Valéry Giscard"] = {
+    paysPersonnage = "France",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["César Borgia"] = {
+    paysPersonnage = "Saint - Marin",
+    fonction = {
+      [1] = "duc",
+    },
+    paysLiens = {
+    },
+  },
+  ["Kenneth Kaunda"] = {
+    paysPersonnage = "Zambie",
+    fonction = {
+      [1] = "Premier ministre",
+      [2] = "président de la République",
+    },
+    paysLiens = {
+      [1] = "Namibie",
+    },
+  },
+  ["Joseph Deiss"] = {
+    paysPersonnage = "Soudan du Sud",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["François Mitterrand"] = {
+    paysLiens = {
+      [1] = "Burkina",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Guillaume Sam"] = {
+    paysLiens = {
+      [1] = "Haïti",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Neville Bonner"] = {
+    paysPersonnage = "Australie",
+    fonction = {
+      [1] = "sénateur",
+    },
+    paysLiens = {
+    },
+  },
+  ["Gustave III"] = {
+    paysLiens = {
+      [1] = "Suède",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Claude Guéant"] = {
+    paysLiens = {
+      [1] = "Rwanda",
+    },
+    fonction = {
+      [1] = "secrétaire général",
+    },
+  },
+  ["Hugo Chávez"] = {
+    paysLiens = {
+      [1] = "Venezuela",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Paul Kagame"] = {
+    paysPersonnage = "Rwanda",
+    fonction = {
+      [1] = "président de la République",
+      [2] = "général",
+    },
+    paysLiens = {
+    },
+  },
+  ["Michel Martelly"] = {
+    paysPersonnage = "Haïti",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Malcolm MacDonald"] = {
+    paysLiens = {
+      [1] = "Kenya",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Kofi Annan"] = {
+    paysPersonnage = "Kenya",
+    fonction = {
+      [1] = "général",
+      [2] = "secrétaire général",
+    },
+    paysLiens = {
+    },
+  },
+  ["Agathe Uwilingiyimana"] = {
+    paysLiens = {
+      [1] = "Rwanda",
+    },
+    fonction = {
+      [1] = "ministre",
+    },
+  },
+  ["Nicolas Maduro"] = {
+    paysPersonnage = "Venezuela",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Roza Otounbaïeva"] = {
+    paysLiens = {
+      [1] = "Kirghizie",
+    },
+    fonction = {
+      [1] = "ministre",
+    },
+  },
+  ["Olaf Haraldsson"] = {
+    paysLiens = {
+      [1] = "Norvège",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Jean III"] = {
+    paysLiens = {
+      [1] = "Brésil",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Georges Pompidou"] = {
+    paysLiens = {
+      [1] = "France",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["François Tombalbaye"] = {
+    paysLiens = {
+      [1] = "Tchad",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Hjalmar Schacht"] = {
+    paysPersonnage = "Monaco",
+    fonction = {
+      [1] = "prince",
+      [2] = "ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Dom Mintoff"] = {
+    paysLiens = {
+      [1] = "Malte",
+    },
+    fonction = {
+      [1] = "premier ministre",
+    },
+  },
+  ["Thomas Thabane"] = {
+    paysLiens = {
+      [1] = "Lesotho",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["Amin Dada"] = {
+    paysLiens = {
+      [1] = "Kenya",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Lon Nol"] = {
+    paysPersonnage = "Cambodge",
+    fonction = {
+      [1] = "prince",
+      [2] = "général",
+    },
+    paysLiens = {
+    },
+  },
+  ["Harold Holt"] = {
+    paysLiens = {
+      [1] = "Australie",
+    },
+    fonction = {
+      [1] = "premier ministre",
+    },
+  },
+  ["Yahya Ould Ahmed"] = {
+    paysLiens = {
+      [1] = "Mauritanie",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["Charles Njonjo"] = {
+    paysLiens = {
+      [1] = "Kenya",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Fouad Mebazaa"] = {
+    paysPersonnage = "Tunisie",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Oscar Carmona"] = {
+    paysPersonnage = "Portugal",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Juan Vicente Gomez"] = {
+    paysLiens = {
+      [1] = "Venezuela",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Jamil Mahuad"] = {
+    paysLiens = {
+      [1] = "Équateur",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Hassan Gouled Aptidon"] = {
+    paysLiens = {
+      [1] = "Colombie",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Mohamed Khouna Ould"] = {
+    paysPersonnage = "Mauritanie",
+    fonction = {
+      [1] = "premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Mohammed Daoud Khan"] = {
+    paysLiens = {
+      [1] = "Afghanistan",
+    },
+    fonction = {
+      [1] = "prince",
+    },
+  },
+  ["Constantin II"] = {
+    paysLiens = {
+      [1] = "Grèce",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Niels Marquardt"] = {
+    paysPersonnage = "Cameroun",
+    fonction = {
+      [1] = "premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Nelson Mandela"] = {
+    paysPersonnage = "Afrique du Sud",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Louis XIII"] = {
+    paysLiens = {
+      [1] = "Monaco",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Louis XIV"] = {
+    paysLiens = {
+      [1] = "Côte d'Ivoire",
+      [2] = "Pays - Bas",
+      [3] = "Trinité - et - Tobago",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Ahmad Khan Abdali"] = {
+    paysLiens = {
+      [1] = "Afghanistan",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["Ferdinand Ier"] = {
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+      [1] = "Slovaquie",
+    },
+  },
+  ["Trygve Lie"] = {
+    paysLiens = {
+      [1] = "Norvège",
+    },
+    fonction = {
+      [1] = "général",
+    },
+  },
+  ["John Vorster"] = {
+    paysPersonnage = "Namibie",
+    fonction = {
+      [1] = "premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Georges Ier Rákóczi"] = {
+    paysLiens = {
+      [1] = "Hongrie",
+    },
+    fonction = {
+      [1] = "prince",
+    },
+  },
+  ["François II Rákóczi"] = {
+    paysPersonnage = "Hongrie",
+    fonction = {
+      [1] = "prince",
+    },
+    paysLiens = {
+    },
+  },
+  ["Porfirio Diaz"] = {
+    paysLiens = {
+      [1] = "Mexique",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Hendrik Verwoerd"] = {
+    paysPersonnage = "Afrique du Sud",
+    fonction = {
+      [1] = "premier ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Henri VIII"] = {
+    paysPersonnage = "Irlande",
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+    },
+  },
+  ["Robert Mugabe"] = {
+    paysPersonnage = "Zimbabwe",
+    fonction = {
+      [1] = "président de la République",
+      [2] = "Premier ministre",
+      [3] = "premier ministre",
+    },
+    paysLiens = {
+      [1] = "Zimbabwe",
+    },
+  },
+  ["Rudolf Slánský"] = {
+    paysPersonnage = "République tchèque",
+    fonction = {
+      [1] = "secrétaire général",
+    },
+    paysLiens = {
+    },
+  },
+  ["Herman Willem Daendels"] = {
+    paysPersonnage = "Indonésie",
+    fonction = {
+      [1] = "général",
+    },
+    paysLiens = {
+    },
+  },
+  ["Luis G"] = {
+    paysLiens = {
+      [1] = "Mexique",
+    },
+    fonction = {
+      [1] = "ministre",
+    },
+  },
+  ["Désiré Kabila"] = {
+    paysPersonnage = "Zimbabwe",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Alphonse Henriques"] = {
+    paysLiens = {
+      [1] = "Portugal",
+    },
+    fonction = {
+      [1] = "prince",
+    },
+  },
+  ["Mohammad Mossadegh"] = {
+    paysLiens = {
+      [1] = "Iran",
+    },
+    fonction = {
+      [1] = "premier ministre",
+    },
+  },
+  ["Maxime Bakiev"] = {
+    paysPersonnage = "Kirghizie",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Yusuf Ahmed"] = {
+    paysPersonnage = "Somalie",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Ali Abdallah Saleh"] = {
+    paysLiens = {
+      [1] = "Yémen",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Charles VIII"] = {
+    fonction = {
+      [1] = "roi",
+    },
+    paysLiens = {
+      [1] = "Monaco",
+    },
+  },
+  ["Manuel Ier"] = {
+    paysLiens = {
+      [1] = "Portugal",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Ali Osmane Taha"] = {
+    paysLiens = {
+      [1] = "Soudan",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Martin Ziguélé"] = {
+    paysPersonnage = "Mexique",
+    fonction = {
+      [1] = "ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Franklin Roosevelt"] = {
+    paysLiens = {
+      [1] = "Gambie",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+  ["Nicolas Ier"] = {
+    paysLiens = {
+      [1] = "Serbie",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["William Ruto"] = {
+    paysLiens = {
+      [1] = "Kenya",
+    },
+    fonction = {
+      [1] = "ministre",
+    },
+  },
+  ["Louis XI"] = {
+    paysLiens = {
+      [1] = "Monaco",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Ali Hassan Mwinyi"] = {
+    paysPersonnage = "Tanzanie",
+    fonction = {
+      [1] = "président de la République",
+    },
+    paysLiens = {
+    },
+  },
+  ["Alexander Stubb"] = {
+    paysLiens = {
+      [1] = "Finlande",
+    },
+    fonction = {
+      [1] = "Premier ministre",
+    },
+  },
+  ["Édouard Thouvenel"] = {
+    paysPersonnage = "Colombie",
+    fonction = {
+      [1] = "ministre",
+    },
+    paysLiens = {
+    },
+  },
+  ["Emmanuel III"] = {
+    paysLiens = {
+      [1] = "Albanie",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Charles X"] = {
+    paysLiens = {
+      [1] = "Haïti",
+    },
+    fonction = {
+      [1] = "roi",
+    },
+  },
+  ["Jalal Talabani"] = {
+    paysLiens = {
+      [1] = "Irak",
+    },
+    fonction = {
+      [1] = "président de la République",
+    },
+  },
+}

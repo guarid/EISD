@@ -1,0 +1,197 @@
+001 Afghanistan
+002 Afrique du Sud
+003 Albanie
+004 Algérie
+005 Allemagne
+006 Andorre
+007 Angola
+008 Antigua-et-Barbuda
+009 Arabie saoudite
+010 Argentine
+011 Arménie
+012 Australie
+013 Autriche
+014 Azerbaïdjan
+015 Bahamas
+016 Bahreïn
+017 Bangladesh
+018 Barbade
+019 Belgique
+020 Belize
+021 Bénin
+022 Bhoutan
+023 Belarus
+024 Birmanie
+025 Bolivie
+026 Bosnie-Herzégovine
+027 Botswana
+028 Brésil
+029 Brunei
+030 Bulgarie
+031 Burkina
+032 Burundi
+033 Cambodge
+034 Cameroun
+035 Canada
+036 Cap-Vert
+037 République centrafricaine
+038 Chili
+039 République populaire de Chine
+040 Chypre
+041 Colombie
+042 Comores
+043 République du Congo
+044 République démocratique du Congo
+045 Îles Cook
+046 Corée du Nord
+047 Corée du Sud
+048 Costa Rica
+049 Côte d'Ivoire
+050 Croatie
+051 Cuba
+052 Danemark
+053 Djibouti
+054 République dominicaine
+055 Dominique
+056 Égypte
+057 Émirats arabes unis
+058 Équateur
+059 Érythrée
+060 Espagne
+061 Estonie
+062 États-Unis
+063 Éthiopie
+064 Fidji
+065 Finlande
+066 France
+067 Gabon
+068 Gambie
+069 Géorgie
+070 Ghana
+071 Grèce
+072 Grenade
+073 Guatemala
+074 Guinée
+075 Guinée-Bissau
+076 Guinée équatoriale
+077 Guyana
+078 Haïti
+079 Honduras
+080 Hongrie
+081 Inde
+082 Indonésie
+083 Irak
+084 Iran
+085 Irlande
+086 Islande
+087 Israël
+088 Italie
+089 Jamaïque
+090 Japon
+091 Jordanie
+092 Kazakhstan
+093 Kenya
+094 Kirghizie
+095 Kiribati
+096 Koweït
+097 Laos
+098 Lesotho
+099 Lettonie
+100 Liban
+101 Liberia
+102 Libye
+103 Liechtenstein
+104 Lituanie
+105 Luxembourg
+106 Ancienne république yougoslave de Macédoine
+107 Madagascar
+108 Malaisie
+109 Malawi
+110 Maldives
+111 Mali
+112 Malte
+113 Maroc
+114 Îles Marshall
+115 Maurice
+116 Mauritanie
+117 Mexique
+118 Micronésie
+119 Moldavie
+120 Monaco
+121 Mongolie
+122 Monténégro
+123 Mozambique
+124 Namibie
+125 Nauru
+126 Népal
+127 Nicaragua
+128 Niger
+129 Nigéria
+130 Niue
+131 Norvège
+132 Nouvelle-Zélande
+133 Oman
+134 Ouganda
+135 Ouzbékistan
+136 Pakistan
+137 Palaos
+138 État de Palestine
+139 Panama
+140 Papouasie-Nouvelle-Guinée
+141 Paraguay
+142 Pays-Bas
+143 Pérou
+144 Philippines
+145 Pologne
+146 Portugal
+147 Qatar
+148 Roumanie
+149 Royaume-Uni
+150 Russie
+151 Rwanda
+152 Saint-Christophe-et-Niévès
+153 Sainte-Lucie
+154 Saint-Marin
+155 Saint-Vincent-et-les Grenadines
+156 Îles Salomon
+157 Salvador
+158 Samoa
+159 Sao Tomé-et-Principe
+160 Sénégal
+161 Serbie
+162 Seychelles
+163 Sierra Leone
+164 Singapour
+165 Slovaquie
+166 Slovénie
+167 Somalie
+168 Soudan
+169 Soudan du Sud
+170 Sri Lanka
+171 Suède
+172 Suisse
+173 Suriname
+174 Swaziland
+175 Syrie
+176 Tadjikistan
+177 Tanzanie
+178 Tchad
+179 République tchèque
+180 Thaïlande
+181 Timor oriental
+182 Togo
+183 Tonga
+184 Trinité-et-Tobago
+185 Tunisie
+186 Turkménistan
+187 Turquie
+188 Tuvalu
+189 Ukraine
+190 Uruguay
+191 Vanuatu
+192 Vatican
+193 Venezuela
+194 Viêt Nam
+195 Yémen
+196 Zambie
+197 Zimbabwe

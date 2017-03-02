@@ -47,11 +47,11 @@ for fichier in os.dir("country_update") do
       end
 
 
-      if #seq["#autreNoms"] ~= 0 then
-        for i = 1, #seq:tag2str("#autreNoms") do
-  			  local name = seq:tag2str("#autreNoms","#nomPays")[i]
+      if #seq["#autreNomsPat"] ~= 0 then
+        for i = 1, #seq:tag2str("#autreNomsPat") do
+  			  local name = seq:tag2str("#autreNomsPat","#nomPays")[i]
             if name == pays.nom then
-          	  value = seq:tag2str("#autreNoms")[i]
+          	  value = seq:tag2str("#autreNomsPat")[i]
           	  if table.contains(pays.autreNoms, value) == false then
             	  table.insert(pays.autreNoms, value)
               end
@@ -63,45 +63,49 @@ for fichier in os.dir("country_update") do
 			  pays.determinant = seq:tag2str("#determinant", "#det")[1]
 			end
 
-      if #seq["#continent"] ~= 0
+      if #seq["#continentPat"] ~= 0
       		then
       			if not pays.continent
       			 then
-      			    pays.continent = seq:tag2str("#continent", "#continentName")[1]
+      			    pays.continent = seq:tag2str("#continentPat", "#continentName")[1]
       			end
 
 			end
 
-			if #seq["#capitale"] ~= 0 then
-			  pays.capitale = seq:tag2str("#capitale","#name")[1]
+			if #seq["#capitalePat"] ~= 0 then
+			  pays.capitale = seq:tag2str("#capitalePat","#name")[1]
 			end
 
-			if #seq["#langue"] ~= 0 then
-			  pays.langue = seq:tag2str("#langue","#name")[1]
+			if #seq["#languePat"] ~= 0 then
+			  pays.langue = seq:tag2str("#languePat","#name")[1]
 			end
 
-			if #seq["#population"] ~= 0 then
-			  local val = seq:tag2str("#population","#nombre")[1]
-			  val = val:gsub("millions", "000 000")
-			  val = val:gsub(", (%d) 0", "0")
-			  pays.population = val
+			if #seq["#populationPat"] ~= 0 then
+		    local val = seq:tag2str("#populationPat","#nombre")[1]
+        if val~=nil then
+		    	val = val:gsub("millions", "000 000")
+			    val = val:gsub(", (%d) 0", "0")
+        end
+		    pays.population = val
+		  end
+
+			if #seq["#monnaiePat"] ~= 0 then
+			  pays.monnaie = seq:tag2str("#monnaiePat","#name")[1]
 			end
 
-			if #seq["#monnaie"] ~= 0 then
-			  pays.monnaie = seq:tag2str("#monnaie","#name")[1]
-			end
-
-			if #seq["#superficie"] ~= 0 then
-			  local val = seq:tag2str("#superficie","#sup")[1]
-			  val = val:gsub("millions", "000 000")
-			  val = val:gsub("kilometres", "km")
-			  val = val:gsub("kilomètres", "km")
+			if #seq["#superficieP"] ~= 0 then
+			  local val = seq:tag2str("#superficieP","#sup")[1]
+        if val~=nil then
+		    	val = val:gsub("millions", "000 000")
+			    val = val:gsub("kilometres", "km")
+			    val = val:gsub("kilomètres", "km")
+        end
 			  pays.superficie = val
-			end
+		  end
 
-      if #seq["#paysFrontaliers"] ~= 0 then
-			  for i = 1, #seq:tag2str("#paysFrontaliers", "#nomPays") do
-        	value = seq:tag2str("#paysFrontaliers", "#nomPays")[i]
+      if #seq["#paysFrontaliersPat"] ~= 0 then
+			  for i = 1, #seq:tag2str("#paysFrontaliersPat", "#nomPays") do
+        	value = seq:tag2str("#paysFrontaliersPat", "#nomPays")[i]
         	if table.contains(pays.paysFrontaliers, value) == false then
         		table.insert(pays.paysFrontaliers, value)
         	end
@@ -215,23 +219,20 @@ for fichier in os.dir("country_update") do
 
 	    end
 
-			if #seq["#revolution"] ~= 0
-			 then
-        		for i = 1, #seq:tag2str("#revolution") do
-        			if seq:tag2str("#revolution","#time")[i]~=nil
-        				then
-        				date = seq:tag2str("#revolution","#time")[i]
-        			else
-        				date = nil
+			if #seq["#revolutionPat"] ~= 0 then
+      		for i = 1, #seq:tag2str("#revolutionPat") do
+       			if seq:tag2str("#revolutionPat","#time")[i]~=nil	then
+      			  date = seq:tag2str("#revolutionPat","#time")[i]
+        		else
+        			date = nil
         		end
         		value = {}
         		value[1] = datePreTraite(date)
         		value[2]=seq:tag2str("#revolution")[i]
-        		if table.contains(pays.revolution, value) == false
-        			then
+        		if table.contains(pays.revolution, value) == false then
         			table.insert(pays.revolution, value)
         		end
-      	  	end
+     	  	end
       end
 
 			if #seq["#Guerre"] ~= 0 then
@@ -243,11 +244,11 @@ for fichier in os.dir("country_update") do
         end
       end
 
-      if #seq["#colonisateur"] ~= 0 then
-				value = seq:tag2str("#colonisateur","#paysColonisateur")[1]
+      if #seq["#colonisateurPat"] ~= 0 then
+				value = seq:tag2str("#colonisateurPat","#paysColonisateur")[1]
 
-				for i = 1, #seq:tag2str("#colonisateur") do
-        			value = seq:tag2str("#colonisateur","#paysColonisateur")[i]
+				for i = 1, #seq:tag2str("#colonisateurPat") do
+        			value = seq:tag2str("#colonisateurPat","#paysColonisateur")[i]
         			if value=="française" or value=="français" then
         				value = "France"
         			elseif value=="britannique" or value=="anglais" or value=="anglaise" then
@@ -277,9 +278,9 @@ for fichier in os.dir("country_update") do
     			end
 			end
 
-      if #seq["#evenement"] ~= 0 then
-				for i = 1, #seq:tag2str("#evenement") do
-        			date = seq:tag2str("#evenement","#time")[i]
+      if #seq["#evenementPat"] ~= 0 then
+				for i = 1, #seq:tag2str("#evenementPat") do
+        			date = seq:tag2str("#evenementPat","#time")[i]
         			value = {}
         			value[1] = datePreTraite(date)
         			value[2]=seq:tag2str("#evenement")[i]
@@ -288,12 +289,12 @@ for fichier in os.dir("country_update") do
 			end
 
 
-			if #seq["#independance"] ~= 0 then
-				for i = 1, #seq:tag2str("#independance") do
-        			date = seq:tag2str("#independance","#time")[i]
+			if #seq["#independancePat"] ~= 0 then
+				for i = 1, #seq:tag2str("#independancePat") do
+        			date = seq:tag2str("#independancePat","#time")[i]
         			value = {}
         			value[1] = datePreTraite(date)
-        			value[2]=seq:tag2str("#independance")[i]
+        			value[2]=seq:tag2str("#independancePat")[i]
         			table.insert(pays.independance,value)
     			end
 			end

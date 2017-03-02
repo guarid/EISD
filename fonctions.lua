@@ -10,6 +10,19 @@ function table.contains(table, element)
   return false
 end
 
+function isNumber(seq, pos)
+  t={}
+  for w in string.gmatch(seq[pos].token,"([^',']+)") do
+    table.insert(t,w)
+  end
+  for i,v in ipairs(t) do
+    if(string.find(v,"([a-zA-Z]+)")~=nil)then
+      return false
+    end
+  end
+  return true
+end
+
 
 function transformPoste(poste)
 	if poste =="président"
@@ -31,12 +44,14 @@ end
 function datePreTraite(myDate)
 	t = {}
 	str = ""
-	for w in string.gmatch(myDate, "%S+") do
-    	if w~="en" and w~="le" and w~="années" then
-    		str = str..w
-    		str = str.." "
-    	end
-	end
+  if myDate~=nil then
+	  for w in string.gmatch(myDate, "%S+") do
+    	   if w~="en" and w~="le" and w~="années" then
+    		  str = str..w
+    	   	str = str.." "
+       	end
+	 end
+  end
 	return str
 
 end
@@ -196,9 +211,9 @@ function getFromComparison(tableau, champs, compare)
     end
   end
 
-  for i, v in ipairs(result) do
+  --[[for i, v in ipairs(result) do
      print(result[i], pays[i])
-  end
+  end]]
 
   if #result == 0 then
     return 0
@@ -211,7 +226,7 @@ function getFromComparison(tableau, champs, compare)
       v = getNumber(v)
       if v > val then
         key, val = k, v
-        print(key, val)
+        --print(key, val)
       end
     end
   elseif compare == "min" then

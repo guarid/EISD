@@ -69,7 +69,6 @@ pipe:lexicon("#revolution", {"révolution", "révolutions", "revolution", "revol
 pipe:lexicon("#independance", {"indépendance", "independance", "l'indépendance", "d'indépendance"})
 pipe:lexicon("#colonisateur", {"colonisé", "colonisés", "colonises", "colonise", "colonisateur"})
 pipe:lexicon("#autreNoms", {"l'autre nom", "autres noms", "Autres noms", "autre nom", "Autre nom"})
-pipe:lexicon("#pays", {"le pays", "les pays"})
 pipe:lexicon("#min", {"la plus petite", "le plus petit", "la moins grande", "le moins grand"})
 pipe:lexicon("#max", {"la moins petite", "le moins petit", "la plus grande", "le plus grand"})
 
@@ -84,6 +83,7 @@ pipe:lexicon("#pronomInterrogatifChoix", {"Lequel", "Laquelle", "lequel", "laque
 pipe:lexicon("#pronomInterrogatifHistoire", {"Qu'est ce qui", "Qu'est-ce-qui","qu'est ce qui", "qu'est-ce-qui"})
 pipe:lexicon("#champsDetecter",{"guerre","superficie","revolution","autreNoms","l'autreNoms","capitale","indépendance","l'indépendance","evenement","l'evenement","population","langue","colonisateur","paysFrontaliers","personnage"})
 pipe:lexicon("#pronomInterrogatifComplexe",{"Et celle", "Celle", "Et celui", "et celle", "et celui", "Celui", "celui", "celle", "Et ceux", "et ceux", "Et celles", "et celles", "Et", "et"})
+pipe:lexicon("#pronomInterrogatifPays", {"Quel", "quel", "Quelle", "quelle", "Quels", "quels", "Quelles", "quelles"})
 
 
 -- Pattern pour détecter une personne en utilisant le lexique des prénoms
@@ -109,7 +109,7 @@ pipe:pattern([[
 
 -- Pattern pour les autres noms(forme plus longues) d'un pays
 pipe:pattern([[
-	[#autreNoms
+	[#autreNomsPat
     (
       "République"
       |
@@ -124,7 +124,7 @@ pipe:pattern([[
 
 -- Pattern pour détecter le continent d'un pays
 pipe:pattern([[
-	[#continent
+	[#continentPat
     ("est" "un" "pays" "d" "'" #continentName) |
     (#nomPays {0,20}?  "pays" {0,10} #continentName )
 	]
@@ -147,7 +147,7 @@ pipe:pattern([[
 
 -- Pattern pour détecter la capitale d'un pays
 pipe:pattern([[
-	[#capitale
+	[#capitalePat
     (
     "capitale" ("fédérale" | "officielle" | "du" "pays" | "du" "royaume" | ("du" | "de" "la" | "de" "l" "'" ) #nomPays)?
     ("et" ("sa" | ) "plus" "grande" "ville" | "est" "la" "ville" "d" "'" | "politique" "et" "administrative")?
@@ -163,7 +163,7 @@ pipe:pattern([[
 
 -- Pattern pour détecter la langue parlée par un pays
 pipe:pattern([[
-	[#langue
+	[#languePat
     "langue" ("officielle" | "nationale" | "principale") (("du" | "de" "la" | "des") #nomPays)?
     ("est" | ",")? ("le" | "l" "'" | "la")? ([#name (#POS=ADJ| #POS=NNC)])
     |
@@ -174,7 +174,7 @@ pipe:pattern([[
 
 -- Pattern pour détecter la monnaie utilisée dans un pays
 pipe:pattern([[
-	[#monnaie
+	[#monnaiePat
     "monnaie" ("officielle" | "nationale")? ("est"| "était" | ",")? [#name ("le" | "l" "'" | "la") (/^%l/ /^%l/ "-" /^%l/ |/^%l/ /^%l/ | /^%l/)?]
     |
     [#name ("le" | "Le" | "La" | "l" "'" | "L" "'" | "la") (/^%l/ /^%l/ | /^%l/)?] ("est" | "était") ("adopté" "comme" | "resté"| "déjà")? ("sa" | "la")? "monnaie"
@@ -184,18 +184,19 @@ pipe:pattern([[
 
 -- Pattern pour détecter la population habitant d'un pays
 pipe:pattern([[
-	[#population
-    (#nomPays ("comptait" | "compte" | "comptent") | "Peuplée" | "peuplé" | "peuplée" | "peuplé"
+	[#populationPat
+    [#nombre  #number "millions"]  ("habitants" | "d" "'" "habitants")
     |
-    ("sa"| "Sa" | "La" | "la") "population" | "Y" "résident" | "Avec")
-    (/./)* [#nombre  #number ("millions")?]  ("habitants" | "d" "'" "habitants")
+    [#nombre  #number]  ("habitants" | "d" "'" "habitants")
+    |
+    [#nombre  @isNumber "millions"]  ("habitants" | "d" "'" "habitants")
 	]
 ]])
 
 
 -- Pattern pour détecter la superficie d'un pays
 pipe:pattern([[
-	[#superficie
+	[#superficiePat
     "superficie" .+? [#sup  #number ("km" | "kilomètres" | "millions" "de" "km")]
 	]
 ]])
@@ -212,7 +213,7 @@ pipe:pattern([[
 
 -- Pattern pour détecter les pays frontaliers d'un pays
 pipe:pattern([[
-  [#paysFrontaliers
+  [#paysFrontaliersPat
     (("entouré" | "entourée" | "bordé" | "encadré" | "délimité"| "bordée" | "encadrée" | "délimitée"
     |
     "Entouré" | "Entourée" | "Bordé" | "Encadré" | "Délimité"| "Bordée" | "Encadrée" | "Délimitée") ("par" | "à")?
@@ -251,7 +252,7 @@ pipe:pattern([[
 
 -- Pattern pour détecter les révolutions ayant eu lieu et la date
 pipe:pattern([[
-  [#revolution
+  [#revolutionPat
   	@NotPoint*? [#time ("le" #date)|(("en"|"années") #number)] .*? ("révolution" | "Révolution"|"révolte"|"Révolte").*? ("." | $ | "!" | "?")
   	|
   	@NotPoint*? ("révolution" | "Révolution"|"révolte"|"Révolte") .*? [#time ("le" #date)|(("en"|"années") #number)] .*? ("." | $ | "!" | "?")
@@ -275,7 +276,7 @@ pipe:pattern([[
 
 
 pipe:pattern([[
-	[#evenement
+	[#evenementPat
 		@NotPoint*? [#time ("le" #date)|(("en"|"années") #number)] .*? ("." | $ | "!" | "?")
 	]
 ]])
@@ -283,7 +284,7 @@ pipe:pattern([[
 
 -- Pattern pour détecter un colonisateur en rapport à un évènement d'indépendance
 pipe:pattern([[
-	[#colonisateur
+	[#colonisateurPat
 		(#colonie .*? (#paysColonisateur)+)
 		|
 		((#paysColonisateur).*?#colonie)
@@ -295,7 +296,7 @@ pipe:pattern([[
 
 -- Pattern pour détecter une date d'indépendance
 pipe:pattern([[
-	[#independance
+	[#independancePat
 		(
 			@NotPoint*?
 			(
@@ -328,10 +329,31 @@ pipe:pattern([[
 pipe:pattern([[
   [#question
     ((#pronomInterrogatifPersonne | #pronomInterrogatifDate | #pronomInterrogatifLieu | #pronomInterrogatifGeneralSing
-      | #pronomInterrogatifGeneralPlu)) ("est" | "sont") (/./)* [#infoName (/^%u/ /^%u/ | /^%u/ | )]
+      | #pronomInterrogatifGeneralPlu)) ("est" | "sont") (/./)*
   ]
 ]])
 
+
+pipe:pattern([[
+  [#questionPays
+
+  ]
+]])
+
+--[[
+   (
+    (#pronomInterrogatifGeneralSing | #pronomInterrogatifGeneralPlu) ("est" | "sont")? ("le" | "les")? "pays" (/./)* ("est" | ) [#infoName (/^%u/ /^%u/ | /^%u/ | /^%l/ /^%l/ | /^%l/ )]
+    )
+    |
+    (
+    (#pronomInterrogatifGeneralSing | #pronomInterrogatifGeneralPlu) ("est" | "sont")? ("le" | "les")? "pays" (/./)* [#infoName (/^%u/ /^%u/ | /^%u/ | /^%l/ /^%l/ | /^%l/ )] ("pour" | "comme") (/./)*
+    )
+    |
+    (
+    ("Le" | "le" | "La" | "la" | "L" "'" | "l" "'" | ) [#infoName (/^%u/ /^%u/ | /^%u/ | /^%l/ /^%l/ | /^%l/ )] ("est")? (/./)* (#pronomInterrogatifGeneralSing| #pronomInterrogatifGeneralPlu) "pays"
+    )
+
+]]
 
 pipe:pattern([[
   [#questionBinaire

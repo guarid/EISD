@@ -17,8 +17,8 @@ function getInput()
 		if question == "q" or question == "Q"  then
 			break;
 		end
+    question = question:gsub("(%p)", " %1 ")
 		question = dark.sequence(question)
-		--pipe(question)
 		pipe(question)
 		local ligne
 		local colonne
@@ -349,166 +349,13 @@ function getInput()
 
 
 
-      -- Si dans la question on a un lexique de pays(voir lexicon)
-      elseif #question["#pays"] ~= 0 then
-
-        -- Vérifier toutes les infoName d'abord
-	  	  if #question["#capitale"] ~= 0 then
-	  	    valeur = question:tag2str("#question", "#infoName")[1]
-	  	    if valeur == nil then
-	  	      print("Le nom donné doit commencer par une majuscule. ")
-	  	    else
-			      colonne = "capitale"
-					  focusChamps = "capitale"
-  			    local res = getCountryName(colonne, valeur)
-
-  	  		  if #res == 0 then
-            	print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
-	    	  	else
-  	    	  	table.insert(profondeur, 1, res[1])
-	    	  	  if(historique[res[1]] == nil) then
-  	    	  	  historique[res[1]] = {}
-              end
-              historique[res[1]].capitale = valeur
-		          det = getDeterminant(res[1])
-	 			      if det == "Le" then
-             		print(valeur,"est la capitale du", res[1])
-           	  else
-           		  print(valeur,"est la capitale de",det,res[1])
-          	  end
-		        end
-
-	  	    end
-        end
-
-
-    		if #question["#guerre"] ~= 0 then
-		    	local guerre = question:tag2str("#Guerre")[1]
-			    colonne="guerre"
-				  focusChamps = "guerre"
-			    local res=getCountryFromTable(colonne, guerre)
-
-    			if res ~= nil then
-		    		if  #res == 0 then
-	          	print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
-		  	  	else
-		 	  	    print("Les pays sont:")
-		          for k,v in pairs(res) do
-    	    	  	table.insert(profondeur, 1, res[k])
-	      	  	  if(historique[res[k]] == nil) then
-    	    	  	  historique[res[k]] = {}
-                end
-                historique[res[k]].guerre = guerre
-			        	print(res[k])
-			        end
-			    	end
-			    end
-		    end
-
-        if #question["#continent"] ~= 0 then
-				  valeur = question:tag2str("#question", "#infoName")[1]
-				  if valeur == nil then
-	  	      print("Le nom donné doit commencer par une majuscule. ")
-	  	    else
-  			    colonne = "continent"
-					  focusChamps = "continent"
-    			  local res = getCountryName(colonne, valeur)
-
-	    		  if #res == 0 then
-              print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
-			      else
-              print("Les pays du continent", valeur,"sont:")
-	              for i,elem in ipairs(res) do
-	        	  	  if(historique[elem] == nil) then
-      	    	  	  historique[elem] = {}
-                  end
-      	    	  	table.insert(profondeur, 1, elem)
-                  historique[elem].continent = valeur
-    		          det = getDeterminant(elem)
-	      	        print(det,elem)
-  	            end
-			      end
-			    end
-			  end
-
-        if #question["#monnaie"] ~= 0 then
-				  valeur = question:tag2str("#question", "#infoName")[1]
-				  if valeur == nil then
-	  	      print("Le nom donné doit commencer par une majuscule. ")
-	  	    else
-            valeur = valeur:lower()
-	  	  		colonne = "monnaie"
-					  focusChamps = "monnaie"
-  	  		  local res = getCountryName(colonne, valeur)
-
-            if #res == 0 then
-              print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
-	  	    	elseif #res == 1 then
-	    	  	  historique[res[1]] = {}
-              historique[res[1]].monnaie = valeur
-		          det = getDeterminant(res[1])
-	 		        print("Un seul pays a comme monnaie",valeur,",c'est",det,res[1])
-	  	  	  else
-		          det = getDeterminant(res[1])
-		          print("Les pays qui ont", valeur,"comme monnaie sont:")
-	              for i,elem in ipairs(res) do
-    		          det = getDeterminant(elem)
-  	      	      print(det,elem)
-	        	  	  if(historique[elem] == nil) then
-      	    	  	  historique[elem] = {}
-                  end
-      	    	  	table.insert(profondeur, 1, elem)
-                  historique[elem].monnaie = valeur
-  	            end
-			      end
-			    end
-  			end
-
-        if #question["#langue"] ~= 0 then
-				  valeur = question:tag2str("#question", "#infoName")[1]
-				  if valeur == nil then
-	  	      print("Le nom donné doit commencer par une majuscule. ")
-	  	    else
-            valeur = valeur:lower()
-	  	  		colonne = "langue"
-					  focusChamps = "langue"
-  	  		  local res = getCountryName(colonne, valeur)
-
-            if #res == 0 then
-              print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
-	    	  	elseif #res == 1 then
-	    	  	  historique[res[1]] = {}
-              historique[res[1]].langue = valeur
-		          det = getDeterminant(res[1])
-	 		        print("Un seul pays a comme langue",valeur,",c'est",det,res[1])
-	  	  	  else
-		          det = getDeterminant(res[1])
-  		        print("Les pays qui ont", valeur,"comme langue sont:")
-	              for i,elem in ipairs(res) do
-      		        det = getDeterminant(elem)
-	        	      print(det,elem)
-	        	  	  if(historique[elem] == nil) then
-      	    	  	  historique[elem] = {}
-                  end
-      	    	  	table.insert(profondeur, 1, elem)
-                  historique[elem].langue = valeur
-  	            end
-			      end
-  			  end
-        end
-
-
-
-
       else
         local cpt = 0
-        local focus
         for k,v in pairs(historique) do
           cpt = cpt+1
-          focus = k
         end
         if cpt ~= 0  then
-          ligne = focus
+          ligne = profondeur[1]
    	  	  --historique[ligne] = {}
  	    	  	table.insert(profondeur, 1, ligne)
 
@@ -816,13 +663,177 @@ function getInput()
 
 
 
+
+
+      -- Si dans la question on a un lexique de pays(voir lexicon)
+    elseif #question["#questionPays"] ~= 0 then
+
+        -- Vérifier toutes les infoName d'abord
+	  	  if #question["#capitale"] ~= 0 then
+	  	    valeur = question:tag2str("#questionPays", "#infoName")[1]
+	  	    if valeur == nil then
+	  	      print("Le nom donné doit commencer par une majuscule. ")
+	  	    else
+			      colonne = "capitale"
+					  focusChamps = "capitale"
+  			    local res = getCountryName(colonne, valeur)
+
+  	  		  if #res == 0 then
+            	print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
+	    	  	else
+  	    	  	table.insert(profondeur, 1, res[1])
+	    	  	  if(historique[res[1]] == nil) then
+  	    	  	  historique[res[1]] = {}
+              end
+              historique[res[1]].capitale = valeur
+		          det = getDeterminant(res[1])
+	 			      if det == "Le" then
+             		print(valeur,"est la capitale du", res[1])
+           	  else
+           		  print(valeur,"est la capitale de",det,res[1])
+          	  end
+		        end
+
+	  	    end
+        end
+
+
+    		if #question["#guerre"] ~= 0 then
+		    	local guerre = question:tag2str("#Guerre")[1]
+			    colonne="guerre"
+				  focusChamps = "guerre"
+			    local res=getCountryFromTable(colonne, guerre)
+
+    			if res ~= nil then
+		    		if  #res == 0 then
+	          	print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
+		  	  	else
+		 	  	    print("Les pays sont:")
+		          for k,v in pairs(res) do
+    	    	  	table.insert(profondeur, 1, res[k])
+	      	  	  if(historique[res[k]] == nil) then
+    	    	  	  historique[res[k]] = {}
+                end
+                historique[res[k]].guerre = guerre
+			        	print(res[k])
+			        end
+			    	end
+			    end
+		    end
+
+        if #question["#continent"] ~= 0 then
+				  valeur = question:tag2str("#questionPays", "#infoName")[1]
+				  if valeur == nil then
+	  	      print("Le nom donné doit commencer par une majuscule. ")
+	  	    else
+  			    colonne = "continent"
+					  focusChamps = "continent"
+    			  local res = getCountryName(colonne, valeur)
+
+	    		  if #res == 0 then
+              print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
+			      else
+              print("Les pays du continent", valeur,"sont:")
+	              for i,elem in ipairs(res) do
+	        	  	  if(historique[elem] == nil) then
+      	    	  	  historique[elem] = {}
+                  end
+      	    	  	table.insert(profondeur, 1, elem)
+                  historique[elem].continent = valeur
+    		          det = getDeterminant(elem)
+	      	        print(det,elem)
+  	            end
+			      end
+			    end
+			  end
+
+        if #question["#monnaie"] ~= 0 then
+				  valeur = question:tag2str("#questionPays", "#infoName")[1]
+				  if valeur == nil then
+	  	      print("Le nom donné doit commencer par une majuscule. ")
+	  	    else
+            valeur = valeur:lower()
+	  	  		colonne = "monnaie"
+					  focusChamps = "monnaie"
+  	  		  local res = getCountryName(colonne, valeur)
+
+            if #res == 0 then
+              print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
+	  	    	elseif #res == 1 then
+	    	  	  historique[res[1]] = {}
+              historique[res[1]].monnaie = valeur
+		          det = getDeterminant(res[1])
+	 		        print("Un seul pays a comme monnaie",valeur,",c'est",det,res[1])
+	  	  	  else
+		          det = getDeterminant(res[1])
+		          print("Les pays qui ont", valeur,"comme monnaie sont:")
+	              for i,elem in ipairs(res) do
+    		          det = getDeterminant(elem)
+  	      	      print(det,elem)
+	        	  	  if(historique[elem] == nil) then
+      	    	  	  historique[elem] = {}
+                  end
+      	    	  	table.insert(profondeur, 1, elem)
+                  historique[elem].monnaie = valeur
+  	            end
+			      end
+			    end
+  			end
+
+        if #question["#langue"] ~= 0 then
+				  valeur = question:tag2str("#questionPays", "#infoName")[1]
+				  if valeur == nil then
+	  	      print("Le nom donné doit commencer par une majuscule. ")
+	  	    else
+            valeur = valeur:lower()
+	  	  		colonne = "langue"
+					  focusChamps = "langue"
+  	  		  local res = getCountryName(colonne, valeur)
+
+            if #res == 0 then
+              print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
+	    	  	elseif #res == 1 then
+	    	  	  historique[res[1]] = {}
+              historique[res[1]].langue = valeur
+		          det = getDeterminant(res[1])
+	 		        print("Un seul pays a comme langue",valeur,",c'est",det,res[1])
+	  	  	  else
+		          det = getDeterminant(res[1])
+  		        print("Les pays qui ont", valeur,"comme langue sont:")
+	              for i,elem in ipairs(res) do
+      		        det = getDeterminant(elem)
+	        	      print(det,elem)
+	        	  	  if(historique[elem] == nil) then
+      	    	  	  historique[elem] = {}
+                  end
+      	    	  	table.insert(profondeur, 1, elem)
+                  historique[elem].langue = valeur
+  	            end
+			      end
+  			  end
+        end
+
+
+
+
+
     elseif #question["#questionComparaison"] ~= 0 then
         local cpt = 0
         for k,v in pairs(historique) do
           cpt = cpt+1
         end
         if cpt ~= 0  then
-          tableau = historique
+          tableau = {}
+
+          if #profondeur <= 5 then
+            tableau = profondeur
+          else
+            for i = 1, 5 do
+              print(profondeur[i])
+              table.insert(tableau, profondeur[i])
+            end
+          end
+
 
           if #question["#superficie"] ~= 0 and (#question["#min"] ~= 0 or #question["#max"] ~= 0) then
 	  				if #question["#min"] ~= 0 then

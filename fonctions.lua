@@ -1,4 +1,4 @@
-db = dofile("dataBase.txt")
+db = dofile("dataBaseNew.txt")
 
 
 function table.contains(table, element)

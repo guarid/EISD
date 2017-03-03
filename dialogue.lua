@@ -22,7 +22,7 @@ function getInput()
 		pipe(question)
 		local ligne
 		local colonne
-		if (#question["#question"] ~= 0 and #question["#questionEvenement"] == 0) or
+		if (#question["#question"] ~= 0 and #question["#questionEvenement"] == 0 and #question["#questionPays"] == 0) or
 		 (#question["#questionComplexe"] ~= 0 and focusChamps ~= "") then
 
       if #question["#nomPays"] ~= 0 then
@@ -829,7 +829,6 @@ function getInput()
             tableau = profondeur
           else
             for i = 1, 5 do
-              print(profondeur[i])
               table.insert(tableau, profondeur[i])
             end
           end

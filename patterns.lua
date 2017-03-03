@@ -228,16 +228,16 @@ pipe:pattern([[
 pipe:pattern([[
 	  [#personnage
 	   		(#personne .{0,8}? #poste 	#articleIndefini  #nomPays ) |
-	   		(#poste #articleIndefini  #nomPays .{0,8}?   #personne	) 
+	   		(#poste #articleIndefini  #nomPays .{0,8}?   #personne	)
 	   		(#personne  .{0,8}?  "élu" #poste .{0,8}? #nomPays )
-	   		
+
 	  ]
 ]])
 
 -- Pattern pour détecter les personnages (fonction en rapport à une personne)
 pipe:pattern([[
 	  [#personnage4
-	   		(#personne .{0,5}? ("élu"|"élue"|"réélu"|"réélue") {0,3}? #poste  ) 
+	   		(#personne .{0,5}? ("élu"|"élue"|"réélu"|"réélue") {0,3}? #poste  )
 
 	  ]
 ]])
@@ -275,12 +275,12 @@ pipe:pattern([[
     ]
 ]])
 
-
+--[[
 pipe:pattern([[
 	[#evenementPat
 		@NotPoint*? [#time ("le" #date)|(("en"|"années") #number)] .*? ("." | $ | "!" | "?")
 	]
-]])
+]]
 
 
 -- Pattern pour détecter un colonisateur en rapport à un évènement d'indépendance
@@ -337,24 +337,20 @@ pipe:pattern([[
 
 pipe:pattern([[
   [#questionPays
-
+  (
+   [#infoName ("Le"| "La" | "le" | "la" | "l" "'" | "L" "'")?  (/^%u/ /^%u/ | /^%u/ | /^%l/ /^%l/ | /^%l/ )] ("est")? .* (#pronomInterrogatifGeneralSing| #pronomInterrogatifGeneralPlu) "pays"
+  )
+  |
+  (
+   (#pronomInterrogatifGeneralSing | #pronomInterrogatifGeneralPlu) ("est" | "sont")? ("le" | "les")? "pays" .* ("est" | )  [#infoName ("Le"| "La" | "le" | "la" | "l" "'" | "L" "'")?  (/^%u/ /^%u/ | /^%u/ | /^%l/ /^%l/ | /^%l/ )]
+  )
+  |
+  (
+   (#pronomInterrogatifGeneralSing | #pronomInterrogatifGeneralPlu) ("est" | "sont")? ("le" | "les")? "pays" .* [#infoName ("Le"| "La" | "le" | "la" | "l" "'" | "L" "'")?  (/^%u/ /^%u/ | /^%u/ | /^%l/ /^%l/ | /^%l/ )] ("pour" | "comme") (/./)*
+  )
   ]
 ]])
 
---[[
-   (
-    (#pronomInterrogatifGeneralSing | #pronomInterrogatifGeneralPlu) ("est" | "sont")? ("le" | "les")? "pays" (/./)* ("est" | ) [#infoName (/^%u/ /^%u/ | /^%u/ | /^%l/ /^%l/ | /^%l/ )]
-    )
-    |
-    (
-    (#pronomInterrogatifGeneralSing | #pronomInterrogatifGeneralPlu) ("est" | "sont")? ("le" | "les")? "pays" (/./)* [#infoName (/^%u/ /^%u/ | /^%u/ | /^%l/ /^%l/ | /^%l/ )] ("pour" | "comme") (/./)*
-    )
-    |
-    (
-    ("Le" | "le" | "La" | "la" | "L" "'" | "l" "'" | ) [#infoName (/^%u/ /^%u/ | /^%u/ | /^%l/ /^%l/ | /^%l/ )] ("est")? (/./)* (#pronomInterrogatifGeneralSing| #pronomInterrogatifGeneralPlu) "pays"
-    )
-
-]]
 
 pipe:pattern([[
   [#questionBinaire

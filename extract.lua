@@ -65,15 +65,16 @@ for fichier in os.dir("country_update") do
 
       if #seq["#continentPat"] ~= 0
       		then
-      			if not pays.continent
-      			 then
+      			if not pays.continent then
       			    pays.continent = seq:tag2str("#continentPat", "#continentName")[1]
       			end
 
 			end
 
 			if #seq["#capitalePat"] ~= 0 then
-			  pays.capitale = seq:tag2str("#capitalePat","#name")[1]
+			  if not pays.capitale then
+  			  pays.capitale = seq:tag2str("#capitalePat","#name")[1]
+	      end
 			end
 
 			if #seq["#languePat"] ~= 0 then
@@ -93,8 +94,8 @@ for fichier in os.dir("country_update") do
 			  pays.monnaie = seq:tag2str("#monnaiePat","#name")[1]
 			end
 
-			if #seq["#superficieP"] ~= 0 then
-			  local val = seq:tag2str("#superficieP","#sup")[1]
+			if #seq["#superficiePat"] ~= 0 then
+			  local val = seq:tag2str("#superficiePat","#sup")[1]
         if val~=nil then
 		    	val = val:gsub("millions", "000 000")
 			    val = val:gsub("kilometres", "km")
@@ -196,17 +197,17 @@ for fichier in os.dir("country_update") do
           nom  =  seq:tag2str("#personnage4","#personne")[1]
           if(not personnages[nom])
             then
-              personnage = {           
+              personnage = {
                 ["fonction"] = {},
                 ["paysLiens"] = {},
                 ["paysPersonnage"] = curCountry
              }
-             
+
              table.insert(personnage["fonction"] , transformPoste( seq:tag2str("#personnage4","#poste")[1] ))
-             personnages[nom]= personnage 
+             personnages[nom]= personnage
           else
            local fonction =  transformPoste(seq:tag2str("#personnage4","#poste")[1])
-           if table.contains(personnages[nom]["fonction"], fonction) == false 
+           if table.contains(personnages[nom]["fonction"], fonction) == false
               then
                 table.insert(personnages[nom]["fonction"] , fonction  )
             end
@@ -217,13 +218,13 @@ for fichier in os.dir("country_update") do
               personnages[nom]["paysPersonnage"] = country
          end
 
-                     
+
       end
 
       if  #seq["#personnage2"] ~= 0
        then
           nom  =  seq:tag2str("#personnage2","#personne")[1]
-          
+
           if(not personnages[nom])
             then
               personnage = {
@@ -241,8 +242,8 @@ for fichier in os.dir("country_update") do
                 table.insert(personnages[nom]["fonction"] , fonction  )
             end
            end
-          
-           if (not personnages[nom]["paysPersonnage"] or ( personnages[nom]["paysPersonnage"] ~= curCountry) ) and table.contains(personnages[nom]["paysLiens"], curCountry) == false 
+
+           if (not personnages[nom]["paysPersonnage"] or ( personnages[nom]["paysPersonnage"] ~= curCountry) ) and table.contains(personnages[nom]["paysLiens"], curCountry) == false
 
              then
               table.insert(personnages[nom]["paysLiens"] , curCountry  )
@@ -310,6 +311,7 @@ for fichier in os.dir("country_update") do
     			end
 			end
 
+      --[[
       if #seq["#evenementPat"] ~= 0 then
 				for i = 1, #seq:tag2str("#evenementPat") do
         			date = seq:tag2str("#evenementPat","#time")[i]
@@ -319,7 +321,7 @@ for fichier in os.dir("country_update") do
         			table.insert(pays.evenement,value)
     			end
 			end
-
+      ]]
 
 			if #seq["#independancePat"] ~= 0 then
 				for i = 1, #seq:tag2str("#independancePat") do

@@ -6,12 +6,13 @@ dofile("fonctions.lua")
 
 -- Fonction pour récupérer la question de l'utilisateur
 function getInput()
-	print("EISD - Histoire pour tous\n")
+	print("EISD - Histoire pour tous - Bonjour !\n")
+
   historique = {}
   profondeur = {}
   focusChamps = ""
 	while true do
-		print("Bonjour! Que voulez vous savoir? (ou appuyer q pour quitter)\n")
+		print("Que voulez vous savoir? (ou appuyer q pour quitter)\n")
 
 		question = io.read()
 		if question == "q" or question == "Q"  then
@@ -34,9 +35,29 @@ function getInput()
         table.insert(profondeur, 1, question:tag2str("#nomPays")[1])
 		    ligne = question:tag2str("#nomPays")[1]
 
-        --[[for k,v in pairs(historique) do
-          print(k)
-        end]]
+
+        if #question["#personnageChamp"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "personnage") then
+	  			ligne = question:tag2str("#nomPays")[1]
+		  		colonne = "paysPersonnage"
+				focusChamps = "personnage"
+			  	local res = getFromPersonnage(ligne, colonne)
+				local det = getDeterminant(ligne)
+
+	  			if res == 0 then
+          			print("Désolé, je n'ai pas cette information")
+			  	elseif res == -1 then
+          			print("Désolé, je ne comprends pas de quel pays vous parlez")
+		        elseif type(res) == "table" then
+		          	print(det,ligne, "a plusieurs personnages marquant. Voici la liste :")
+		            historique[ligne].personnage = res
+		        	for i,elem in ipairs(res) do
+		         		print(elem)
+		        	end
+		        else
+	          		historique[ligne].personnage = res
+          	  		print(det,ligne, "a connu un seul personnage qui est:", res)
+				end
+			  end
 
 			  if #question["#capitale"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "capitale") then
 					  colonne = "capitale"
@@ -348,6 +369,28 @@ function getInput()
 
 
 
+      elseif #question["#personne"] ~= 0 then
+      		if #question["#personne"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "personnage") then
+				    focusChamps = "personne"
+				    ligne = question:tag2str("#personne")[1]
+			  	local res, pays = getPersonnage(ligne)
+
+	  			if pays == nil then
+          			print("Désolé, je n'ai pas cette information")
+		        elseif type(res) == "table" then
+		    		print("Les fonctions occupait par "..ligne.." sont:")
+		    		historique [ligne] = {}
+		            historique [ligne].personnage = ligne
+		        	for i,elem in ipairs(res) do
+		         		print(elem)
+		        	end
+		        	print("Dans le pays suivant: "..pays)
+				  end
+		 	end
+
+
+
+
 
       else
         local cpt = 0
@@ -358,6 +401,28 @@ function getInput()
           ligne = profondeur[1]
    	  	  --historique[ligne] = {}
  	    	  	table.insert(profondeur, 1, ligne)
+
+ 	    if #question["#personnageChamp"] ~= 0 or (#question["#questionComplexe"] ~= 0 and focusChamps == "personnage") then
+		  		colonne = "paysPersonnage"
+				focusChamps = "personnage"
+			  	local res = getFromPersonnage(ligne, colonne)
+				local det = getDeterminant(ligne)
+
+	  			if res == 0 then
+          			print("Désolé, je n'ai pas cette information")
+			  	elseif res == -1 then
+          			print("Désolé, je ne comprends pas de quel pays vous parlez")
+		        elseif type(res) == "table" then
+		          	print(det,ligne, "a plusieurs personnages marquant. Voici la liste :")
+		            historique[ligne].personnage = res
+		        	for i,elem in ipairs(res) do
+		         		print(elem)
+		        	end
+		        else
+	          		historique[ligne].personnage = res
+          	  		print(det,ligne, "a connu un seul personnage qui est:", res)
+				end
+			  end
 
           if #question["#capitale"] ~= 0 then
 					  colonne = "capitale"
@@ -698,19 +763,20 @@ function getInput()
         end
 
 
-    		if #question["#guerre"] ~= 0 then
-		    	local guerre = question:tag2str("#Guerre")[1]
+        if #question["#guerre"] ~= 0 then
+			    local guerre = question:tag2str("#Guerre")[1]
 			    colonne="guerre"
 				  focusChamps = "guerre"
-			    local res=getCountryFromTable(colonne, guerre)
+		  	  local res=getCountryFromTable(colonne, guerre)
 
-    			if res ~= nil then
-		    		if  #res == 0 then
-	          	print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
+		  	  if res ~= nil then
+				    if  #res == 0 then
+	            	print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
 		  	  	else
-		 	  	    print("Les pays sont:")
-		          for k,v in pairs(res) do
-    	    	  	table.insert(profondeur, 1, res[k])
+		  	  	    table.insert(historique, res[1])
+		  	  	    print("Les pays impliqués dans la "..guerre.." sont:")
+			        for k,v in pairs(res) do
+
 	      	  	  if(historique[res[k]] == nil) then
     	    	  	  historique[res[k]] = {}
                 end
@@ -718,8 +784,9 @@ function getInput()
 			        	print(res[k])
 			        end
 			    	end
-			    end
-		    end
+		  	  end
+    		end
+
 
         if #question["#continent"] ~= 0 then
 				  valeur = question:tag2str("#questionPays", "#infoName")[1]
@@ -812,6 +879,25 @@ function getInput()
 			      end
   			  end
         end
+
+        if #question["#colonisePar"] ~= 0 then
+
+			    local pays = question:tag2str("#nomPays")[1]
+			    colonne="colonisateur"
+			    local res=getCountryFromTable(colonne, pays)
+
+			    if res ~= nil then
+				    if  #res == 0 then
+	           	print("Désolé, je n'ai trouvé aucun pays correspondant à votre demande")
+		  	  	else
+		  	  	    table.insert(historique, res[1])
+		  	  	    print("Les pays sont:")
+			        for k,v in pairs(res) do
+			        	print(res[k])
+			        end
+			  	  end
+			    end
+		    end
 
 
 

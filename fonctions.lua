@@ -1,4 +1,5 @@
 db = dofile("dataBaseNew.txt")
+dbPersonnage = dofile("personnagesNew.txt")
 
 
 function table.contains(table, element)
@@ -159,28 +160,150 @@ function getCountryName(champ, infoName)
   return result
 end
 
+function getPersonnage(personnage)
+  result = {}
+
+
+    for k,elem in pairs(dbPersonnage) do
+      --Boucle personnage
+      --for i,elem in pairs(v) do
+
+        if k == personnage then
+          if elem["fonction"] ~= nil then
+            for j, fct in pairs(elem["fonction"]) do
+              table.insert(result, fct)
+            end
+          end
+
+          if elem["paysPersonnage"] ~= nil then
+            --print(elem["paysPersonnage"])
+            return result, elem["paysPersonnage"]
+          else
+            --print(elem["paysLiens"][1])
+            return result, elem["paysLiens"][1]
+          end
+        end
+
+      --end
+    end
+
+  return result
+
+end
+
+function getFromPersonnage(pays, colonne)
+  result = {}
+
+      --Boucle personnage
+      for i,elem in pairs(dbPersonnage) do
+        --Test pour savoir si contient un paysPersonnage
+        if elem[colonne] ~= nil then
+            --Test pour savoir si c'est le pays recherche
+            if elem[colonne] == pays then
+              table.insert(result, i)
+            end
+        end
+      end
+
+
+  return result
+
+end
+
+
+-- Returns the Levenshtein distance between the two given strings
+function string.levenshtein(str1, str2)
+  local len1 = string.len(str1)
+  local len2 = string.len(str2)
+  local matrix = {}
+  local cost = 0
+  local max
+
+  if len1>len2 then
+    max = len1
+  else
+    max = len2
+  end
+
+        -- quick cut-offs to save time
+  if (len1 == 0) then
+    return len2
+  elseif (len2 == 0) then
+    return len1
+  elseif (str1 == str2) then
+    return 0
+  end
+
+        -- initialise the base matrix values
+  for i = 0, len1, 1 do
+    matrix[i] = {}
+    matrix[i][0] = i
+  end
+  for j = 0, len2, 1 do
+    matrix[0][j] = j
+  end
+
+        -- actual Levenshtein algorithm
+  for i = 1, len1, 1 do
+    for j = 1, len2, 1 do
+      if (str1:byte(i) == str2:byte(j)) then
+        cost = 0
+      else
+        cost = 1
+      end
+
+      matrix[i][j] = math.min(matrix[i-1][j] + 1, matrix[i][j-1] + 1, matrix[i-1][j-1] + cost)
+    end
+  end
+
+        -- return the last value - this is the Levenshtein distance
+  score = matrix[len1][len2]
+  -- On a change la maniere de calculer l'index de ressemblance en calculant un score maison
+  return ((score*100)/max)
+end
+
+--Fonction qui evalue l'egalite de 2 chaines selon le principe de Levenshtein
+function string.equals(s1, s2)
+  if(string.levenshtein(s1,s2) <= 6) then
+    return true
+  else
+    return false
+  end
+end
+
+--Fonction qui permet d'insérer un element sans doublon dans une table
+function table.insertOnce(my_table, value)
+  for k,v in pairs(my_table) do
+    if v==value then
+      return;
+    end
+  end
+
+  table.insert(my_table, value)
+end
 
 
 
 function getCountryFromTable(colonne, instance)
-	result = {}
-	if instance == nil then
-		print("Désolé, cette guerre est inconnue")
-		return nil
-	end
 
-	for k,v in pairs(db) do
-		if(v[colonne] ~= nil) then
-			for n,guerre in pairs(v[colonne]) do
-				if string.lower(guerre) == string.lower(instance) then
-					--print(k)
-					table.insert(result, k)
-				end
-			end
-		end
+  result = {}
+  if instance == nil then
+    print("Désolé, "..colonne.." inconnu(e)")
+    return nil
   end
 
-  	return result
+  for k,v in pairs(db) do
+    if(v[colonne] ~= nil) then
+      for n,guerre in pairs(v[colonne]) do
+        if string.equals(guerre, instance) then
+          table.insertOnce(result, k)
+        end
+      end
+    end
+  end
+
+    return result
+
 end
 
 

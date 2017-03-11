@@ -306,8 +306,7 @@ return {
     capitale = "Turin",
     nom = "Italie",
     colonisateur = {
-      [1] = "Italie",
-      [2] = "France",
+      [1] = "France",
     },
     autreNoms = {
     },

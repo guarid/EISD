@@ -27,7 +27,7 @@ function getInput()
 		 (#question["#questionComplexe"] ~= 0 and focusChamps ~= "") then
 
       if #question["#nomPays"] ~= 0 then
-
+      	print(pipe(question))
         if historique[question:tag2str("#nomPays")[1]] == nil then
           historique[question:tag2str("#nomPays")[1]] = {}
         end
@@ -764,7 +764,7 @@ function getInput()
 
 
         if #question["#guerre"] ~= 0 then
-			    local guerre = question:tag2str("#Guerre")[1]
+			    local guerre = question:tag2str("#GuerreMotCle")[1]
 			    colonne="guerre"
 				  focusChamps = "guerre"
 		  	  local res=getCountryFromTable(colonne, guerre)

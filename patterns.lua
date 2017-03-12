@@ -277,6 +277,19 @@ pipe:pattern([[
     ]
 ]])
 
+-- Pattern pour détecter les guerres ayant eu lieu dans le dialogue (moins restrictif que le précédent)
+pipe:pattern([[
+	[#GuerreMotCle
+    	("la" | "La" | (/^%u/))
+    	(/^%u/)*
+    	("et")*
+    	(/^%u/)*
+    	("Guerre" | "guerre")
+    	(/./)*
+
+    ]
+]])
+
 --[[
 pipe:pattern([[
 	[#evenementPat
